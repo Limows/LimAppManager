@@ -68,5 +68,17 @@ namespace LimAppManager
 
             Donate.ShowDialog();
         }
+
+        private void QuitMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void SettingsMenuItem_Click(object sender, EventArgs e)
+        {
+            ParamsForm Params = new ParamsForm();
+
+            Params.ShowDialog();
+        }
     }
 }

@@ -71,6 +71,7 @@
             // SettingsMenuItem
             // 
             this.SettingsMenuItem.Text = "Settings";
+            this.SettingsMenuItem.Click += new System.EventHandler(this.SettingsMenuItem_Click);
             // 
             // RefreshMenuItem
             // 
@@ -87,6 +88,7 @@
             // QuitMenuItem
             // 
             this.QuitMenuItem.Text = "Quit";
+            this.QuitMenuItem.Click += new System.EventHandler(this.QuitMenuItem_Click);
             // 
             // InfoMenuItem
             // 
