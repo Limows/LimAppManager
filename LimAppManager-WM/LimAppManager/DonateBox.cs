@@ -15,7 +15,7 @@ namespace LimAppManager
             InitializeComponent();
         }
 
-        private void OKButton_Click(object sender, EventArgs e)
+        private void OkMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }

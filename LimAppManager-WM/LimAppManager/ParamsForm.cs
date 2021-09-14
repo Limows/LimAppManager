@@ -151,16 +151,6 @@ namespace LimAppManager
             }
         }
 
-        private void DownloadPathBox_GotFocus(object sender, EventArgs e)
-        {
-            InputPanel.Enabled = true;
-        }
-
-        private void DownloadPathBox_LostFocus(object sender, EventArgs e)
-        {
-            InputPanel.Enabled = false;
-        }
-
         private void CleanBufferButton_Click(object sender, EventArgs e)
         {
             try
@@ -176,51 +166,54 @@ namespace LimAppManager
 
         private void ParamsForm_Closing(object sender, CancelEventArgs e)
         {
-            Parameters.DownloadPath = CheckDirectory(DownloadPathBox.Text);
-            Parameters.IsAutoInstall = AutoInstallBox.Checked;
-            Parameters.IsRmPackage = RmPackageBox.Checked;
-            Parameters.IsOverwrite = OverwriteDirsBox.Checked;
+            if (Parameters.IsSaveParams)
+            {
+                Parameters.DownloadPath = CheckDirectory(DownloadPathBox.Text);
+                Parameters.IsAutoInstall = AutoInstallBox.Checked;
+                Parameters.IsRmPackage = RmPackageBox.Checked;
+                Parameters.IsOverwrite = OverwriteDirsBox.Checked;
 
-            if (String.IsNullOrEmpty(Parameters.InstallPath))
-            {
-                MessageBox.Show("Выберите место для установки", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                e.Cancel = true;
-                return;
-            }
-            else
-            {
-                try
+                if (String.IsNullOrEmpty(Parameters.InstallPath))
                 {
-                    if (!Directory.Exists(Parameters.InstallPath))
+                    MessageBox.Show("Выберите место для установки", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    try
                     {
-                        Directory.CreateDirectory(Parameters.InstallPath);
+                        if (!Directory.Exists(Parameters.InstallPath))
+                        {
+                            Directory.CreateDirectory(Parameters.InstallPath);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Выбранное устройство не готово", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                     }
                 }
-                catch
+
+                if (String.IsNullOrEmpty(Parameters.DownloadPath))
                 {
-                    MessageBox.Show("Выбранное устройство не готово", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    MessageBox.Show("Путь не может быть пустым", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    e.Cancel = true;
+                    return;
                 }
-            }
 
-            if (String.IsNullOrEmpty(Parameters.DownloadPath))
-            {
-                MessageBox.Show("Путь не может быть пустым", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                e.Cancel = true;
-                return;
-            }
+                if (String.IsNullOrEmpty(TempSizeBox.Text) || Convert.ToDouble(TempSizeBox.Text) == 0)
+                {
+                    MessageBox.Show("Не задан размер хранилища", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    Parameters.TempSize = Parameters.MegsToBytes(Convert.ToDouble(TempSizeBox.Text));
+                }
 
-            if (String.IsNullOrEmpty(TempSizeBox.Text) || Convert.ToDouble(TempSizeBox.Text) == 0)
-            {
-                MessageBox.Show("Не задан размер хранилища", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                e.Cancel = true;
-                return;
+                e.Cancel = false;
             }
-            else
-            {
-                Parameters.TempSize = Parameters.MegsToBytes(Convert.ToDouble(TempSizeBox.Text));
-            }
-
-            e.Cancel = false;
         }
 
         private void DeviceInstallButton_CheckedChanged(object sender, EventArgs e)
@@ -238,18 +231,15 @@ namespace LimAppManager
             }
         }
 
-        private void TempSizeBox_GotFocus(object sender, EventArgs e)
+        private void OkMenuItem_Click(object sender, EventArgs e)
         {
-            InputPanel.Enabled = true;
+            Parameters.IsSaveParams = true;
+            Close();
         }
 
-        private void TempSizeBox_LostFocus(object sender, EventArgs e)
+        private void CanselMenuItem_Click(object sender, EventArgs e)
         {
-            InputPanel.Enabled = false;
-        }
-
-        private void OKButton_Click(object sender, EventArgs e)
-        {
+            Parameters.IsSaveParams = false;
             Close();
         }
     }

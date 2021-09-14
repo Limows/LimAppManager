@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.InputPanel = new Microsoft.WindowsCE.Forms.InputPanel(this.components);
             this.BufferTabPage = new System.Windows.Forms.TabPage();
             this.UsedTempSizeLabel = new System.Windows.Forms.Label();
             this.MBLabel = new System.Windows.Forms.Label();
@@ -51,7 +49,9 @@
             this.OpenDirButton = new System.Windows.Forms.Button();
             this.TabControl = new System.Windows.Forms.TabControl();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.OKButton = new System.Windows.Forms.Button();
+            this.MainMenu = new System.Windows.Forms.MainMenu();
+            this.OkMenuItem = new System.Windows.Forms.MenuItem();
+            this.CancelMenuItem = new System.Windows.Forms.MenuItem();
             this.BufferTabPage.SuspendLayout();
             this.InstallTabPage.SuspendLayout();
             this.DownloadTabPage.SuspendLayout();
@@ -70,7 +70,7 @@
             this.BufferTabPage.Controls.Add(this.CleanBufferButton);
             this.BufferTabPage.Location = new System.Drawing.Point(0, 0);
             this.BufferTabPage.Name = "BufferTabPage";
-            this.BufferTabPage.Size = new System.Drawing.Size(240, 251);
+            this.BufferTabPage.Size = new System.Drawing.Size(232, 242);
             this.BufferTabPage.Text = "Хранилище";
             // 
             // UsedTempSizeLabel
@@ -93,8 +93,6 @@
             this.TempSizeBox.Name = "TempSizeBox";
             this.TempSizeBox.Size = new System.Drawing.Size(45, 21);
             this.TempSizeBox.TabIndex = 10;
-            this.TempSizeBox.GotFocus += new System.EventHandler(this.TempSizeBox_GotFocus);
-            this.TempSizeBox.LostFocus += new System.EventHandler(this.TempSizeBox_LostFocus);
             // 
             // TempSizeLabel
             // 
@@ -123,7 +121,7 @@
             this.InstallTabPage.Controls.Add(this.DeviceInstallButton);
             this.InstallTabPage.Location = new System.Drawing.Point(0, 0);
             this.InstallTabPage.Name = "InstallTabPage";
-            this.InstallTabPage.Size = new System.Drawing.Size(240, 251);
+            this.InstallTabPage.Size = new System.Drawing.Size(232, 242);
             this.InstallTabPage.Text = "Установка";
             // 
             // OverwriteDirsBox
@@ -179,7 +177,7 @@
             this.DownloadTabPage.Controls.Add(this.OpenDirButton);
             this.DownloadTabPage.Location = new System.Drawing.Point(0, 0);
             this.DownloadTabPage.Name = "DownloadTabPage";
-            this.DownloadTabPage.Size = new System.Drawing.Size(240, 251);
+            this.DownloadTabPage.Size = new System.Drawing.Size(240, 271);
             this.DownloadTabPage.Text = "Загрузка";
             // 
             // HttpServerButton
@@ -213,8 +211,6 @@
             this.DownloadPathBox.Name = "DownloadPathBox";
             this.DownloadPathBox.Size = new System.Drawing.Size(154, 21);
             this.DownloadPathBox.TabIndex = 6;
-            this.DownloadPathBox.GotFocus += new System.EventHandler(this.DownloadPathBox_GotFocus);
-            this.DownloadPathBox.LostFocus += new System.EventHandler(this.DownloadPathBox_LostFocus);
             // 
             // DownloadPathLabel
             // 
@@ -241,28 +237,31 @@
             this.TabControl.Location = new System.Drawing.Point(0, 0);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(240, 274);
+            this.TabControl.Size = new System.Drawing.Size(240, 294);
             this.TabControl.TabIndex = 11;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.TabControl);
-            this.panel1.Controls.Add(this.OKButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(240, 294);
             // 
-            // OKButton
+            // MainMenu
             // 
-            this.OKButton.BackColor = System.Drawing.Color.White;
-            this.OKButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.OKButton.Location = new System.Drawing.Point(0, 274);
-            this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(240, 20);
-            this.OKButton.TabIndex = 12;
-            this.OKButton.Text = "OK";
-            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
+            this.MainMenu.MenuItems.Add(this.OkMenuItem);
+            this.MainMenu.MenuItems.Add(this.CancelMenuItem);
+            // 
+            // OkMenuItem
+            // 
+            this.OkMenuItem.Text = "OK";
+            this.OkMenuItem.Click += new System.EventHandler(this.OkMenuItem_Click);
+            // 
+            // CancelMenuItem
+            // 
+            this.CancelMenuItem.Text = "Cancel";
+            this.CancelMenuItem.Click += new System.EventHandler(this.CanselMenuItem_Click);
             // 
             // ParamsForm
             // 
@@ -272,8 +271,11 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(240, 294);
             this.Controls.Add(this.panel1);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.Menu = this.MainMenu;
             this.Name = "ParamsForm";
             this.Text = "Параметры";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ParamsBox_Load);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.ParamsForm_Closing);
             this.BufferTabPage.ResumeLayout(false);
@@ -287,7 +289,6 @@
 
         #endregion
 
-        private Microsoft.WindowsCE.Forms.InputPanel InputPanel;
         private System.Windows.Forms.TabPage BufferTabPage;
         private System.Windows.Forms.TabPage InstallTabPage;
         private System.Windows.Forms.CheckBox OverwriteDirsBox;
@@ -309,6 +310,8 @@
         private System.Windows.Forms.Button CleanBufferButton;
         private System.Windows.Forms.Label UsedTempSizeLabel;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button OKButton;
+        private System.Windows.Forms.MainMenu MainMenu;
+        private System.Windows.Forms.MenuItem OkMenuItem;
+        private System.Windows.Forms.MenuItem CancelMenuItem;
     }
 }

@@ -21,6 +21,7 @@ namespace LimAppManager
         static public bool IsOverwrite;
         static public bool IsUninstalling;
         static public ulong TempSize;
+        static public bool IsSaveParams;
 
         /// <summary>
         /// Convert bytes to megabytes

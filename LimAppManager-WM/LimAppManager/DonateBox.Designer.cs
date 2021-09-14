@@ -29,39 +29,38 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DonateBox));
-            this.OKButton = new System.Windows.Forms.Button();
             this.QRBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.mainMenu1 = new System.Windows.Forms.MainMenu();
+            this.OkMenuItem = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
-            // 
-            // OKButton
-            // 
-            this.OKButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(204)))), ((int)(((byte)(192)))));
-            this.OKButton.Location = new System.Drawing.Point(84, 268);
-            this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(72, 20);
-            this.OKButton.TabIndex = 12;
-            this.OKButton.Text = "OK";
-            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
             // QRBox
             // 
             this.QRBox.BackColor = System.Drawing.Color.White;
             this.QRBox.Image = ((System.Drawing.Image)(resources.GetObject("QRBox.Image")));
-            this.QRBox.Location = new System.Drawing.Point(13, 40);
+            this.QRBox.Location = new System.Drawing.Point(31, 36);
             this.QRBox.Name = "QRBox";
-            this.QRBox.Size = new System.Drawing.Size(215, 215);
+            this.QRBox.Size = new System.Drawing.Size(170, 170);
             this.QRBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             // 
             // label1
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Regular);
-            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Location = new System.Drawing.Point(16, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(240, 26);
+            this.label1.Size = new System.Drawing.Size(200, 26);
             this.label1.Text = "Use your smartphone";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // mainMenu1
+            // 
+            this.mainMenu1.MenuItems.Add(this.OkMenuItem);
+            // 
+            // OkMenuItem
+            // 
+            this.OkMenuItem.Text = "OK";
+            this.OkMenuItem.Click += new System.EventHandler(this.OkMenuItem_Click);
             // 
             // DonateBox
             // 
@@ -69,20 +68,23 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
-            this.ClientSize = new System.Drawing.Size(240, 294);
+            this.ClientSize = new System.Drawing.Size(240, 214);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.QRBox);
-            this.Controls.Add(this.OKButton);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.Menu = this.mainMenu1;
             this.Name = "DonateBox";
             this.Text = "Donate";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button OKButton;
         private System.Windows.Forms.PictureBox QRBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.MainMenu mainMenu1;
+        private System.Windows.Forms.MenuItem OkMenuItem;
     }
 }
