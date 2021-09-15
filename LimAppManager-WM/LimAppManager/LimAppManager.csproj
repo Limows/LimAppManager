@@ -52,9 +52,8 @@
     </Reference>
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\IniParser\IniFileParser\bin\Debug\INIFileParser.dll</HintPath>
+      <HintPath>..\..\..\..\Visual Studio 2008\Projects\IniParser\IniFileParser\bin\Debug\INIFileParser.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Windowsce.Forms" />
     <Reference Include="Microsoft.WindowsMobile.Configuration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files\Windows Mobile 5.0 SDK R2\Managed Libraries\Microsoft.WindowsMobile.Configuration.dll</HintPath>
@@ -129,6 +128,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SystemHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>

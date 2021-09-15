@@ -67,29 +67,20 @@ namespace LimAppManager
             OverwriteDirsBox.Checked = Parameters.IsOverwrite;
             AutoInstallBox.Checked = Parameters.IsAutoInstall;
             RmPackageBox.Checked = Parameters.IsRmPackage;
+            DebugBox.Checked = Parameters.IsSendDebug;
+            IconSizeBar.Value = Parameters.IconSize;
             TempSizeBox.Text = Parameters.BytesToMegs(Parameters.TempSize).ToString("0.##");
-            //UsedTempSizeLabel.Text = "Занято сейчас: " + Parameters.BytesToMegs(IOHelper.GetDirectorySize(Parameters.TempPath)).ToString("0.###") + " МБ";
+            UsedTempSizeLabel.Text = "Занято сейчас: " + Parameters.BytesToMegs(IOHelper.GetDirectorySize(Parameters.TempPath)).ToString("0.###") + " МБ";
 
             List<string> StoragesNames = IO.GetAllRemovableStorages();
 
             if (!(StoragesNames.Count == 0))
             {
-                int ButtonTop;
-                int ButtonLeft;
-                int ButtonWidth;
-
-                if (this.Width == 480)
-                {
-                    ButtonTop = 303;
-                    ButtonLeft = 14;
-                    ButtonWidth = 400;
-                }
-                else
-                {
-                    ButtonTop = 140;
-                    ButtonLeft = 7;
-                    ButtonWidth = 200;
-                }
+                int Spacer = AutoInstallBox.Top - RmPackageBox.Bottom;
+                int ButtonTop = DeviceInstallButton.Bottom + Spacer;
+                int ButtonLeft = DeviceInstallButton.Left;
+                int ButtonWidth = DeviceInstallButton.Width;
+                int ButtonHeight = DeviceInstallButton.Height;
 
                 int i = 1;
 
@@ -100,6 +91,7 @@ namespace LimAppManager
                     StorageButton.Left = ButtonLeft;
                     StorageButton.Top = ButtonTop;
                     StorageButton.Width = ButtonWidth;
+                    StorageButton.Height = ButtonHeight;
                     StorageButton.Text = storage;
                     StorageButton.Name = "StorageButton" + i;
                     StorageButton.CheckedChanged += StorageButton_CheckedChanged;
@@ -114,14 +106,7 @@ namespace LimAppManager
 
                     InstallTabPage.Controls.Add(StorageButton);
 
-                    if (this.Width == 480)
-                    {
-                        ButtonTop += 46;
-                    }
-                    else
-                    {
-                        ButtonTop += 23;
-                    }
+                    ButtonTop += DeviceInstallButton.Height + Spacer;
 
                     i++;
                 }
@@ -156,7 +141,7 @@ namespace LimAppManager
             try
             {
                 IOHelper.CleanBuffer();
-                UsedTempSizeLabel.Text = "Занято сейчас: " + Parameters.BytesToMegs(IOHelper.GetDirectorySize(Parameters.TempPath)).ToString("0.###") + " МБ";
+                UsedTempSizeLabel.Text = "Used: " + Parameters.BytesToMegs(IOHelper.GetDirectorySize(Parameters.TempPath)).ToString("0.###") + " MB";
             }
             catch
             {
@@ -172,6 +157,9 @@ namespace LimAppManager
                 Parameters.IsAutoInstall = AutoInstallBox.Checked;
                 Parameters.IsRmPackage = RmPackageBox.Checked;
                 Parameters.IsOverwrite = OverwriteDirsBox.Checked;
+                Parameters.IsSendDebug = DebugBox.Checked;
+
+                Parameters.IconSize = IconSizeBar.Value;
 
                 if (String.IsNullOrEmpty(Parameters.InstallPath))
                 {

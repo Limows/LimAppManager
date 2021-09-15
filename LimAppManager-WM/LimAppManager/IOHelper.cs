@@ -15,7 +15,28 @@ namespace LimAppManager
     {
         public static void WriteSettings()
         {
+            if (String.IsNullOrEmpty(Parameters.ConfigPath))
+            {
+                Parameters.ConfigPath = IOHelper.GetConfigPath();
+            }
 
+            var Parser = new FileIniDataParser();
+            var Config = Parser.ReadFile(Parameters.ConfigPath);
+
+            Config["System"]["IconSize"] = Convert.ToString(Parameters.IconSize);
+            Config["System"]["TempPath"] = Parameters.TempPath;
+            Config["System"]["TempSize"] = Convert.ToString(Parameters.TempSize);
+            Config["System"]["IsSendDebug"] = Parameters.IsSendDebug ? "true" : "false";
+
+            Config["Install"]["IsAutoInstall"] = Parameters.IsAutoInstall ? "true" : "false";
+            Config["Install"]["IsOverwrite"] = Parameters.IsOverwrite ? "true" : "false";
+            Config["Install"]["IsRmPackage"] = Parameters.IsRmPackage ? "true" : "false";
+            Config["Install"]["InstallPath"] = Parameters.InstallPath;
+
+            Config["Download"]["DownloadPath"] = Parameters.DownloadPath;
+            Config["Download"]["ServersPath"] = Parameters.ServersPath;
+
+            Parser.WriteFile(Parameters.ConfigPath, Config, Encoding.Default);
         }
 
         static private string GetConfigPath()
@@ -31,11 +52,12 @@ namespace LimAppManager
         /// <returns>Current directory path</returns> 
         static public string GetCurrentDirectory()
         {
-            return Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            string CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            return CurrentDirectory;
         }
 
         public static void ReadSettings()
-        {
+        {   
             if (String.IsNullOrEmpty(Parameters.ConfigPath))
             {
                 Parameters.ConfigPath = IOHelper.GetConfigPath();
@@ -43,6 +65,21 @@ namespace LimAppManager
 
             var Parser = new FileIniDataParser();
             var Config = Parser.ReadFile(Parameters.ConfigPath);
+
+            Parameters.IconSize = Convert.ToInt32(Config["System"]["IconSize"]);
+            Parameters.TempPath = Config["System"]["TempPath"];
+            Parameters.TempSize = Convert.ToUInt64(Config["System"]["TempSize"]);
+            Parameters.IsSendDebug = (Config["System"]["IsSendDebug"] == "true");
+
+            Parameters.IsAutoInstall = (Config["Install"]["IsAutoInstall"] == "true");
+            Parameters.IsOverwrite = (Config["Install"]["IsOverwrite"] == "true");
+            Parameters.IsRmPackage = (Config["Install"]["IsRmPackage"] == "true");
+            Parameters.InstallPath = Config["Install"]["InstallPath"];
+
+            Parameters.DownloadPath = Config["Download"]["DownloadPath"];
+            Parameters.ServersPath = Config["Download"]["ServersPath"];
+
+            if (!Directory.Exists(Parameters.TempPath)) Directory.CreateDirectory(Parameters.TempPath);
         }
 
         /// <summary>

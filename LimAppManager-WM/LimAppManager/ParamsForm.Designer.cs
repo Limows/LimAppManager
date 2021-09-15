@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BufferTabPage = new System.Windows.Forms.TabPage();
+            this.AppSetTabPage = new System.Windows.Forms.TabPage();
             this.UsedTempSizeLabel = new System.Windows.Forms.Label();
             this.MBLabel = new System.Windows.Forms.Label();
             this.TempSizeBox = new System.Windows.Forms.TextBox();
@@ -41,73 +41,98 @@
             this.InstallPathLabel = new System.Windows.Forms.Label();
             this.DeviceInstallButton = new System.Windows.Forms.RadioButton();
             this.DownloadTabPage = new System.Windows.Forms.TabPage();
-            this.HttpServerButton = new System.Windows.Forms.RadioButton();
-            this.FtpServerButton = new System.Windows.Forms.RadioButton();
             this.ServerTypeLabel = new System.Windows.Forms.Label();
             this.DownloadPathBox = new System.Windows.Forms.TextBox();
             this.DownloadPathLabel = new System.Windows.Forms.Label();
             this.OpenDirButton = new System.Windows.Forms.Button();
             this.TabControl = new System.Windows.Forms.TabControl();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.ParamsFormPanel = new System.Windows.Forms.Panel();
             this.MainMenu = new System.Windows.Forms.MainMenu();
             this.OkMenuItem = new System.Windows.Forms.MenuItem();
             this.CancelMenuItem = new System.Windows.Forms.MenuItem();
-            this.BufferTabPage.SuspendLayout();
+            this.ServersBox = new System.Windows.Forms.ComboBox();
+            this.AutorizationLabel = new System.Windows.Forms.Label();
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.PasswordLabel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.LoginButton = new System.Windows.Forms.Button();
+            this.SpacerLabel = new System.Windows.Forms.Label();
+            this.AppLookLabel = new System.Windows.Forms.Label();
+            this.IconSizeBar = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.DebugBox = new System.Windows.Forms.CheckBox();
+            this.AppColorLAbel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.AppSetTabPage.SuspendLayout();
             this.InstallTabPage.SuspendLayout();
             this.DownloadTabPage.SuspendLayout();
             this.TabControl.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.ParamsFormPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // BufferTabPage
+            // AppSetTabPage
             // 
-            this.BufferTabPage.AutoScroll = true;
-            this.BufferTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
-            this.BufferTabPage.Controls.Add(this.UsedTempSizeLabel);
-            this.BufferTabPage.Controls.Add(this.MBLabel);
-            this.BufferTabPage.Controls.Add(this.TempSizeBox);
-            this.BufferTabPage.Controls.Add(this.TempSizeLabel);
-            this.BufferTabPage.Controls.Add(this.CleanBufferButton);
-            this.BufferTabPage.Location = new System.Drawing.Point(0, 0);
-            this.BufferTabPage.Name = "BufferTabPage";
-            this.BufferTabPage.Size = new System.Drawing.Size(232, 242);
-            this.BufferTabPage.Text = "Хранилище";
+            this.AppSetTabPage.AutoScroll = true;
+            this.AppSetTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
+            this.AppSetTabPage.Controls.Add(this.label2);
+            this.AppSetTabPage.Controls.Add(this.AppColorLAbel);
+            this.AppSetTabPage.Controls.Add(this.DebugBox);
+            this.AppSetTabPage.Controls.Add(this.IconSizeBar);
+            this.AppSetTabPage.Controls.Add(this.label1);
+            this.AppSetTabPage.Controls.Add(this.AppLookLabel);
+            this.AppSetTabPage.Controls.Add(this.SpacerLabel);
+            this.AppSetTabPage.Controls.Add(this.LoginButton);
+            this.AppSetTabPage.Controls.Add(this.textBox2);
+            this.AppSetTabPage.Controls.Add(this.textBox1);
+            this.AppSetTabPage.Controls.Add(this.PasswordLabel);
+            this.AppSetTabPage.Controls.Add(this.NameLabel);
+            this.AppSetTabPage.Controls.Add(this.AutorizationLabel);
+            this.AppSetTabPage.Controls.Add(this.UsedTempSizeLabel);
+            this.AppSetTabPage.Controls.Add(this.MBLabel);
+            this.AppSetTabPage.Controls.Add(this.TempSizeBox);
+            this.AppSetTabPage.Controls.Add(this.TempSizeLabel);
+            this.AppSetTabPage.Controls.Add(this.CleanBufferButton);
+            this.AppSetTabPage.Location = new System.Drawing.Point(0, 0);
+            this.AppSetTabPage.Name = "AppSetTabPage";
+            this.AppSetTabPage.Size = new System.Drawing.Size(240, 271);
+            this.AppSetTabPage.Text = "App Settings";
             // 
             // UsedTempSizeLabel
             // 
-            this.UsedTempSizeLabel.Location = new System.Drawing.Point(7, 39);
+            this.UsedTempSizeLabel.Location = new System.Drawing.Point(7, 271);
             this.UsedTempSizeLabel.Name = "UsedTempSizeLabel";
             this.UsedTempSizeLabel.Size = new System.Drawing.Size(198, 21);
-            this.UsedTempSizeLabel.Text = "Занято сейчас: 0 МБ";
+            this.UsedTempSizeLabel.Text = "Used: 0 MB";
             // 
             // MBLabel
             // 
-            this.MBLabel.Location = new System.Drawing.Point(179, 17);
+            this.MBLabel.Location = new System.Drawing.Point(168, 249);
             this.MBLabel.Name = "MBLabel";
             this.MBLabel.Size = new System.Drawing.Size(25, 20);
-            this.MBLabel.Text = "МБ";
+            this.MBLabel.Text = "MB";
             // 
             // TempSizeBox
             // 
-            this.TempSizeBox.Location = new System.Drawing.Point(129, 14);
+            this.TempSizeBox.Location = new System.Drawing.Point(122, 246);
             this.TempSizeBox.Name = "TempSizeBox";
             this.TempSizeBox.Size = new System.Drawing.Size(45, 21);
             this.TempSizeBox.TabIndex = 10;
             // 
             // TempSizeLabel
             // 
-            this.TempSizeLabel.Location = new System.Drawing.Point(7, 16);
+            this.TempSizeLabel.Location = new System.Drawing.Point(7, 248);
             this.TempSizeLabel.Name = "TempSizeLabel";
             this.TempSizeLabel.Size = new System.Drawing.Size(116, 21);
-            this.TempSizeLabel.Text = "Размер хранилища:";
+            this.TempSizeLabel.Text = "Temp storage size:";
             // 
             // CleanBufferButton
             // 
-            this.CleanBufferButton.Location = new System.Drawing.Point(7, 63);
+            this.CleanBufferButton.Location = new System.Drawing.Point(7, 295);
             this.CleanBufferButton.Name = "CleanBufferButton";
             this.CleanBufferButton.Size = new System.Drawing.Size(79, 21);
             this.CleanBufferButton.TabIndex = 8;
-            this.CleanBufferButton.Text = "Очистить";
+            this.CleanBufferButton.Text = "Clean";
             this.CleanBufferButton.Click += new System.EventHandler(this.CleanBufferButton_Click);
             // 
             // InstallTabPage
@@ -121,8 +146,8 @@
             this.InstallTabPage.Controls.Add(this.DeviceInstallButton);
             this.InstallTabPage.Location = new System.Drawing.Point(0, 0);
             this.InstallTabPage.Name = "InstallTabPage";
-            this.InstallTabPage.Size = new System.Drawing.Size(232, 242);
-            this.InstallTabPage.Text = "Установка";
+            this.InstallTabPage.Size = new System.Drawing.Size(240, 271);
+            this.InstallTabPage.Text = "Install";
             // 
             // OverwriteDirsBox
             // 
@@ -130,7 +155,7 @@
             this.OverwriteDirsBox.Name = "OverwriteDirsBox";
             this.OverwriteDirsBox.Size = new System.Drawing.Size(217, 20);
             this.OverwriteDirsBox.TabIndex = 6;
-            this.OverwriteDirsBox.Text = "Перезапись файлов";
+            this.OverwriteDirsBox.Text = "Overwrite files";
             // 
             // RmPackageBox
             // 
@@ -138,7 +163,7 @@
             this.RmPackageBox.Name = "RmPackageBox";
             this.RmPackageBox.Size = new System.Drawing.Size(217, 20);
             this.RmPackageBox.TabIndex = 7;
-            this.RmPackageBox.Text = "Удаление пакета";
+            this.RmPackageBox.Text = "Autoremoving package";
             // 
             // AutoInstallBox
             // 
@@ -146,31 +171,30 @@
             this.AutoInstallBox.Name = "AutoInstallBox";
             this.AutoInstallBox.Size = new System.Drawing.Size(217, 20);
             this.AutoInstallBox.TabIndex = 8;
-            this.AutoInstallBox.Text = "Установка после загрузки";
+            this.AutoInstallBox.Text = "Automatic install";
             // 
             // InstallPathLabel
             // 
             this.InstallPathLabel.Location = new System.Drawing.Point(7, 94);
             this.InstallPathLabel.Name = "InstallPathLabel";
             this.InstallPathLabel.Size = new System.Drawing.Size(100, 20);
-            this.InstallPathLabel.Text = "Место установки";
+            this.InstallPathLabel.Text = "Install storage";
             // 
             // DeviceInstallButton
             // 
             this.DeviceInstallButton.Location = new System.Drawing.Point(7, 117);
             this.DeviceInstallButton.Name = "DeviceInstallButton";
-            this.DeviceInstallButton.Size = new System.Drawing.Size(100, 20);
+            this.DeviceInstallButton.Size = new System.Drawing.Size(150, 20);
             this.DeviceInstallButton.TabIndex = 4;
             this.DeviceInstallButton.TabStop = false;
-            this.DeviceInstallButton.Text = "Устройство";
+            this.DeviceInstallButton.Text = "Device";
             this.DeviceInstallButton.CheckedChanged += new System.EventHandler(this.DeviceInstallButton_CheckedChanged);
             // 
             // DownloadTabPage
             // 
             this.DownloadTabPage.AutoScroll = true;
             this.DownloadTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
-            this.DownloadTabPage.Controls.Add(this.HttpServerButton);
-            this.DownloadTabPage.Controls.Add(this.FtpServerButton);
+            this.DownloadTabPage.Controls.Add(this.ServersBox);
             this.DownloadTabPage.Controls.Add(this.ServerTypeLabel);
             this.DownloadTabPage.Controls.Add(this.DownloadPathBox);
             this.DownloadTabPage.Controls.Add(this.DownloadPathLabel);
@@ -178,50 +202,32 @@
             this.DownloadTabPage.Location = new System.Drawing.Point(0, 0);
             this.DownloadTabPage.Name = "DownloadTabPage";
             this.DownloadTabPage.Size = new System.Drawing.Size(240, 271);
-            this.DownloadTabPage.Text = "Загрузка";
-            // 
-            // HttpServerButton
-            // 
-            this.HttpServerButton.Enabled = false;
-            this.HttpServerButton.Location = new System.Drawing.Point(7, 63);
-            this.HttpServerButton.Name = "HttpServerButton";
-            this.HttpServerButton.Size = new System.Drawing.Size(100, 20);
-            this.HttpServerButton.TabIndex = 10;
-            this.HttpServerButton.Text = "HTTP сервер";
-            // 
-            // FtpServerButton
-            // 
-            this.FtpServerButton.Checked = true;
-            this.FtpServerButton.Location = new System.Drawing.Point(7, 37);
-            this.FtpServerButton.Name = "FtpServerButton";
-            this.FtpServerButton.Size = new System.Drawing.Size(100, 20);
-            this.FtpServerButton.TabIndex = 9;
-            this.FtpServerButton.Text = "FTP сервер";
+            this.DownloadTabPage.Text = "Download";
             // 
             // ServerTypeLabel
             // 
-            this.ServerTypeLabel.Location = new System.Drawing.Point(7, 14);
+            this.ServerTypeLabel.Location = new System.Drawing.Point(7, 16);
             this.ServerTypeLabel.Name = "ServerTypeLabel";
             this.ServerTypeLabel.Size = new System.Drawing.Size(217, 20);
-            this.ServerTypeLabel.Text = "Тип сервера";
+            this.ServerTypeLabel.Text = "Servers List";
             // 
             // DownloadPathBox
             // 
-            this.DownloadPathBox.Location = new System.Drawing.Point(7, 115);
+            this.DownloadPathBox.Location = new System.Drawing.Point(7, 93);
             this.DownloadPathBox.Name = "DownloadPathBox";
             this.DownloadPathBox.Size = new System.Drawing.Size(154, 21);
             this.DownloadPathBox.TabIndex = 6;
             // 
             // DownloadPathLabel
             // 
-            this.DownloadPathLabel.Location = new System.Drawing.Point(7, 95);
+            this.DownloadPathLabel.Location = new System.Drawing.Point(7, 73);
             this.DownloadPathLabel.Name = "DownloadPathLabel";
             this.DownloadPathLabel.Size = new System.Drawing.Size(100, 20);
-            this.DownloadPathLabel.Text = "Путь загрузки";
+            this.DownloadPathLabel.Text = "Download Path";
             // 
             // OpenDirButton
             // 
-            this.OpenDirButton.Location = new System.Drawing.Point(167, 115);
+            this.OpenDirButton.Location = new System.Drawing.Point(167, 93);
             this.OpenDirButton.Name = "OpenDirButton";
             this.OpenDirButton.Size = new System.Drawing.Size(57, 21);
             this.OpenDirButton.TabIndex = 7;
@@ -232,7 +238,7 @@
             // 
             this.TabControl.Controls.Add(this.DownloadTabPage);
             this.TabControl.Controls.Add(this.InstallTabPage);
-            this.TabControl.Controls.Add(this.BufferTabPage);
+            this.TabControl.Controls.Add(this.AppSetTabPage);
             this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl.Location = new System.Drawing.Point(0, 0);
             this.TabControl.Name = "TabControl";
@@ -240,13 +246,13 @@
             this.TabControl.Size = new System.Drawing.Size(240, 294);
             this.TabControl.TabIndex = 11;
             // 
-            // panel1
+            // ParamsFormPanel
             // 
-            this.panel1.Controls.Add(this.TabControl);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(240, 294);
+            this.ParamsFormPanel.Controls.Add(this.TabControl);
+            this.ParamsFormPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ParamsFormPanel.Location = new System.Drawing.Point(0, 0);
+            this.ParamsFormPanel.Name = "ParamsFormPanel";
+            this.ParamsFormPanel.Size = new System.Drawing.Size(240, 294);
             // 
             // MainMenu
             // 
@@ -263,6 +269,111 @@
             this.CancelMenuItem.Text = "Cancel";
             this.CancelMenuItem.Click += new System.EventHandler(this.CanselMenuItem_Click);
             // 
+            // ServersBox
+            // 
+            this.ServersBox.Location = new System.Drawing.Point(7, 37);
+            this.ServersBox.Name = "ServersBox";
+            this.ServersBox.Size = new System.Drawing.Size(100, 22);
+            this.ServersBox.TabIndex = 14;
+            // 
+            // AutorizationLabel
+            // 
+            this.AutorizationLabel.Location = new System.Drawing.Point(7, 16);
+            this.AutorizationLabel.Name = "AutorizationLabel";
+            this.AutorizationLabel.Size = new System.Drawing.Size(100, 20);
+            this.AutorizationLabel.Text = "Autorization";
+            // 
+            // NameLabel
+            // 
+            this.NameLabel.Location = new System.Drawing.Point(7, 36);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(79, 20);
+            this.NameLabel.Text = "User Name";
+            // 
+            // PasswordLabel
+            // 
+            this.PasswordLabel.Location = new System.Drawing.Point(7, 63);
+            this.PasswordLabel.Name = "PasswordLabel";
+            this.PasswordLabel.Size = new System.Drawing.Size(64, 20);
+            this.PasswordLabel.Text = "Password";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(77, 35);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.TabIndex = 16;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(77, 62);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 21);
+            this.textBox2.TabIndex = 17;
+            // 
+            // LoginButton
+            // 
+            this.LoginButton.Location = new System.Drawing.Point(7, 89);
+            this.LoginButton.Name = "LoginButton";
+            this.LoginButton.Size = new System.Drawing.Size(72, 20);
+            this.LoginButton.TabIndex = 18;
+            this.LoginButton.Text = "Log-In";
+            // 
+            // SpacerLabel
+            // 
+            this.SpacerLabel.Location = new System.Drawing.Point(39, 320);
+            this.SpacerLabel.Name = "SpacerLabel";
+            this.SpacerLabel.Size = new System.Drawing.Size(100, 20);
+            // 
+            // AppLookLabel
+            // 
+            this.AppLookLabel.Location = new System.Drawing.Point(7, 126);
+            this.AppLookLabel.Name = "AppLookLabel";
+            this.AppLookLabel.Size = new System.Drawing.Size(100, 20);
+            this.AppLookLabel.Text = "App Settings";
+            // 
+            // IconSizeBar
+            // 
+            this.IconSizeBar.LargeChange = 1;
+            this.IconSizeBar.Location = new System.Drawing.Point(61, 147);
+            this.IconSizeBar.Maximum = 200;
+            this.IconSizeBar.Minimum = 100;
+            this.IconSizeBar.Name = "IconSizeBar";
+            this.IconSizeBar.Size = new System.Drawing.Size(163, 20);
+            this.IconSizeBar.TabIndex = 22;
+            this.IconSizeBar.TickFrequency = 10;
+            this.IconSizeBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.IconSizeBar.Value = 100;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(7, 149);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 20);
+            this.label1.Text = "Icon size";
+            // 
+            // DebugBox
+            // 
+            this.DebugBox.Location = new System.Drawing.Point(7, 172);
+            this.DebugBox.Name = "DebugBox";
+            this.DebugBox.Size = new System.Drawing.Size(169, 20);
+            this.DebugBox.TabIndex = 24;
+            this.DebugBox.Text = "Send debug information";
+            // 
+            // AppColorLAbel
+            // 
+            this.AppColorLAbel.Location = new System.Drawing.Point(7, 195);
+            this.AppColorLAbel.Name = "AppColorLAbel";
+            this.AppColorLAbel.Size = new System.Drawing.Size(100, 20);
+            this.AppColorLAbel.Text = "App Color:";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(7, 228);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 20);
+            this.label2.Text = "Temp Settings";
+            // 
             // ParamsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -270,7 +381,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(224)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(240, 294);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.ParamsFormPanel);
             this.Location = new System.Drawing.Point(0, 0);
             this.Menu = this.MainMenu;
             this.Name = "ParamsForm";
@@ -278,18 +389,18 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ParamsBox_Load);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.ParamsForm_Closing);
-            this.BufferTabPage.ResumeLayout(false);
+            this.AppSetTabPage.ResumeLayout(false);
             this.InstallTabPage.ResumeLayout(false);
             this.DownloadTabPage.ResumeLayout(false);
             this.TabControl.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.ParamsFormPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabPage BufferTabPage;
+        private System.Windows.Forms.TabPage AppSetTabPage;
         private System.Windows.Forms.TabPage InstallTabPage;
         private System.Windows.Forms.CheckBox OverwriteDirsBox;
         private System.Windows.Forms.CheckBox RmPackageBox;
@@ -302,16 +413,28 @@
         private System.Windows.Forms.Button OpenDirButton;
         private System.Windows.Forms.TabControl TabControl;
         private System.Windows.Forms.Label ServerTypeLabel;
-        private System.Windows.Forms.RadioButton HttpServerButton;
-        private System.Windows.Forms.RadioButton FtpServerButton;
         private System.Windows.Forms.TextBox TempSizeBox;
         private System.Windows.Forms.Label TempSizeLabel;
         private System.Windows.Forms.Label MBLabel;
         private System.Windows.Forms.Button CleanBufferButton;
         private System.Windows.Forms.Label UsedTempSizeLabel;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel ParamsFormPanel;
         private System.Windows.Forms.MainMenu MainMenu;
         private System.Windows.Forms.MenuItem OkMenuItem;
         private System.Windows.Forms.MenuItem CancelMenuItem;
+        private System.Windows.Forms.ComboBox ServersBox;
+        private System.Windows.Forms.Label AutorizationLabel;
+        private System.Windows.Forms.Button LoginButton;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label PasswordLabel;
+        private System.Windows.Forms.Label NameLabel;
+        private System.Windows.Forms.Label AppLookLabel;
+        private System.Windows.Forms.Label SpacerLabel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TrackBar IconSizeBar;
+        private System.Windows.Forms.CheckBox DebugBox;
+        private System.Windows.Forms.Label AppColorLAbel;
+        private System.Windows.Forms.Label label2;
     }
 }

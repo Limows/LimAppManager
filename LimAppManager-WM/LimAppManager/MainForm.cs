@@ -19,11 +19,14 @@ namespace LimAppManager
         private void MainForm_Load(object sender, EventArgs e)
         {
             ImageLogoList_SetSize();
+            Parameters.OSVersion = Environment.OSVersion.Version.Major;
+
+            IOHelper.ReadSettings();
         }
 
         private void ImageLogoList_SetSize()
         {
-            int NewSize = (int)(Parameters.ListLogoSize * System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width / 1000);
+            int NewSize = (int)(Parameters.IconSize * System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width / 1000);
 
             AppsLogoList.ImageSize = new Size(NewSize, NewSize);
         }
@@ -79,6 +82,56 @@ namespace LimAppManager
             ParamsForm Params = new ParamsForm();
 
             Params.ShowDialog();
+        }
+
+        private void UpdateMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox NewAboutBox = new AboutBox();
+            string CurrentVersion = NewAboutBox.AssemblyVersion;
+            string Version;
+
+            try
+            {
+                Version = NetHelper.CheckUpdates();
+            }
+            catch
+            {
+                MessageBox.Show("Failed to check for updates", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            if (CurrentVersion != Version)
+            {
+                DialogResult Result = MessageBox.Show("Version: " + Version, "Update?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                if (Result == DialogResult.Yes)
+                {
+                    Version = Version.Remove(Version.LastIndexOf('.'), 2);
+
+                    try
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+                        NetHelper.GetUpdates(Version);
+                        Cursor.Current = Cursors.Default;
+                    }
+                    catch
+                    {
+                        Cursor.Current = Cursors.Default;
+                        MessageBox.Show("Failed to download update", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                    }
+
+                    //SystemHelper.CabInstall(ParamsHelper.DownloadPath + "\\Update.bat", ParamsHelper.InstallPath + "\\LimFTPClient", true);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nothing to update", "Info");
+            }
+        }
+
+        private void MainForm_Closing(object sender, CancelEventArgs e)
+        {
+            IOHelper.WriteSettings();
         }
     }
 }

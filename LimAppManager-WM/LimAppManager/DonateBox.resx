@@ -121,7 +121,7 @@
   <data name="QRBox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAYAAAB1PADUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr4AAA6+AepCscAAAAlBSURBVHhe7ZJBimxJDMT+/S89s02EKRGEs7qhU6BVhJ2u
+        YQUAAAAJcEhZcwAADr0AAA69AUf7kK0AAAlBSURBVHhe7ZJBimxJDMT+/S89s02EKRGEs7qhU6BVhJ2u
         4v377/FY5H1Qj1XeB/VY5X1Qj1XeB/VY5X1Qj1XeB/VY5X1Qj1XeB/VY5X1Qj1XeB/VY5X1Qj1XeB/VY
         5X1Qj1XeB/VY5X1Qj1XqD+rfv39flUydT5I2J+ybxjRz05Z6w3TUTcnU+SRpc8K+aUwzN22pN0xH3ZRM
         nU+SNifsm8Y0c9OWesN01E3J1PkkaXPCvmlMMzdtqTdsH0RsP3N6G3vPcqOdN7b31xu2DyK2nzm9jb1n
@@ -168,10 +168,7 @@
     <value>17, 17</value>
   </metadata>
   <metadata name="$this.FormFactorShadowProperty" xml:space="preserve">
-    <value>POCKET_PC_2003_SQUARE</value>
-  </metadata>
-  <metadata name="$this.FormFactor" xml:space="preserve">
-    <value>POCKET_PC_2003_SQUARE</value>
+    <value>POCKET_PC_2003_PORTRAIT</value>
   </metadata>
   <metadata name="$this.Skin" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

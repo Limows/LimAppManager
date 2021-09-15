@@ -116,6 +116,7 @@
             // UpdateMenuItem
             // 
             this.UpdateMenuItem.Text = "Update";
+            this.UpdateMenuItem.Click += new System.EventHandler(this.UpdateMenuItem_Click);
             // 
             // menuItem10
             // 
@@ -185,6 +186,7 @@
             this.Name = "MainForm";
             this.Text = "App Manager";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.MainForm_Closing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MainPanel.ResumeLayout(false);
             this.ResumeLayout(false);

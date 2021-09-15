@@ -9,17 +9,19 @@ namespace LimAppManager
 {
     class Parameters
     {
-        public static int ListLogoSize = 100;
+        public static int IconSize = 100;
         public static Dictionary<string, Uri> AppsList;
         static public string DownloadPath;
         static public string InstallPath;
         static public string ConfigPath;
         static public string TempPath;
+        static public string ServersPath;
         static public int OSVersion;
         static public bool IsAutoInstall;
         static public bool IsRmPackage;
         static public bool IsOverwrite;
         static public bool IsUninstalling;
+        static public bool IsSendDebug;
         static public ulong TempSize;
         static public bool IsSaveParams;
 

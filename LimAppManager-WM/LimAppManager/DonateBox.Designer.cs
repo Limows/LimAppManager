@@ -39,7 +39,7 @@
             // 
             this.QRBox.BackColor = System.Drawing.Color.White;
             this.QRBox.Image = ((System.Drawing.Image)(resources.GetObject("QRBox.Image")));
-            this.QRBox.Location = new System.Drawing.Point(31, 36);
+            this.QRBox.Location = new System.Drawing.Point(34, 36);
             this.QRBox.Name = "QRBox";
             this.QRBox.Size = new System.Drawing.Size(170, 170);
             this.QRBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -47,7 +47,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Regular);
-            this.label1.Location = new System.Drawing.Point(16, 6);
+            this.label1.Location = new System.Drawing.Point(19, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(200, 26);
             this.label1.Text = "Use your smartphone";
@@ -66,9 +66,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
-            this.ClientSize = new System.Drawing.Size(240, 214);
+            this.ClientSize = new System.Drawing.Size(240, 294);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.QRBox);
             this.Location = new System.Drawing.Point(0, 0);
