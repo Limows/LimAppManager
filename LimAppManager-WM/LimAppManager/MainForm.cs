@@ -21,7 +21,16 @@ namespace LimAppManager
             ImageLogoList_SetSize();
             Parameters.OSVersion = Environment.OSVersion.Version.Major;
 
-            IOHelper.ReadSettings();
+            try
+            {
+                IOHelper.ReadSettings();
+            }
+            catch
+            {
+                MessageBox.Show("Config file not found or corrupted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                Parameters.IconSize = 100;
+                Parameters.TempPath = @"\Temp\AppManager";
+            }
         }
 
         private void ImageLogoList_SetSize()
@@ -62,7 +71,6 @@ namespace LimAppManager
             {
                 // Enter
             }
-
         }
 
         private void DonateMenuItem_Click(object sender, EventArgs e)
@@ -82,6 +90,8 @@ namespace LimAppManager
             ParamsForm Params = new ParamsForm();
 
             Params.ShowDialog();
+
+            ImageLogoList_SetSize();
         }
 
         private void UpdateMenuItem_Click(object sender, EventArgs e)
@@ -131,7 +141,14 @@ namespace LimAppManager
 
         private void MainForm_Closing(object sender, CancelEventArgs e)
         {
-            IOHelper.WriteSettings();
+            try
+            {
+                IOHelper.WriteSettings();
+            }
+            catch
+            {
+                MessageBox.Show("Config file not found or corrupted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ namespace LimAppManager
             }
             else
             {
-                DialogResult Result = MessageBox.Show("Такая директория не существует.\nСоздать?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                DialogResult Result = MessageBox.Show("Such a directory does not exist. \nCreate?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
 
                 if (Result == DialogResult.Yes)
                 {
@@ -37,7 +37,7 @@ namespace LimAppManager
                     }
                     catch
                     {
-                        MessageBox.Show("Не удалось создать директорию", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                        MessageBox.Show("Failed to create directory", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
                         return "";
                     }
                 }
@@ -63,15 +63,16 @@ namespace LimAppManager
 
         private void ParamsBox_Load(object sender, EventArgs e)
         {
+            IconSizeBar.Value = Parameters.IconSize;
             DownloadPathBox.Text = Parameters.DownloadPath;
             OverwriteDirsBox.Checked = Parameters.IsOverwrite;
             AutoInstallBox.Checked = Parameters.IsAutoInstall;
             RmPackageBox.Checked = Parameters.IsRmPackage;
             DebugBox.Checked = Parameters.IsSendDebug;
-            IconSizeBar.Value = Parameters.IconSize;
             TempSizeBox.Text = Parameters.BytesToMegs(Parameters.TempSize).ToString("0.##");
-            UsedTempSizeLabel.Text = "Занято сейчас: " + Parameters.BytesToMegs(IOHelper.GetDirectorySize(Parameters.TempPath)).ToString("0.###") + " МБ";
+            UsedTempSizeLabel.Text = "Used: " + Parameters.BytesToMegs(IOHelper.GetDirectorySize(Parameters.TempPath)).ToString("0.###") + " MB";
 
+            bool IsDevInstall = true;
             List<string> StoragesNames = IO.GetAllRemovableStorages();
 
             if (!(StoragesNames.Count == 0))
@@ -101,6 +102,7 @@ namespace LimAppManager
                         if (storage == Parameters.InstallPath.Split('\\')[1])
                         {
                             StorageButton.Checked = true;
+                            IsDevInstall = false;
                         }
                     }
 
@@ -111,7 +113,8 @@ namespace LimAppManager
                     i++;
                 }
             }
-            else
+
+            if (IsDevInstall)
             {
                 DeviceInstallButton.Checked = true;
             }
@@ -163,7 +166,7 @@ namespace LimAppManager
 
                 if (String.IsNullOrEmpty(Parameters.InstallPath))
                 {
-                    MessageBox.Show("Выберите место для установки", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    MessageBox.Show("Choose an install storage", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                     e.Cancel = true;
                     return;
                 }
@@ -178,20 +181,22 @@ namespace LimAppManager
                     }
                     catch
                     {
-                        MessageBox.Show("Выбранное устройство не готово", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                        MessageBox.Show("The selected device is not ready", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                        e.Cancel = true;
+                        return;
                     }
                 }
 
                 if (String.IsNullOrEmpty(Parameters.DownloadPath))
                 {
-                    MessageBox.Show("Путь не может быть пустым", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    MessageBox.Show("The path cannot be empty", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                     e.Cancel = true;
                     return;
                 }
 
                 if (String.IsNullOrEmpty(TempSizeBox.Text) || Convert.ToDouble(TempSizeBox.Text) == 0)
                 {
-                    MessageBox.Show("Не задан размер хранилища", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    MessageBox.Show("Temp size not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                     e.Cancel = true;
                     return;
                 }

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("App Manager")]
-[assembly: AssemblyDescription("Legacy appication manager project. Windows Mobile version")]
+[assembly: AssemblyDescription("Legacy applications manager project. Windows Mobile version")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LimSoft")]
 [assembly: AssemblyProduct("Limowski App Manager")]

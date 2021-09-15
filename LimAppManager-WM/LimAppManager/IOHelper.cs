@@ -21,7 +21,7 @@ namespace LimAppManager
             }
 
             var Parser = new FileIniDataParser();
-            var Config = Parser.ReadFile(Parameters.ConfigPath);
+            var Config = new IniParser.Model.IniData();
 
             Config["System"]["IconSize"] = Convert.ToString(Parameters.IconSize);
             Config["System"]["TempPath"] = Parameters.TempPath;
@@ -42,6 +42,12 @@ namespace LimAppManager
         static private string GetConfigPath()
         {
             string[] ConfigFiles = Directory.GetFiles(GetCurrentDirectory(), "*.ini");
+
+            if (ConfigFiles.Length == 0) 
+            {
+                using (File.Create(GetCurrentDirectory() + "\\Config.ini"));
+                return GetCurrentDirectory() + "\\Config.ini";
+            }
 
             return ConfigFiles[0];
         }
@@ -137,12 +143,12 @@ namespace LimAppManager
         static public ulong GetDirectorySize(string Path)
         {
             ulong Size = 0;
-            DirectoryInfo Directory = new DirectoryInfo(Path);
 
-            if (Directory.Exists)
+            if (Directory.Exists(Path))
             {
                 // Add file sizes.
-                FileInfo[] Files = Directory.GetFiles();
+                DirectoryInfo Dir = new DirectoryInfo(Path);
+                FileInfo[] Files = Dir.GetFiles();
 
                 foreach (FileInfo file in Files)
                 {
@@ -150,11 +156,11 @@ namespace LimAppManager
                 }
 
                 // Add subdirectory sizes.
-                DirectoryInfo[] Directories = Directory.GetDirectories();
+                DirectoryInfo[] Dirs = Dir.GetDirectories();
 
-                foreach (DirectoryInfo directory in Directories)
+                foreach (DirectoryInfo dir in Dirs)
                 {
-                    Size += GetDirectorySize(directory.FullName);
+                    Size += GetDirectorySize(dir.FullName);
                 }
 
                 return Size;

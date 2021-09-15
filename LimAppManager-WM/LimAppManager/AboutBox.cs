@@ -132,7 +132,7 @@ namespace LimAppManager
             }
         }
 
-        private void OKButton_Click(object sender, EventArgs e)
+        private void OKMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
