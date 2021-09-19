@@ -169,5 +169,19 @@ namespace LimAppManager
 
             return ServersList;
         }
+
+        private void InstalledMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutAppBox AboutApp = new AboutAppBox("Test");
+
+            AboutApp.ShowDialog();
+        }
+
+        private void AppsListBox_ItemActivate(object sender, EventArgs e)
+        {
+            AppForm App = new AppForm("Test");
+
+            App.ShowDialog();
+        }
     }
 }
