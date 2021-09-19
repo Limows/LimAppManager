@@ -133,6 +133,9 @@
     <None Include="Config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Servers.list">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>

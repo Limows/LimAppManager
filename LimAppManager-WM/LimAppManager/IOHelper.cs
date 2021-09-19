@@ -35,6 +35,7 @@ namespace LimAppManager
 
             Config["Download"]["DownloadPath"] = Parameters.DownloadPath;
             Config["Download"]["ServersPath"] = Parameters.ServersPath;
+            Config["Download"]["Server"] = Parameters.Server;
 
             Parser.WriteFile(Parameters.ConfigPath, Config, Encoding.Default);
         }
@@ -84,6 +85,7 @@ namespace LimAppManager
 
             Parameters.DownloadPath = Config["Download"]["DownloadPath"];
             Parameters.ServersPath = Config["Download"]["ServersPath"];
+            Parameters.Server = Config["Download"]["Server"];
 
             if (!Directory.Exists(Parameters.TempPath)) Directory.CreateDirectory(Parameters.TempPath);
         }

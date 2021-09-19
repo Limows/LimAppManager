@@ -11,6 +11,8 @@ namespace LimAppManager
     {
         public static int IconSize = 100;
         public static Dictionary<string, Uri> AppsList;
+        public static Dictionary<string, Uri> ServersList;
+        public static string Server;
         static public string DownloadPath;
         static public string InstallPath;
         static public string ConfigPath;

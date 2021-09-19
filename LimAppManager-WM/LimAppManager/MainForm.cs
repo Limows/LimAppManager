@@ -31,6 +31,8 @@ namespace LimAppManager
                 Parameters.IconSize = 100;
                 Parameters.TempPath = @"\Temp\AppManager";
             }
+
+            Parameters.ServersList = GetServersList(Parameters.ServersPath);
         }
 
         private void ImageLogoList_SetSize()
@@ -92,6 +94,15 @@ namespace LimAppManager
             Params.ShowDialog();
 
             ImageLogoList_SetSize();
+
+            try
+            {
+                IOHelper.WriteSettings();
+            }
+            catch
+            {
+                MessageBox.Show("Config file not found or corrupted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+            }
         }
 
         private void UpdateMenuItem_Click(object sender, EventArgs e)
@@ -141,14 +152,22 @@ namespace LimAppManager
 
         private void MainForm_Closing(object sender, CancelEventArgs e)
         {
-            try
+        }
+
+        private Dictionary<string, Uri> GetServersList(string FileName)
+        {
+            string Text = IOHelper.ReadTextFile(IOHelper.GetCurrentDirectory() + FileName);
+            string[] Lines = Text.Split('\n');
+            Dictionary<string, Uri> ServersList = new Dictionary<string, Uri>();
+
+            foreach (string line in Lines)
             {
-                IOHelper.WriteSettings();
+                string[] ServerLine = line.Split('=');
+
+                ServersList.Add(ServerLine[0], new Uri(ServerLine[1]));
             }
-            catch
-            {
-                MessageBox.Show("Config file not found or corrupted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
-            }
+
+            return ServersList;
         }
     }
 }

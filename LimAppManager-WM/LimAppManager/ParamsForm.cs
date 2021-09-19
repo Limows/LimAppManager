@@ -70,7 +70,14 @@ namespace LimAppManager
             RmPackageBox.Checked = Parameters.IsRmPackage;
             DebugBox.Checked = Parameters.IsSendDebug;
             TempSizeBox.Text = Parameters.BytesToMegs(Parameters.TempSize).ToString("0.##");
-            UsedTempSizeLabel.Text = "Used: " + Parameters.BytesToMegs(IOHelper.GetDirectorySize(Parameters.TempPath)).ToString("0.###") + " MB";
+            UsedTempSizeLabel.Text = "Used: " + Parameters.BytesToMegs(IOHelper.GetDirectorySize(Parameters.TempPath)).ToString("0.###") + " MB";    
+
+            foreach (string server in Parameters.ServersList.Keys)
+            {
+                ServersBox.Items.Add(server);
+            }
+
+            ServersBox.SelectedItem = Parameters.Server;
 
             bool IsDevInstall = true;
             List<string> StoragesNames = IO.GetAllRemovableStorages();
@@ -163,6 +170,17 @@ namespace LimAppManager
                 Parameters.IsSendDebug = DebugBox.Checked;
 
                 Parameters.IconSize = IconSizeBar.Value;
+
+                if (String.IsNullOrEmpty((string)ServersBox.SelectedItem))
+                {
+                    MessageBox.Show("Choose server", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    Parameters.Server = (string)ServersBox.SelectedItem;
+                }
 
                 if (String.IsNullOrEmpty(Parameters.InstallPath))
                 {
