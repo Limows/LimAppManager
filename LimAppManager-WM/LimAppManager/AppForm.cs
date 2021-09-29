@@ -21,15 +21,7 @@ namespace LimAppManager
             InitializeComponent();
 
             AppName = CurrentAppName;
-
-            DownloadingTimer.Enabled = false;
-            DownloadingTimer.Interval = 100;
-
-            if (this.Width == 480)
-            {
-                LogoBox.Width = 100;
-                LogoBox.Height = 100;
-            }
+            this.Text = AppName;
         }
 
         private void DownloadButton_Click(object sender, EventArgs e)
@@ -49,22 +41,11 @@ namespace LimAppManager
                 //StatusLabel.Text = Parameters.ThreadMessage;
 
                 DownloadingTimer.Enabled = true;
-                DownloadButton.Visible = false;
+                InstallButton.Visible = false;
                 StatusBar.Visible = true;
                 StatusBar.Value = StatusBar.Minimum;
-
-                if (this.Width == 480)
-                {
-                    StatusLabel.Left = 24;
-                    StatusLabel.Width = 440;
-                    DescriptionBox.Top = 240;
-                }
-                else
-                {
-                    DescriptionBox.Top = 120;
-                    StatusLabel.Left = 12;
-                    StatusLabel.Width = 220;
-                }
+                StatusLabel.Left = InstallButton.Left;
+                LowerPanel.Height = StatusBar.Bottom;
             }
             else
             {
@@ -74,72 +55,17 @@ namespace LimAppManager
         }
 
         private void AppForm_Load(object sender, EventArgs e)
-        {   
-            /*
-            this.Text = AppName.Replace("_", " ");
-            NameLabel.Text = AppName.Replace("_", " ");
+        {
+            DownloadingTimer.Enabled = false;
+            DownloadingTimer.Interval = 100;
+
+            LogoBox.Width = LogoBox.Height;
             StatusLabel.Text = "";
+            DescriptionBox.Text = "";
             StatusBar.Visible = false;
-
-            if (this.Width == 480)
-            {
-                DescriptionBox.Top = 200;
-            }
-            else
-            {
-                DescriptionBox.Top = 100;
-            }
-
-            //ParamsHelper.CurrentURI = ParamsHelper.AppURI;
-
-            string FileSize;
-            string InfoName;
-            string LogoName;
-            string ScrShotName;
-            string[] AppInfo;
-
-            //AppInfo = NetHelper.LoadInfo(ParamsHelper.CurrentURI, AppName).Split('\n');
-
-            //FileSize = AppInfo[0];
-            //InfoName = AppInfo[1];
-            //LogoName = AppInfo[2];
-            //ScrShotName = AppInfo[3];
-
-            if (String.IsNullOrEmpty(FileSize))
-            {
-                SizeLabel.Text = "0 МБ";
-                StatusBar.Maximum = 100;
-            }
-            else
-            {
-                SizeLabel.Text = FileSize;
-                StatusBar.Maximum = (int)(Convert.ToDouble(FileSize.Split(' ')[0]) * 100);
-            }
-
-            if (String.IsNullOrEmpty(InfoName))
-            {
-                DescriptionBox.Text = "Для этого приложения ещё нет описания";
-            }
-            else
-            {   
-                DescriptionBox.Text = IOHelper.ReadTextFile(InfoName);
-            }
-
-            if (String.IsNullOrEmpty(LogoName))
-            {
-
-            }
-            else
-            {   
-                Bitmap LogoBitmap = new Bitmap(LogoName);
-                Image LogoImage = (Image)LogoBitmap;
-                LogoBox.Image = LogoImage;
-            }
-
-            ParamsHelper.CurrentURI = ParamsHelper.AppURI;
+            LowerPanel.Height = StatusBar.Top;
 
             Cursor.Current = Cursors.Default;
-            */
         }
 
         private void AppForm_FormClosing(object sender, CancelEventArgs e)
@@ -331,6 +257,16 @@ namespace LimAppManager
                 }
             }
             */
+        }
+
+        private void InstallMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

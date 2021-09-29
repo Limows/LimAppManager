@@ -18,7 +18,6 @@ namespace LimAppManager
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            ImageLogoList_SetSize();
             Parameters.OSVersion = Environment.OSVersion.Version.Major;
 
             try
@@ -41,6 +40,8 @@ namespace LimAppManager
                 MessageBox.Show("No servers found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
                 Parameters.ServersList = new Dictionary<string, Uri>();
             }
+
+            ImageLogoList_SetSize();
         }
 
         private void ImageLogoList_SetSize()
