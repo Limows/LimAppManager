@@ -46,7 +46,8 @@ namespace LimAppManager
 
             if (ConfigFiles.Length == 0) 
             {
-                using (File.Create(GetCurrentDirectory() + "\\Config.ini"));
+                FileStream Stream = File.Create(GetCurrentDirectory() + "\\Config.ini");
+                Stream.Close();
                 return GetCurrentDirectory() + "\\Config.ini";
             }
 

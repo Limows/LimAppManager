@@ -168,19 +168,8 @@ namespace LimAppManager
                 Parameters.IsRmPackage = RmPackageBox.Checked;
                 Parameters.IsOverwrite = OverwriteDirsBox.Checked;
                 Parameters.IsSendDebug = DebugBox.Checked;
-
                 Parameters.IconSize = IconSizeBar.Value;
-
-                if (String.IsNullOrEmpty((string)ServersBox.SelectedItem))
-                {
-                    MessageBox.Show("Choose server", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                    e.Cancel = true;
-                    return;
-                }
-                else
-                {
-                    Parameters.Server = (string)ServersBox.SelectedItem;
-                }
+                Parameters.Server = (string)ServersBox.SelectedItem;
 
                 if (String.IsNullOrEmpty(Parameters.InstallPath))
                 {

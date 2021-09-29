@@ -18,12 +18,12 @@ namespace LimAppManager
             InitializeComponent();
             AppName = CurrentAppName;
 
-            this.Text = String.Format("О Программе");
-            //this.labelProductName.Text = AppProduct;
-            //this.labelVersion.Text = String.Format("Версия {0}", AppVersion);
-            //this.labelCompanyName.Text = String.Format("Автор: {0}", AppCompany);
-            //this.labelInstallDate.Text = String.Format("Установлено: {0}", AppInstallDate);
-            //this.textBoxInstallPath.Text = String.Format("Путь установки: {0}", AppInstallPath);
+            this.Text = String.Format("About {0}", AppProduct);
+            this.labelProductName.Text = AppProduct;
+            this.labelVersion.Text = String.Format("Version {0}", AppVersion);
+            this.labelCompanyName.Text = String.Format("Author: {0}", AppCompany);
+            this.labelInstallDate.Text = String.Format("Install date: {0}", AppInstallDate);
+            this.textBoxInstallPath.Text = String.Format("Install path: {0}", AppInstallPath);
         }
 
         public string AppTitle

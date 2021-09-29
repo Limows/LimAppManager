@@ -32,7 +32,15 @@ namespace LimAppManager
                 Parameters.TempPath = @"\Temp\AppManager";
             }
 
-            Parameters.ServersList = GetServersList(Parameters.ServersPath);
+            try
+            {
+                Parameters.ServersList = GetServersList(Parameters.ServersPath);
+            }
+            catch
+            {
+                MessageBox.Show("No servers found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                Parameters.ServersList = new Dictionary<string, Uri>();
+            }
         }
 
         private void ImageLogoList_SetSize()
@@ -155,7 +163,7 @@ namespace LimAppManager
         }
 
         private Dictionary<string, Uri> GetServersList(string FileName)
-        {
+        {   
             string Text = IOHelper.ReadTextFile(IOHelper.GetCurrentDirectory() + FileName);
             string[] Lines = Text.Split('\n');
             Dictionary<string, Uri> ServersList = new Dictionary<string, Uri>();
@@ -172,9 +180,9 @@ namespace LimAppManager
 
         private void InstalledMenuItem_Click(object sender, EventArgs e)
         {
-            AboutAppBox AboutApp = new AboutAppBox("Test");
+            InstalledForm Installed = new InstalledForm();
 
-            AboutApp.ShowDialog();
+            Installed.ShowDialog();
         }
 
         private void AppsListBox_ItemActivate(object sender, EventArgs e)
