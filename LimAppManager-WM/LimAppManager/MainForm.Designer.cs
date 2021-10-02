@@ -30,9 +30,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem();
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem();
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainMenu = new System.Windows.Forms.MainMenu();
             this.ActionsMenuItem = new System.Windows.Forms.MenuItem();
@@ -53,6 +53,7 @@
             this.AppsLogoList = new System.Windows.Forms.ImageList();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.InputPanel = new Microsoft.WindowsCE.Forms.InputPanel(this.components);
+            this.timer1 = new System.Windows.Forms.Timer();
             this.MainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -144,15 +145,15 @@
             // 
             this.AppsListBox.BackColor = System.Drawing.Color.White;
             this.AppsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewItem4.ImageIndex = 0;
-            listViewItem4.Text = "App 1";
-            listViewItem5.ImageIndex = 1;
-            listViewItem5.Text = "App 2";
-            listViewItem6.ImageIndex = 2;
-            listViewItem6.Text = "App 3";
-            this.AppsListBox.Items.Add(listViewItem4);
-            this.AppsListBox.Items.Add(listViewItem5);
-            this.AppsListBox.Items.Add(listViewItem6);
+            listViewItem1.ImageIndex = 0;
+            listViewItem1.Text = "App 1";
+            listViewItem2.ImageIndex = 1;
+            listViewItem2.Text = "App 2";
+            listViewItem3.ImageIndex = 2;
+            listViewItem3.Text = "App 3";
+            this.AppsListBox.Items.Add(listViewItem1);
+            this.AppsListBox.Items.Add(listViewItem2);
+            this.AppsListBox.Items.Add(listViewItem3);
             this.AppsListBox.LargeImageList = this.AppsLogoList;
             this.AppsListBox.Location = new System.Drawing.Point(0, 21);
             this.AppsListBox.Name = "AppsListBox";
@@ -221,6 +222,7 @@
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.ImageList AppsLogoList;
         private Microsoft.WindowsCE.Forms.InputPanel InputPanel;
+        private System.Windows.Forms.Timer timer1;
 
     }
 }

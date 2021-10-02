@@ -127,7 +127,7 @@
   <data name="resource" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr0AAA69AUf7kK0AAAJgSURBVFhH7ZdJiyIxGEDnXzogMn0V3HBD3AUVDyriKC6I
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAJgSURBVFhH7ZdJiyIxGEDnXzogMn0V3HBD3AUVDyriKC6I
         C3pScUUdd0f9YfMwhZcZpis2prvpeocim8kzlUq+fLt+SAwtGQwtGQwtGQwtGT6/1na7/fUGdrud1pEO
         JLR8Pt+PN5BIJC6Xi9bXa0hoOZ1Ok8n0XR5+BeFw+IlazWbztySVSuXpWu12W8vrpl6vf20tXk2pVGKk
         5XIpav+DOq3pdMrHRTYajYraOxjPZjMtc0OdFvuQw+HArFwui1oBAxcKBb/fj5xWpHhtrddrZuV8PpOe
@@ -143,7 +143,7 @@
   <data name="resource1" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr0AAA69AUf7kK0AAAJgSURBVFhH7ZdJiyIxGEDnXzogMn0V3HBD3AUVDyriKC6I
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAJgSURBVFhH7ZdJiyIxGEDnXzogMn0V3HBD3AUVDyriKC6I
         C3pScUUdd0f9YfMwhZcZpis2prvpeocim8kzlUq+fLt+SAwtGQwtGQwtGQwtGT6/1na7/fUGdrud1pEO
         JLR8Pt+PN5BIJC6Xi9bXa0hoOZ1Ok8n0XR5+BeFw+IlazWbztySVSuXpWu12W8vrpl6vf20tXk2pVGKk
         5XIpav+DOq3pdMrHRTYajYraOxjPZjMtc0OdFvuQw+HArFwui1oBAxcKBb/fj5xWpHhtrddrZuV8PpOe
@@ -159,7 +159,7 @@
   <data name="resource2" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr0AAA69AUf7kK0AAAJgSURBVFhH7ZdJiyIxGEDnXzogMn0V3HBD3AUVDyriKC6I
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAJgSURBVFhH7ZdJiyIxGEDnXzogMn0V3HBD3AUVDyriKC6I
         C3pScUUdd0f9YfMwhZcZpis2prvpeocim8kzlUq+fLt+SAwtGQwtGQwtGQwtGT6/1na7/fUGdrud1pEO
         JLR8Pt+PN5BIJC6Xi9bXa0hoOZ1Ok8n0XR5+BeFw+IlazWbztySVSuXpWu12W8vrpl6vf20tXk2pVGKk
         5XIpav+DOq3pdMrHRTYajYraOxjPZjMtc0OdFvuQw+HArFwui1oBAxcKBb/fj5xWpHhtrddrZuV8PpOe
@@ -174,6 +174,9 @@
   </data>
   <metadata name="InputPanel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>252, 17</value>
+  </metadata>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>362, 17</value>
   </metadata>
   <metadata name="$this.FormFactorShadowProperty" xml:space="preserve">
     <value>POCKET_PC_2003_PORTRAIT</value>

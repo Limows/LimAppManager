@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace LimAppManager
 {
@@ -122,14 +123,9 @@ namespace LimAppManager
             }
         }
 
-        private void OKButton_Click(object sender, EventArgs e)
+        private void OkMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void labelCompanyName_ParentChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

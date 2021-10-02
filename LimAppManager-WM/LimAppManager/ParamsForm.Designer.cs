@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.AppSetTabPage = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
+            this.TempLabel = new System.Windows.Forms.Label();
             this.AppColorLAbel = new System.Windows.Forms.Label();
             this.DebugBox = new System.Windows.Forms.CheckBox();
             this.IconSizeBar = new System.Windows.Forms.TrackBar();
@@ -37,8 +37,8 @@
             this.AppLookLabel = new System.Windows.Forms.Label();
             this.SpacerLabel = new System.Windows.Forms.Label();
             this.LoginButton = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.PasswordBox = new System.Windows.Forms.TextBox();
+            this.NameBox = new System.Windows.Forms.TextBox();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
             this.AutorizationLabel = new System.Windows.Forms.Label();
@@ -75,7 +75,7 @@
             // 
             this.AppSetTabPage.AutoScroll = true;
             this.AppSetTabPage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
-            this.AppSetTabPage.Controls.Add(this.label2);
+            this.AppSetTabPage.Controls.Add(this.TempLabel);
             this.AppSetTabPage.Controls.Add(this.AppColorLAbel);
             this.AppSetTabPage.Controls.Add(this.DebugBox);
             this.AppSetTabPage.Controls.Add(this.IconSizeBar);
@@ -83,8 +83,8 @@
             this.AppSetTabPage.Controls.Add(this.AppLookLabel);
             this.AppSetTabPage.Controls.Add(this.SpacerLabel);
             this.AppSetTabPage.Controls.Add(this.LoginButton);
-            this.AppSetTabPage.Controls.Add(this.textBox2);
-            this.AppSetTabPage.Controls.Add(this.textBox1);
+            this.AppSetTabPage.Controls.Add(this.PasswordBox);
+            this.AppSetTabPage.Controls.Add(this.NameBox);
             this.AppSetTabPage.Controls.Add(this.PasswordLabel);
             this.AppSetTabPage.Controls.Add(this.NameLabel);
             this.AppSetTabPage.Controls.Add(this.AutorizationLabel);
@@ -95,15 +95,15 @@
             this.AppSetTabPage.Controls.Add(this.CleanBufferButton);
             this.AppSetTabPage.Location = new System.Drawing.Point(0, 0);
             this.AppSetTabPage.Name = "AppSetTabPage";
-            this.AppSetTabPage.Size = new System.Drawing.Size(232, 268);
+            this.AppSetTabPage.Size = new System.Drawing.Size(240, 271);
             this.AppSetTabPage.Text = "App Settings";
             // 
-            // label2
+            // TempLabel
             // 
-            this.label2.Location = new System.Drawing.Point(7, 228);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 20);
-            this.label2.Text = "Temp Settings";
+            this.TempLabel.Location = new System.Drawing.Point(7, 228);
+            this.TempLabel.Name = "TempLabel";
+            this.TempLabel.Size = new System.Drawing.Size(100, 20);
+            this.TempLabel.Text = "Temp Settings";
             // 
             // AppColorLAbel
             // 
@@ -161,19 +161,19 @@
             this.LoginButton.TabIndex = 18;
             this.LoginButton.Text = "Log-In";
             // 
-            // textBox2
+            // PasswordBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(77, 62);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
-            this.textBox2.TabIndex = 17;
+            this.PasswordBox.Location = new System.Drawing.Point(77, 62);
+            this.PasswordBox.Name = "PasswordBox";
+            this.PasswordBox.Size = new System.Drawing.Size(100, 21);
+            this.PasswordBox.TabIndex = 17;
             // 
-            // textBox1
+            // NameBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(77, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 16;
+            this.NameBox.Location = new System.Drawing.Point(77, 35);
+            this.NameBox.Name = "NameBox";
+            this.NameBox.Size = new System.Drawing.Size(100, 21);
+            this.NameBox.TabIndex = 16;
             // 
             // PasswordLabel
             // 
@@ -244,7 +244,7 @@
             this.InstallTabPage.Controls.Add(this.DeviceInstallButton);
             this.InstallTabPage.Location = new System.Drawing.Point(0, 0);
             this.InstallTabPage.Name = "InstallTabPage";
-            this.InstallTabPage.Size = new System.Drawing.Size(232, 268);
+            this.InstallTabPage.Size = new System.Drawing.Size(240, 271);
             this.InstallTabPage.Text = "Install";
             // 
             // OverwriteDirsBox
@@ -425,8 +425,8 @@
         private System.Windows.Forms.ComboBox ServersBox;
         private System.Windows.Forms.Label AutorizationLabel;
         private System.Windows.Forms.Button LoginButton;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox PasswordBox;
+        private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.Label PasswordLabel;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label AppLookLabel;
@@ -435,6 +435,6 @@
         private System.Windows.Forms.TrackBar IconSizeBar;
         private System.Windows.Forms.CheckBox DebugBox;
         private System.Windows.Forms.Label AppColorLAbel;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label TempLabel;
     }
 }

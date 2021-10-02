@@ -59,9 +59,18 @@ namespace LimAppManager
         }
 
         private void GetAppsList(Uri ServerUri, out Dictionary<string, Uri> AppsList)
-        {   
-            AppsList = new Dictionary<string, Uri>();
+        {
+            Mutex ListingMutex = new Mutex();
+            ThreadStart ListingStarter = delegate { ListingWorker(ServerUri, ListingMutex); };
+            Thread ListingThread = new Thread(ListingStarter);
 
+            AppsList = new Dictionary<string, Uri>();
+            Parameters.EndResponseEvent = new AutoResetEvent(false);
+
+            
+            ListingThread.Start();
+
+            /*
             try
             {
                 AppsList = NetHelper.GetAvailableApps(ServerUri);
@@ -72,6 +81,38 @@ namespace LimAppManager
                 }
             }
             catch
+            {
+                MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+            }
+            */
+        }
+
+        private void ListingWorker(Uri ServerUri, Mutex ListingMutex)
+        {
+            NetHelper Net = new NetHelper();
+
+            Net.StartTextResponse(ServerUri);
+
+            Parameters.EndResponseEvent.WaitOne();
+
+            if (!String.IsNullOrEmpty(Parameters.ResponseMessage))
+            {
+
+                string[] Lines = Parameters.ResponseMessage.Split('\n');
+
+                ListingMutex.WaitOne();
+
+                foreach (string line in Lines)
+                {
+                    string[] AppLine = line.Split('=');
+
+                    Parameters.AppsList.Add(AppLine[0], new Uri(AppLine[1]));
+                    AppsListBox.Items.Add(new ListViewItem(AppLine[0]));
+                }
+
+                ListingMutex.ReleaseMutex();
+            }
+            else
             {
                 MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
             }
@@ -267,7 +308,9 @@ namespace LimAppManager
             {
                 Uri ServerUri = Parameters.ServersList[Parameters.Server];
 
+                Cursor.Current = Cursors.WaitCursor;
                 GetAppsList(ServerUri, out Parameters.AppsList);
+                Cursor.Current = Cursors.Default;
             }
             else
             {

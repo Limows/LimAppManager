@@ -14,6 +14,8 @@ namespace LimAppManager
 {
     class NetHelper
     {
+        HttpWebRequest Request;
+
         static public Dictionary<string, Uri> GetAvailableApps(Uri ServerUri)
         {
             Dictionary<string, Uri> AppsList = new Dictionary<string, Uri>();
@@ -36,6 +38,71 @@ namespace LimAppManager
             }
 
             return AppsList;
+        }
+
+        public void StartTextResponse(Uri ServerUri)
+        {
+            Request = (HttpWebRequest)WebRequest.Create(ServerUri);
+            Request.BeginGetResponse(EndTextResponse, null);
+        }
+
+        private void EndTextResponse(IAsyncResult result)
+        {
+            HttpWebResponse Response; 
+            string ResponseMessage;
+
+            try
+            {
+                Response = (HttpWebResponse)Request.EndGetResponse(result);
+            }
+            catch
+            {
+                Parameters.EndResponseEvent.Set();
+                return;
+            }
+
+            using (StreamReader stream = new StreamReader(Response.GetResponseStream(), Encoding.UTF8))
+            {
+                ResponseMessage = stream.ReadToEnd();
+            }
+
+            Parameters.ResponseMessage = ResponseMessage;
+            Parameters.EndResponseEvent.Set();
+            return;
+        }
+
+        private void EndDataResponse(IAsyncResult state)
+        {   
+            /*
+            int recievedBytes = 0;
+            Socket socket = (Socket)state.AsyncState;
+            BinaryWriter Writer = new BinaryWriter(m_data);
+
+            try
+            {
+                recievedBytes = socket.EndReceive(state);
+                Writer.Write(m_buffer, 0, recievedBytes);
+                Writer.Flush();
+                //m_data.Write(m_buffer, 0, recievedBytes);
+                //dirInfo.Append(Encoding.ASCII.GetString(m_buffer, 0, recievedBytes));
+            }
+            catch
+            {
+                FTPParameters.EndResponseEvent.Set();
+                Writer.Flush();
+                return;
+            }
+
+            if (recievedBytes > 0)
+            {
+                socket.BeginReceive(m_buffer, 0, m_buffer.Length, 0, EndDataResponse, socket);
+            }
+            else
+            {
+                FTPParameters.EndResponseEvent.Set();
+                Writer.Flush();
+            }
+            */
         }
 
         static public string CheckUpdates()

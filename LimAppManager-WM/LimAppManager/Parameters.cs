@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Net;
+using System.Threading;
 
 namespace LimAppManager
 {
@@ -27,6 +28,28 @@ namespace LimAppManager
         static public bool IsSendDebug;
         static public ulong TempSize;
         static public bool IsSaveParams;
+        static public string ResponseMessage;
+        static public AutoResetEvent EndResponseEvent;
+
+        public struct InstalledApp
+        {
+            string Name;
+            string Author;
+            string Version;
+            string InstallDir;
+            string InstallDate;
+        }
+
+        public struct InstallableApp
+        {
+            string Name;
+            string Author;
+            string Version;
+            int Size;
+            bool IsCompressed;
+            string PackageName;
+            string IconName;
+        }
 
         /// <summary>
         /// Convert bytes to megabytes

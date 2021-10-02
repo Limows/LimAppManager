@@ -62,7 +62,6 @@
             this.labelCompanyName.Name = "labelCompanyName";
             this.labelCompanyName.Size = new System.Drawing.Size(240, 20);
             this.labelCompanyName.Text = "Имя компании";
-            this.labelCompanyName.ParentChanged += new System.EventHandler(this.labelCompanyName_ParentChanged);
             // 
             // textBoxInstallPath
             // 
@@ -104,6 +103,7 @@
             // OkMenuItem
             // 
             this.OkMenuItem.Text = "OK";
+            this.OkMenuItem.Click += new System.EventHandler(this.OkMenuItem_Click);
             // 
             // AboutAppBox
             // 

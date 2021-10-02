@@ -9,6 +9,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace LimAppManager
 {
