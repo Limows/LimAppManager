@@ -29,4 +29,5 @@ bld/
 # Libraries
 [Pp]ackages/
 *.dll
+*.exe
 *.pfx
