@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace LimAppManager
 {
@@ -42,6 +43,38 @@ namespace LimAppManager
             }
 
             ImageLogoList_SetSize();
+
+            if (!String.IsNullOrEmpty(Parameters.Server))
+            {
+                Uri ServerUri = Parameters.ServersList[Parameters.Server];
+
+                Cursor.Current = Cursors.WaitCursor;
+                GetAppsList(ServerUri, out Parameters.AppsList);
+                Cursor.Current = Cursors.Default;
+            }
+            else
+            {
+                MessageBox.Show("Server not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            }
+        }
+
+        private void GetAppsList(Uri ServerUri, out Dictionary<string, Uri> AppsList)
+        {   
+            AppsList = new Dictionary<string, Uri>();
+
+            try
+            {
+                AppsList = NetHelper.GetAvailableApps(ServerUri);
+
+                foreach (string app in AppsList.Keys.Cast<string>().ToList<string>())
+                {
+                    AppsListBox.Items.Add(new ListViewItem(app));
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+            }
         }
 
         private void ImageLogoList_SetSize()
@@ -122,10 +155,13 @@ namespace LimAppManager
 
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
                 Version = NetHelper.CheckUpdates();
+                Cursor.Current = Cursors.Default;
             }
             catch
             {
+                Cursor.Current = Cursors.Default;
                 MessageBox.Show("Failed to check for updates", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
                 return;
             }
@@ -188,7 +224,9 @@ namespace LimAppManager
 
         private void AppsListBox_ItemActivate(object sender, EventArgs e)
         {
-            AppForm App = new AppForm("Test");
+            AppForm App = new AppForm(AppsListBox.FocusedItem.Text);
+
+            Cursor.Current = Cursors.WaitCursor;
 
             App.ShowDialog();
         }
@@ -220,6 +258,20 @@ namespace LimAppManager
                     AppsListBox.Items.Add(app);
                 }
                 */
+            }
+        }
+
+        private void RefreshMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(Parameters.Server))
+            {
+                Uri ServerUri = Parameters.ServersList[Parameters.Server];
+
+                GetAppsList(ServerUri, out Parameters.AppsList);
+            }
+            else
+            {
+                MessageBox.Show("Server not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             }
         }
     }

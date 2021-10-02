@@ -29,6 +29,19 @@
         private void InitializeComponent()
         {
             this.AppSetTabPage = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.AppColorLAbel = new System.Windows.Forms.Label();
+            this.DebugBox = new System.Windows.Forms.CheckBox();
+            this.IconSizeBar = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.AppLookLabel = new System.Windows.Forms.Label();
+            this.SpacerLabel = new System.Windows.Forms.Label();
+            this.LoginButton = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.PasswordLabel = new System.Windows.Forms.Label();
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.AutorizationLabel = new System.Windows.Forms.Label();
             this.UsedTempSizeLabel = new System.Windows.Forms.Label();
             this.MBLabel = new System.Windows.Forms.Label();
             this.TempSizeBox = new System.Windows.Forms.TextBox();
@@ -41,6 +54,7 @@
             this.InstallPathLabel = new System.Windows.Forms.Label();
             this.DeviceInstallButton = new System.Windows.Forms.RadioButton();
             this.DownloadTabPage = new System.Windows.Forms.TabPage();
+            this.ServersBox = new System.Windows.Forms.ComboBox();
             this.ServerTypeLabel = new System.Windows.Forms.Label();
             this.DownloadPathBox = new System.Windows.Forms.TextBox();
             this.DownloadPathLabel = new System.Windows.Forms.Label();
@@ -50,20 +64,6 @@
             this.MainMenu = new System.Windows.Forms.MainMenu();
             this.OkMenuItem = new System.Windows.Forms.MenuItem();
             this.CancelMenuItem = new System.Windows.Forms.MenuItem();
-            this.ServersBox = new System.Windows.Forms.ComboBox();
-            this.AutorizationLabel = new System.Windows.Forms.Label();
-            this.NameLabel = new System.Windows.Forms.Label();
-            this.PasswordLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.LoginButton = new System.Windows.Forms.Button();
-            this.SpacerLabel = new System.Windows.Forms.Label();
-            this.AppLookLabel = new System.Windows.Forms.Label();
-            this.IconSizeBar = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
-            this.DebugBox = new System.Windows.Forms.CheckBox();
-            this.AppColorLAbel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.AppSetTabPage.SuspendLayout();
             this.InstallTabPage.SuspendLayout();
             this.DownloadTabPage.SuspendLayout();
@@ -95,8 +95,106 @@
             this.AppSetTabPage.Controls.Add(this.CleanBufferButton);
             this.AppSetTabPage.Location = new System.Drawing.Point(0, 0);
             this.AppSetTabPage.Name = "AppSetTabPage";
-            this.AppSetTabPage.Size = new System.Drawing.Size(240, 271);
+            this.AppSetTabPage.Size = new System.Drawing.Size(232, 268);
             this.AppSetTabPage.Text = "App Settings";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(7, 228);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 20);
+            this.label2.Text = "Temp Settings";
+            // 
+            // AppColorLAbel
+            // 
+            this.AppColorLAbel.Location = new System.Drawing.Point(7, 195);
+            this.AppColorLAbel.Name = "AppColorLAbel";
+            this.AppColorLAbel.Size = new System.Drawing.Size(100, 20);
+            this.AppColorLAbel.Text = "App Color:";
+            // 
+            // DebugBox
+            // 
+            this.DebugBox.Location = new System.Drawing.Point(7, 172);
+            this.DebugBox.Name = "DebugBox";
+            this.DebugBox.Size = new System.Drawing.Size(169, 20);
+            this.DebugBox.TabIndex = 24;
+            this.DebugBox.Text = "Send debug information";
+            // 
+            // IconSizeBar
+            // 
+            this.IconSizeBar.LargeChange = 1;
+            this.IconSizeBar.Location = new System.Drawing.Point(61, 147);
+            this.IconSizeBar.Maximum = 200;
+            this.IconSizeBar.Minimum = 100;
+            this.IconSizeBar.Name = "IconSizeBar";
+            this.IconSizeBar.Size = new System.Drawing.Size(163, 20);
+            this.IconSizeBar.TabIndex = 22;
+            this.IconSizeBar.TickFrequency = 10;
+            this.IconSizeBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.IconSizeBar.Value = 100;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(7, 149);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 20);
+            this.label1.Text = "Icon size";
+            // 
+            // AppLookLabel
+            // 
+            this.AppLookLabel.Location = new System.Drawing.Point(7, 126);
+            this.AppLookLabel.Name = "AppLookLabel";
+            this.AppLookLabel.Size = new System.Drawing.Size(100, 20);
+            this.AppLookLabel.Text = "App Settings";
+            // 
+            // SpacerLabel
+            // 
+            this.SpacerLabel.Location = new System.Drawing.Point(39, 320);
+            this.SpacerLabel.Name = "SpacerLabel";
+            this.SpacerLabel.Size = new System.Drawing.Size(100, 20);
+            // 
+            // LoginButton
+            // 
+            this.LoginButton.Location = new System.Drawing.Point(7, 89);
+            this.LoginButton.Name = "LoginButton";
+            this.LoginButton.Size = new System.Drawing.Size(72, 20);
+            this.LoginButton.TabIndex = 18;
+            this.LoginButton.Text = "Log-In";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(77, 62);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 21);
+            this.textBox2.TabIndex = 17;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(77, 35);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.TabIndex = 16;
+            // 
+            // PasswordLabel
+            // 
+            this.PasswordLabel.Location = new System.Drawing.Point(7, 63);
+            this.PasswordLabel.Name = "PasswordLabel";
+            this.PasswordLabel.Size = new System.Drawing.Size(64, 20);
+            this.PasswordLabel.Text = "Password";
+            // 
+            // NameLabel
+            // 
+            this.NameLabel.Location = new System.Drawing.Point(7, 36);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(79, 20);
+            this.NameLabel.Text = "User Name";
+            // 
+            // AutorizationLabel
+            // 
+            this.AutorizationLabel.Location = new System.Drawing.Point(7, 16);
+            this.AutorizationLabel.Name = "AutorizationLabel";
+            this.AutorizationLabel.Size = new System.Drawing.Size(100, 20);
+            this.AutorizationLabel.Text = "Autorization";
             // 
             // UsedTempSizeLabel
             // 
@@ -146,7 +244,7 @@
             this.InstallTabPage.Controls.Add(this.DeviceInstallButton);
             this.InstallTabPage.Location = new System.Drawing.Point(0, 0);
             this.InstallTabPage.Name = "InstallTabPage";
-            this.InstallTabPage.Size = new System.Drawing.Size(240, 271);
+            this.InstallTabPage.Size = new System.Drawing.Size(232, 268);
             this.InstallTabPage.Text = "Install";
             // 
             // OverwriteDirsBox
@@ -203,6 +301,13 @@
             this.DownloadTabPage.Name = "DownloadTabPage";
             this.DownloadTabPage.Size = new System.Drawing.Size(240, 271);
             this.DownloadTabPage.Text = "Download";
+            // 
+            // ServersBox
+            // 
+            this.ServersBox.Location = new System.Drawing.Point(7, 37);
+            this.ServersBox.Name = "ServersBox";
+            this.ServersBox.Size = new System.Drawing.Size(100, 22);
+            this.ServersBox.TabIndex = 14;
             // 
             // ServerTypeLabel
             // 
@@ -268,111 +373,6 @@
             // 
             this.CancelMenuItem.Text = "Cancel";
             this.CancelMenuItem.Click += new System.EventHandler(this.CanselMenuItem_Click);
-            // 
-            // ServersBox
-            // 
-            this.ServersBox.Location = new System.Drawing.Point(7, 37);
-            this.ServersBox.Name = "ServersBox";
-            this.ServersBox.Size = new System.Drawing.Size(100, 22);
-            this.ServersBox.TabIndex = 14;
-            // 
-            // AutorizationLabel
-            // 
-            this.AutorizationLabel.Location = new System.Drawing.Point(7, 16);
-            this.AutorizationLabel.Name = "AutorizationLabel";
-            this.AutorizationLabel.Size = new System.Drawing.Size(100, 20);
-            this.AutorizationLabel.Text = "Autorization";
-            // 
-            // NameLabel
-            // 
-            this.NameLabel.Location = new System.Drawing.Point(7, 36);
-            this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(79, 20);
-            this.NameLabel.Text = "User Name";
-            // 
-            // PasswordLabel
-            // 
-            this.PasswordLabel.Location = new System.Drawing.Point(7, 63);
-            this.PasswordLabel.Name = "PasswordLabel";
-            this.PasswordLabel.Size = new System.Drawing.Size(64, 20);
-            this.PasswordLabel.Text = "Password";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(77, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 16;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(77, 62);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
-            this.textBox2.TabIndex = 17;
-            // 
-            // LoginButton
-            // 
-            this.LoginButton.Location = new System.Drawing.Point(7, 89);
-            this.LoginButton.Name = "LoginButton";
-            this.LoginButton.Size = new System.Drawing.Size(72, 20);
-            this.LoginButton.TabIndex = 18;
-            this.LoginButton.Text = "Log-In";
-            // 
-            // SpacerLabel
-            // 
-            this.SpacerLabel.Location = new System.Drawing.Point(39, 320);
-            this.SpacerLabel.Name = "SpacerLabel";
-            this.SpacerLabel.Size = new System.Drawing.Size(100, 20);
-            // 
-            // AppLookLabel
-            // 
-            this.AppLookLabel.Location = new System.Drawing.Point(7, 126);
-            this.AppLookLabel.Name = "AppLookLabel";
-            this.AppLookLabel.Size = new System.Drawing.Size(100, 20);
-            this.AppLookLabel.Text = "App Settings";
-            // 
-            // IconSizeBar
-            // 
-            this.IconSizeBar.LargeChange = 1;
-            this.IconSizeBar.Location = new System.Drawing.Point(61, 147);
-            this.IconSizeBar.Maximum = 200;
-            this.IconSizeBar.Minimum = 100;
-            this.IconSizeBar.Name = "IconSizeBar";
-            this.IconSizeBar.Size = new System.Drawing.Size(163, 20);
-            this.IconSizeBar.TabIndex = 22;
-            this.IconSizeBar.TickFrequency = 10;
-            this.IconSizeBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
-            this.IconSizeBar.Value = 100;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(7, 149);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 20);
-            this.label1.Text = "Icon size";
-            // 
-            // DebugBox
-            // 
-            this.DebugBox.Location = new System.Drawing.Point(7, 172);
-            this.DebugBox.Name = "DebugBox";
-            this.DebugBox.Size = new System.Drawing.Size(169, 20);
-            this.DebugBox.TabIndex = 24;
-            this.DebugBox.Text = "Send debug information";
-            // 
-            // AppColorLAbel
-            // 
-            this.AppColorLAbel.Location = new System.Drawing.Point(7, 195);
-            this.AppColorLAbel.Name = "AppColorLAbel";
-            this.AppColorLAbel.Size = new System.Drawing.Size(100, 20);
-            this.AppColorLAbel.Text = "App Color:";
-            // 
-            // label2
-            // 
-            this.label2.Location = new System.Drawing.Point(7, 228);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 20);
-            this.label2.Text = "Temp Settings";
             // 
             // ParamsForm
             // 

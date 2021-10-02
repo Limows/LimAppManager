@@ -14,6 +14,30 @@ namespace LimAppManager
 {
     class NetHelper
     {
+        static public Dictionary<string, Uri> GetAvailableApps(Uri ServerUri)
+        {
+            Dictionary<string, Uri> AppsList = new Dictionary<string, Uri>();
+            HttpWebRequest Request = (HttpWebRequest)WebRequest.Create(ServerUri);
+            HttpWebResponse Response = (HttpWebResponse)Request.GetResponse();
+            string ResponseMessage;
+
+            using (StreamReader stream = new StreamReader(Response.GetResponseStream(), Encoding.UTF8))
+            {
+                ResponseMessage = stream.ReadToEnd();
+            }
+
+            string[] Lines = ResponseMessage.Split('\n');
+
+            foreach (string line in Lines)
+            {
+                string[] AppLine = line.Split('=');
+
+                AppsList.Add(AppLine[0], new Uri(AppLine[1]));
+            }
+
+            return AppsList;
+        }
+
         static public string CheckUpdates()
         {
             Uri URI = new Uri("http://limowski.xyz:80/downloads/LimFTPClient/WinMobile/LimFTPClientVersion.txt");
@@ -51,6 +75,5 @@ namespace LimAppManager
                 }
             }
         }
-
     }
 }
