@@ -173,8 +173,11 @@
             this.SearchBox.Location = new System.Drawing.Point(0, 0);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(240, 21);
-            this.SearchBox.TabIndex = 0;
+            this.SearchBox.TabIndex = 2;
             this.SearchBox.Text = "Search...";
+            this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            this.SearchBox.GotFocus += new System.EventHandler(this.SearchBox_GotFocus);
+            this.SearchBox.LostFocus += new System.EventHandler(this.SearchBox_LostFocus);
             // 
             // MainForm
             // 

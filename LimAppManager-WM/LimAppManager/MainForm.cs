@@ -192,5 +192,35 @@ namespace LimAppManager
 
             App.ShowDialog();
         }
+
+        private void SearchBox_GotFocus(object sender, EventArgs e)
+        {
+            if (SearchBox.Text == "Search...") SearchBox.Text = "";
+
+            InputPanel.Enabled = true;
+        }
+
+        private void SearchBox_LostFocus(object sender, EventArgs e)
+        {
+            if (SearchBox.Text == "") SearchBox.Text = "Search...";
+
+            InputPanel.Enabled = false;
+        }
+
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            if (SearchBox.Text != "Search...")
+            {   /*
+                List<string> SearchedList = Parameters.AppsList.Keys.Cast().ToList<string>().Where(x => x.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
+                AppsListBox.DataSource = null;
+                AppsListBox.Items.Clear();
+
+                foreach (string app in SearchedList)
+                {
+                    AppsListBox.Items.Add(app);
+                }
+                */
+            }
+        }
     }
 }

@@ -50,17 +50,17 @@ namespace LimAppManager
                 MessageBox.Show("Приложение не выбрано", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             }
 
-            GetAppsList();
+            GetAppsList(out Parameters.InstalledList);
         }
 
-        private void GetAppsList()
+        private void GetAppsList(out List<string> InstalledList)
         {
             InstalledBox.DataSource = null;
             InstalledBox.Items.Clear();
+            InstalledList = new List<string>();
 
             try
             {
-                List<string> InstalledList = new List<string>();
                 InstalledList = SystemHelper.GetInstalledApps();
 
                 foreach (string app in InstalledList)
@@ -76,7 +76,7 @@ namespace LimAppManager
 
         private void InstalledForm_Load(object sender, EventArgs e)
         {
-            GetAppsList();
+            GetAppsList(out Parameters.InstalledList);
 
             try
             {
@@ -100,6 +100,35 @@ namespace LimAppManager
         private void BackMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            if (SearchBox.Text != "Search...")
+            {
+                List<string> SearchedList = Parameters.InstalledList.Where(x => x.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
+                InstalledBox.DataSource = null;
+                InstalledBox.Items.Clear();
+
+                foreach (string app in SearchedList)
+                {
+                    InstalledBox.Items.Add(app);
+                }
+            }
+        }
+
+        private void SearchBox_GotFocus(object sender, EventArgs e)
+        {
+            if (SearchBox.Text == "Search...") SearchBox.Text = "";
+
+            InputPanel.Enabled = true;
+        }
+
+        private void SearchBox_LostFocus(object sender, EventArgs e)
+        {
+            if (SearchBox.Text == "") SearchBox.Text = "Search...";
+
+            InputPanel.Enabled = false;
         }
     }
 }

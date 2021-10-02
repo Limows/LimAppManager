@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.MainMenu = new System.Windows.Forms.MainMenu();
             this.ActionsMenuItem = new System.Windows.Forms.MenuItem();
             this.PropMenuItem = new System.Windows.Forms.MenuItem();
@@ -38,6 +39,7 @@
             this.InstalledBox = new System.Windows.Forms.ListBox();
             this.MemLabel = new System.Windows.Forms.Label();
             this.SearchBox = new System.Windows.Forms.TextBox();
+            this.InputPanel = new Microsoft.WindowsCE.Forms.InputPanel(this.components);
             this.InstalledPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,7 +86,7 @@
             this.InstalledBox.Location = new System.Drawing.Point(0, 21);
             this.InstalledBox.Name = "InstalledBox";
             this.InstalledBox.Size = new System.Drawing.Size(240, 226);
-            this.InstalledBox.TabIndex = 2;
+            this.InstalledBox.TabIndex = 1;
             // 
             // MemLabel
             // 
@@ -100,8 +102,11 @@
             this.SearchBox.Location = new System.Drawing.Point(0, 0);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(240, 21);
-            this.SearchBox.TabIndex = 0;
+            this.SearchBox.TabIndex = 2;
             this.SearchBox.Text = "Search...";
+            this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            this.SearchBox.GotFocus += new System.EventHandler(this.SearchBox_GotFocus);
+            this.SearchBox.LostFocus += new System.EventHandler(this.SearchBox_LostFocus);
             // 
             // InstalledForm
             // 
@@ -130,5 +135,6 @@
         private System.Windows.Forms.Label MemLabel;
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.MenuItem BackMenuItem;
+        private Microsoft.WindowsCE.Forms.InputPanel InputPanel;
     }
 }
