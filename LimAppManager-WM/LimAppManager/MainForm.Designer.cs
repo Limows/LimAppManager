@@ -54,6 +54,8 @@
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.InputPanel = new Microsoft.WindowsCE.Forms.InputPanel(this.components);
             this.timer1 = new System.Windows.Forms.Timer();
+            this.SendBugMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.MainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,6 +70,8 @@
             this.ActionsMenuItem.MenuItems.Add(this.RefreshMenuItem);
             this.ActionsMenuItem.MenuItems.Add(this.InstalledMenuItem);
             this.ActionsMenuItem.MenuItems.Add(this.menuItem4);
+            this.ActionsMenuItem.MenuItems.Add(this.SendBugMenuItem);
+            this.ActionsMenuItem.MenuItems.Add(this.menuItem2);
             this.ActionsMenuItem.MenuItems.Add(this.QuitMenuItem);
             this.ActionsMenuItem.Text = "Actions";
             // 
@@ -183,6 +187,14 @@
             this.SearchBox.GotFocus += new System.EventHandler(this.SearchBox_GotFocus);
             this.SearchBox.LostFocus += new System.EventHandler(this.SearchBox_LostFocus);
             // 
+            // SendBugMenuItem
+            // 
+            this.SendBugMenuItem.Text = "Send Bug";
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Text = "-";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -223,6 +235,8 @@
         private System.Windows.Forms.ImageList AppsLogoList;
         private Microsoft.WindowsCE.Forms.InputPanel InputPanel;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.MenuItem SendBugMenuItem;
+        private System.Windows.Forms.MenuItem menuItem2;
 
     }
 }

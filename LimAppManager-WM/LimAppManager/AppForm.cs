@@ -32,6 +32,14 @@ namespace LimAppManager
 
         private void DownloadButton_Click(object sender, EventArgs e)
         {
+            DownloadingTimer.Enabled = true;
+            InstallButton.Visible = false;
+            StatusBar.Visible = true;
+            StatusBar.Value = StatusBar.Minimum;
+            StatusLabel.Left = InstallButton.Left;
+            StatusLabel.Height = InstallButton.Height;
+            LowerPanel.Height = LowerPanelHeight;
+
             if (!IsDownloaded)
             {
                 if (!String.IsNullOrEmpty(Parameters.DownloadPath))
@@ -43,14 +51,6 @@ namespace LimAppManager
                     //DownloadingThread.Start();
 
                     StatusLabel.Text = "Now downloading";
-
-                    DownloadingTimer.Enabled = true;
-                    InstallButton.Visible = false;
-                    StatusBar.Visible = true;
-                    StatusBar.Value = StatusBar.Minimum;
-                    StatusLabel.Left = InstallButton.Left;
-                    StatusLabel.Height = InstallButton.Height;
-                    LowerPanel.Height = LowerPanelHeight;
                 }
                 else
                 {
@@ -68,13 +68,6 @@ namespace LimAppManager
                     //InstallingThread.Start();
 
                     StatusLabel.Text = "Now installing";
-
-                    DownloadingTimer.Enabled = true;
-                    InstallButton.Visible = false;
-                    StatusBar.Visible = true;
-                    StatusBar.Value = StatusBar.Minimum;
-                    StatusLabel.Left = InstallButton.Left;
-                    LowerPanel.Height = LowerPanelHeight;
                 }
                 else
                 {
@@ -168,13 +161,19 @@ namespace LimAppManager
 
                     StatusLabel.Text = "Error while uncompressing";
 
-                    InstallingMutex.ReleaseMutex(); 
+                    InstallingMutex.ReleaseMutex();
+
+                    return;
                 }
+            }
+            else
+            {
+                ExtractedPath = DownloadPath + "\\" + App.PackageName;
             }
 
             try
             {
-                IsInstalled = SystemHelper.AppInstall(ExtractedPath, InstallPath, App.Name, Parameters.IsOverwrite);
+                IsInstalled = SystemHelper.AppInstall(ExtractedPath, InstallPath, App, Parameters.IsOverwrite);
             }
             catch (Exception NewEx)
             {
@@ -189,7 +188,9 @@ namespace LimAppManager
 
                 StatusLabel.Text = "Error while installation";
 
-                InstallingMutex.ReleaseMutex(); 
+                InstallingMutex.ReleaseMutex();
+
+                return;
             }
 
             InstallingMutex.WaitOne();

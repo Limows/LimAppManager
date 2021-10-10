@@ -50,18 +50,27 @@ namespace LimAppManager
             return InstallDir;
         }
 
-        static public bool AppInstall(string AppPath, string InstallPath, string AppName, bool Overwrite)
-        {
-            AppName = AppName.Replace('_', ' ');
-
-            InstallPath = InstallPath + "\\" + AppName;
+        static public bool AppInstall(string AppPath, string InstallPath, Parameters.InstallableApp App, bool Overwrite)
+        {   
             bool IsInstalled = false;
+            string[] Cabs;
 
-            string[] Cabs = Directory.GetFiles(AppPath, "*.cab");
+            InstallPath = InstallPath + "\\" + App.Name;
+
+            if (Directory.Exists(AppPath))
+            {
+                Cabs = Directory.GetFiles(AppPath, "*.cab");
+            }
+            else
+            {
+                Cabs = new string[1];
+
+                Cabs[0] = AppPath;
+            }
 
             if (Cabs.Length == 0)
             {
-                IsInstalled = DirInstall(AppPath, InstallPath, AppName, Overwrite);    
+                IsInstalled = DirInstall(AppPath, InstallPath, App.Name, Overwrite);    
             }
             else
             {
@@ -71,19 +80,40 @@ namespace LimAppManager
                 }
             }
 
-            if (Parameters.IsRmPackage)
+            if (IsInstalled)
             {
-                try
+                WriteAppInfo(App, InstallPath);
+
+                if (Parameters.IsRmPackage)
                 {
-                    AppName = AppName.Replace(' ', '_');
-                    Directory.Delete(Parameters.DownloadPath + "\\" + AppName, true);
-                    File.Delete(Parameters.DownloadPath + "\\" + AppName + ".zip");
+                    try
+                    {
+                        if (Directory.Exists(AppPath))
+                        {
+                            Directory.Delete(AppPath, true);
+                        }
+                        else
+                        {
+                            File.Delete(AppPath);
+                        }
+                    }
+                    catch
+                    { }
                 }
-                catch
-                { }
             }
 
             return IsInstalled;
+        }
+
+        static public void WriteAppInfo(Parameters.InstallableApp App, string InstallDir)
+        {
+            Parameters.InstalledApp InstalledApp = new Parameters.InstalledApp();
+
+            InstalledApp.Author = App.Author;
+            InstalledApp.InstallDate = DateTime.Now.Date.ToString("dd.MM.yy");
+            InstalledApp.InstallDir = InstallDir;
+            InstalledApp.Name = App.Name;
+            InstalledApp.Version = App.Version;
         }
 
         static public bool CabInstall(string CabPath, string InstallPath, bool Overwrite)
@@ -157,7 +187,7 @@ namespace LimAppManager
 
         }
 
-        static public void CreateShortcut(string ShortcutName, string TargetName, bool Overwrite)
+        static private void CreateShortcut(string ShortcutName, string TargetName, bool Overwrite)
         {   
             FileInfo Shortcut = new FileInfo(ShortcutName);
 
@@ -186,12 +216,12 @@ namespace LimAppManager
             Writer.Close();
         }
 
-        static public void DeleteShortcut(string ShortcutName)
+        static private void DeleteShortcut(string ShortcutName)
         {
             File.Delete(ShortcutName);
         }
 
-        static public void AddToRegistry(string AppName, string InstallPath, string[] ExecFiles)
+        static private void AddToRegistry(string AppName, string InstallPath, string[] ExecFiles)
         {
             string SoftwareKey = "Software\\Apps\\";
 
@@ -229,7 +259,7 @@ namespace LimAppManager
             }
         }
 
-        static public void RemoveFromRegistry(string AppName)
+        static private void RemoveFromRegistry(string AppName)
         {
             string SoftwareKey = "Software\\Apps\\";
 
@@ -260,7 +290,7 @@ namespace LimAppManager
             }
         }
 
-        static public bool IsCabInstalled(string AppName)
+        static private bool IsCabInstalled(string AppName)
         {
             if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
             {
