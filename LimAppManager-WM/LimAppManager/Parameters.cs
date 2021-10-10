@@ -33,22 +33,23 @@ namespace LimAppManager
 
         public struct InstalledApp
         {
-            string Name;
-            string Author;
-            string Version;
-            string InstallDir;
-            string InstallDate;
+            public string Name;
+            public string Author;
+            public string Version;
+            public string InstallDir;
+            public string InstallDate;
         }
 
         public struct InstallableApp
         {
-            string Name;
-            string Author;
-            string Version;
-            int Size;
-            bool IsCompressed;
-            string PackageName;
-            string IconName;
+
+            public string Name;
+            public string Author;
+            public string Version;
+            public int Size;
+            public bool IsCompressed;
+            public string PackageName;
+            public string IconName;
         }
 
         public enum OSVersions

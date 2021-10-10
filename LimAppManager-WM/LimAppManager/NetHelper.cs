@@ -15,6 +15,7 @@ namespace LimAppManager
     class NetHelper
     {
         HttpWebRequest Request;
+        string PackagePath;
 
         public void GetAvailableApps(Uri ServerUri, string System)
         {
@@ -28,6 +29,14 @@ namespace LimAppManager
             Uri CurrentUri = new Uri(AppUri.ToString() + "Meta.json");
 
             StartTextResponse(CurrentUri, "GET", null, null);
+        }
+
+        public void GetFile(Uri AppUri, string DownloadPath, string PackageName)
+        {
+            Uri CurrentUri = new Uri(AppUri.ToString() + PackageName);
+            PackagePath = DownloadPath + PackageName;
+
+            StartDataResponse(CurrentUri, "GET", null, null);
         }
 
         private void StartTextResponse(Uri ServerUri, string Method, string ContentType, string Message)
@@ -103,7 +112,7 @@ namespace LimAppManager
             {
                 Response = (HttpWebResponse)Request.EndGetResponse(result);
 
-                using (FileStream UpdateFile = new FileStream(Parameters.DownloadPath + "\\Update.cab", FileMode.Create, FileAccess.Write))
+                using (FileStream UpdateFile = new FileStream(PackagePath, FileMode.Create, FileAccess.Write))
                 {
                     using (BinaryReader Reader = new BinaryReader(Response.GetResponseStream()))
                     {
