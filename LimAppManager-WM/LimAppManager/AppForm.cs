@@ -126,11 +126,10 @@ namespace LimAppManager
             DownloadingTimer.Enabled = false;
             InstallButton.Visible = true;
             StatusBar.Visible = false;
-            StatusLabel.Width = 142;
-            StatusLabel.Left = 90;
-            DescriptionBox.Top = 100;
-
+            StatusLabel.Left = InstallButton.Right + 5;
+            LowerPanel.Height = StatusBar.Top;
             StatusLabel.Text = "Download successfully";
+
             IsDownloaded = true;
             InstallButton.Text = "Install";
 
@@ -155,10 +154,8 @@ namespace LimAppManager
                     DownloadingTimer.Enabled = false;
                     InstallButton.Visible = true;
                     StatusBar.Visible = false;
-                    StatusLabel.Width = 142;
-                    StatusLabel.Left = 90;
-                    DescriptionBox.Top = 100;
-
+                    StatusLabel.Left = InstallButton.Right + 5;
+                    LowerPanel.Height = StatusBar.Top;
                     StatusLabel.Text = "Error while uncompressing";
 
                     InstallingMutex.ReleaseMutex();
@@ -182,10 +179,8 @@ namespace LimAppManager
                 DownloadingTimer.Enabled = false;
                 InstallButton.Visible = true;
                 StatusBar.Visible = false;
-                StatusLabel.Width = 142;
-                StatusLabel.Left = 90;
-                DescriptionBox.Top = 100;
-
+                StatusLabel.Left = InstallButton.Right + 5;
+                LowerPanel.Height = StatusBar.Top;
                 StatusLabel.Text = "Error while installation";
 
                 InstallingMutex.ReleaseMutex();
@@ -198,9 +193,8 @@ namespace LimAppManager
             DownloadingTimer.Enabled = false;
             InstallButton.Visible = true;
             StatusBar.Visible = false;
-            StatusLabel.Width = 142;
-            StatusLabel.Left = 90;
-            DescriptionBox.Top = 100;
+            StatusLabel.Left = InstallButton.Right + 5;
+            LowerPanel.Height = StatusBar.Top;
 
             if (!IsInstalled) StatusLabel.Text = "Error while installation";
             else StatusLabel.Text = "Installed successfully";
@@ -212,6 +206,7 @@ namespace LimAppManager
         {
             if (StatusBar.Value + 2 < StatusBar.Maximum) StatusBar.Value += 2;
             else StatusBar.Value = StatusBar.Minimum;
+
             /*
                 if (ParamsHelper.IsThreadError)
                 {

@@ -48,12 +48,10 @@ namespace LimAppManager
             {
                 Uri ServerUri = Parameters.ServersList[Parameters.Server];
 
-                Cursor.Current = Cursors.WaitCursor;
                 GetAppsList(ServerUri, out Parameters.AppsList);
             }
             else
             {
-                Cursor.Current = Cursors.Default;
                 MessageBox.Show("Server not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             }
         }
@@ -74,6 +72,12 @@ namespace LimAppManager
         private void ListingWorker(Uri ServerUri, Mutex ListingMutex)
         {
             NetHelper Net = new NetHelper();
+
+            ListingMutex.WaitOne();
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            ListingMutex.ReleaseMutex();
 
             switch (Parameters.OSVersion)
             {
@@ -318,12 +322,10 @@ namespace LimAppManager
             {
                 Uri ServerUri = Parameters.ServersList[Parameters.Server];
 
-                Cursor.Current = Cursors.WaitCursor;
                 GetAppsList(ServerUri, out Parameters.AppsList);
             }
             else
             {
-                Cursor.Current = Cursors.Default;
                 MessageBox.Show("Server not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             }
         }

@@ -52,6 +52,15 @@ namespace LimAppManager
             public string IconName;
         }
 
+        public struct DebugInfo
+        {
+            int ScreenWidth;
+            int ScreenHeight;
+            string Cpu;
+            string DeviceName;
+            OSVersions OSVersion;
+        }
+
         public enum OSVersions
         {
             WM2003 = 4,

@@ -39,6 +39,16 @@ namespace LimAppManager
             StartDataResponse(CurrentUri, "GET", null, null);
         }
 
+        public void SendErrorInfo(Uri ServerUri, string Message, Parameters.DebugInfo Info)
+        {
+
+        }
+
+        public void SendAutorizationInfo(Uri ServerUri, string UserNameHash, string PasswordHash)
+        {
+
+        }
+
         private void StartTextResponse(Uri ServerUri, string Method, string ContentType, string Message)
         {
             Request = (HttpWebRequest)WebRequest.Create(ServerUri);
