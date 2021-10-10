@@ -205,7 +205,7 @@ namespace LimAppManager
                 }
             }
 
-            if (Parameters.OSVersion == 5)
+            if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
             {
 
                 SoftwareKey = "Security\\AppInstall\\";
@@ -243,7 +243,7 @@ namespace LimAppManager
                 { }
             }
 
-            if (Parameters.OSVersion == 5)
+            if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
             {
 
                 SoftwareKey = "Security\\AppInstall\\";
@@ -262,7 +262,7 @@ namespace LimAppManager
 
         static public bool IsCabInstalled(string AppName)
         {
-            if (Parameters.OSVersion == 5)
+            if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
             {
                 string SoftwareKey = "Security\\AppInstall\\";
 
@@ -300,7 +300,7 @@ namespace LimAppManager
             {
                 try
                 {
-                    if (Parameters.OSVersion == 4)
+                    if (Parameters.OSVersion == Parameters.OSVersions.WM2003)
                     {
                         Process InstallProc = new Process();
                         Parameters.IsUninstalling = true;

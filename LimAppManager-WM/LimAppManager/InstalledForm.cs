@@ -90,7 +90,7 @@ namespace LimAppManager
 
         private void InstalledForm_Closing(object sender, CancelEventArgs e)
         {
-            if (Parameters.OSVersion == 4 && Parameters.IsUninstalling)
+            if (Parameters.OSVersion == Parameters.OSVersions.WM2003 && Parameters.IsUninstalling)
             {
                 e.Cancel = true;
                 Parameters.IsUninstalling = false;

@@ -9,7 +9,6 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Diagnostics;
-using Newtonsoft.Json;
 
 namespace LimAppManager
 {
@@ -50,13 +49,19 @@ namespace LimAppManager
             }
             else
             {
-                MessageBox.Show("Отсутствует путь для сохранения файла", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                MessageBox.Show("Download path not set", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
             }
 
         }
 
         private void AppForm_Load(object sender, EventArgs e)
         {
+            //Uri AppUri = Parameters.AppsList[AppName];
+            Uri AppUri = Parameters.ServersList[Parameters.Server];
+            NetHelper Net = new NetHelper();
+
+            Parameters.EndResponseEvent = new AutoResetEvent(false);
+
             DownloadingTimer.Enabled = false;
             DownloadingTimer.Interval = 100;
 
@@ -66,7 +71,19 @@ namespace LimAppManager
             StatusBar.Visible = false;
             LowerPanel.Height = StatusBar.Top;
 
-            Cursor.Current = Cursors.Default;
+            Net.GetAppMetaInfo(AppUri);
+
+            Parameters.EndResponseEvent.WaitOne();
+
+            if (!String.IsNullOrEmpty(Parameters.ResponseMessage))
+            {
+                Cursor.Current = Cursors.Default;
+            }
+            else
+            {
+                Cursor.Current = Cursors.Default;
+                MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+            }
         }
 
         private void AppForm_FormClosing(object sender, CancelEventArgs e)

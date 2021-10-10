@@ -19,7 +19,7 @@ namespace LimAppManager
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Parameters.OSVersion = Environment.OSVersion.Version.Major;
+            Parameters.OSVersion = (Parameters.OSVersions)Environment.OSVersion.Version.Major;
 
             try
             {
@@ -50,10 +50,10 @@ namespace LimAppManager
 
                 Cursor.Current = Cursors.WaitCursor;
                 GetAppsList(ServerUri, out Parameters.AppsList);
-                Cursor.Current = Cursors.Default;
             }
             else
             {
+                Cursor.Current = Cursors.Default;
                 MessageBox.Show("Server not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             }
         }
@@ -69,29 +69,36 @@ namespace LimAppManager
 
             
             ListingThread.Start();
-
-            /*
-            try
-            {
-                AppsList = NetHelper.GetAvailableApps(ServerUri);
-
-                foreach (string app in AppsList.Keys.Cast<string>().ToList<string>())
-                {
-                    AppsListBox.Items.Add(new ListViewItem(app));
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
-            }
-            */
         }
 
         private void ListingWorker(Uri ServerUri, Mutex ListingMutex)
         {
             NetHelper Net = new NetHelper();
 
-            Net.StartTextResponse(ServerUri);
+            switch (Parameters.OSVersion)
+            {
+                case Parameters.OSVersions.WM2003:
+                    Net.GetAvailableApps(ServerUri, "WinMobile_2003");
+                    break;
+                case Parameters.OSVersions.WM5:
+                    Net.GetAvailableApps(ServerUri, "WinMobile_5");
+                    break;
+                case Parameters.OSVersions.WM6:
+                    Net.GetAvailableApps(ServerUri, "WinMobile_6");
+                    break;
+                case Parameters.OSVersions.CE4:
+                    Net.GetAvailableApps(ServerUri, "WinCE_4");
+                    break;
+                case Parameters.OSVersions.CE5:
+                    Net.GetAvailableApps(ServerUri, "WinCE_5");
+                    break;
+                case Parameters.OSVersions.CE6:
+                    Net.GetAvailableApps(ServerUri, "WinCE_6");
+                    break;
+                default:
+                    Net.GetAvailableApps(ServerUri, "WinMobile_2003");
+                    break;
+            }
 
             Parameters.EndResponseEvent.WaitOne();
 
@@ -106,14 +113,16 @@ namespace LimAppManager
                 {
                     string[] AppLine = line.Split('=');
 
-                    Parameters.AppsList.Add(AppLine[0], new Uri(AppLine[1]));
+                    Parameters.AppsList.Add(AppLine[0], new Uri(AppLine[1].Split('\r')[0]));
                     AppsListBox.Items.Add(new ListViewItem(AppLine[0]));
                 }
 
                 ListingMutex.ReleaseMutex();
+                Cursor.Current = Cursors.Default;
             }
             else
             {
+                Cursor.Current = Cursors.Default;
                 MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
             }
         }
@@ -250,7 +259,7 @@ namespace LimAppManager
             {
                 string[] ServerLine = line.Split('=');
 
-                ServersList.Add(ServerLine[0], new Uri(ServerLine[1]));
+                ServersList.Add(ServerLine[0], new Uri(ServerLine[1].Split('\r')[0]));
             }
 
             return ServersList;
@@ -310,10 +319,10 @@ namespace LimAppManager
 
                 Cursor.Current = Cursors.WaitCursor;
                 GetAppsList(ServerUri, out Parameters.AppsList);
-                Cursor.Current = Cursors.Default;
             }
             else
             {
+                Cursor.Current = Cursors.Default;
                 MessageBox.Show("Server not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             }
         }

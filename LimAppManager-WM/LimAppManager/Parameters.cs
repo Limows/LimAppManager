@@ -20,7 +20,7 @@ namespace LimAppManager
         static public string ConfigPath;
         static public string TempPath;
         static public string ServersPath;
-        static public int OSVersion;
+        static public OSVersions OSVersion;
         static public bool IsAutoInstall;
         static public bool IsRmPackage;
         static public bool IsOverwrite;
@@ -49,6 +49,16 @@ namespace LimAppManager
             bool IsCompressed;
             string PackageName;
             string IconName;
+        }
+
+        public enum OSVersions
+        {
+            WM2003 = 4,
+            WM5 = 5,
+            WM6,
+            CE4,
+            CE5,
+            CE6
         }
 
         /// <summary>
