@@ -12,6 +12,8 @@ namespace LimAppManager
 {
     public partial class MainForm : Form
     {
+        Parameters.DebugInfo SysInfo;
+
         public MainForm()
         {
             InitializeComponent();
@@ -20,6 +22,8 @@ namespace LimAppManager
         private void MainForm_Load(object sender, EventArgs e)
         {   
             Parameters.OSVersion = (Parameters.OSVersions)Environment.OSVersion.Version.Major;
+
+            SystemHelper.GetDebugInfo(out SysInfo);
 
             try
             {
@@ -30,6 +34,7 @@ namespace LimAppManager
                 MessageBox.Show("Config file not found or corrupted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
                 Parameters.IconSize = 100;
                 Parameters.TempPath = @"\Temp\AppManager";
+                Parameters.ServersPath = IOHelper.GetCurrentDirectory() + @"\Servers.list";
             }
 
             try
@@ -328,6 +333,13 @@ namespace LimAppManager
             {
                 MessageBox.Show("Server not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             }
+        }
+
+        private void SendBugMenuItem_Click(object sender, EventArgs e)
+        {
+            SendBugForm SendBug = new SendBugForm(SysInfo);
+
+            SendBug.ShowDialog();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace LimAppManager
         /// Get list of installed apps
         /// </summary>
         /// <returns>List of installed apps</returns> 
-        public static List<string> GetInstalledApps()
+        static public List<string> GetInstalledApps()
         {
             string SoftwareKey = "Software\\Apps";
             List<string> AppsList = new List<string>();
@@ -37,7 +37,7 @@ namespace LimAppManager
             return AppsList;
         }
 
-        public static string GetInstallDir(string AppName)
+        static public string GetInstallDir(string AppName)
         {
             string SoftwareKey = "Software\\Apps\\" + AppName;
             string InstallDir;
@@ -48,6 +48,18 @@ namespace LimAppManager
             }
 
             return InstallDir;
+        }
+
+        static public void GetDebugInfo(out Parameters.DebugInfo Info)
+        {
+            Info = new Parameters.DebugInfo();
+
+            Info.ScreenHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
+            Info.ScreenWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+            Info.OSVersion = Parameters.OSVersion;
+            Info.Cpu = "";
+            Info.DeviceName = "";
+
         }
 
         static public bool AppInstall(string AppPath, string InstallPath, Parameters.InstallableApp App, bool Overwrite)

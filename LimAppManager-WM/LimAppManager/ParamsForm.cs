@@ -242,5 +242,15 @@ namespace LimAppManager
             Parameters.IsSaveParams = false;
             Close();
         }
+
+        private void LoginButton_Click(object sender, EventArgs e)
+        {
+            string NameHash = HashHelper.GetMD5Hash(NameBox.Text);
+            string PasswordHash = HashHelper.GetMD5Hash(NameBox.Text);
+            NetHelper Net = new NetHelper();
+            Uri ServerUri = new Uri("http://limowski.xyz");
+
+            Net.SendAutorizationInfo(ServerUri, NameHash, PasswordHash);
+        }
     }
 }

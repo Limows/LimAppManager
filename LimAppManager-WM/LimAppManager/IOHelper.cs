@@ -64,7 +64,12 @@ namespace LimAppManager
             return CurrentDirectory;
         }
 
-        public static void ReadSettings()
+        static public bool FindFile(string Directory, string FileName)
+        {
+            return File.Exists(Directory + FileName);
+        }
+
+        static public void ReadSettings()
         {   
             if (String.IsNullOrEmpty(Parameters.ConfigPath))
             {
@@ -97,7 +102,7 @@ namespace LimAppManager
         /// <param name="CompressedFilePath"></param>
         /// <param name="ExtractedFilePath"></param>
         /// <returns>Path to extracted archive</returns> 
-        public static string ExtractToDirectory(string CompressedFilePath, string ExtractedFilePath)
+        static public string ExtractToDirectory(string CompressedFilePath, string ExtractedFilePath)
         {
             bool IsDirectory = false;
 

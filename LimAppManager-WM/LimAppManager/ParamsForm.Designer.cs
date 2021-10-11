@@ -160,6 +160,7 @@
             this.LoginButton.Size = new System.Drawing.Size(72, 20);
             this.LoginButton.TabIndex = 18;
             this.LoginButton.Text = "Log-In";
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
             // PasswordBox
             // 
@@ -244,7 +245,7 @@
             this.InstallTabPage.Controls.Add(this.DeviceInstallButton);
             this.InstallTabPage.Location = new System.Drawing.Point(0, 0);
             this.InstallTabPage.Name = "InstallTabPage";
-            this.InstallTabPage.Size = new System.Drawing.Size(240, 271);
+            this.InstallTabPage.Size = new System.Drawing.Size(232, 268);
             this.InstallTabPage.Text = "Install";
             // 
             // OverwriteDirsBox

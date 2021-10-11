@@ -9,6 +9,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace LimAppManager
 {
@@ -100,6 +101,15 @@ namespace LimAppManager
 
             if (!String.IsNullOrEmpty(Parameters.ResponseMessage))
             {
+                App = JsonConvert.DeserializeObject<Parameters.InstallableApp>(Parameters.ResponseMessage);
+
+                if (IOHelper.FindFile(Parameters.DownloadPath, App.PackageName))
+                {
+                    IsDownloaded = true;
+                    InstallButton.Text = "Install";
+                    InstallMenuItem.Text = "Install";
+                }
+
                 Cursor.Current = Cursors.Default;
             }
             else
@@ -132,6 +142,7 @@ namespace LimAppManager
 
             IsDownloaded = true;
             InstallButton.Text = "Install";
+            InstallMenuItem.Text = "Install";
 
             DownloadingMutex.ReleaseMutex();
         }

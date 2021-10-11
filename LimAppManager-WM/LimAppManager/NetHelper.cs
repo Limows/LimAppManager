@@ -9,6 +9,7 @@ using WinMobileNetCFExt;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using Newtonsoft.Json;
 
 namespace LimAppManager
 {
@@ -40,6 +41,11 @@ namespace LimAppManager
         }
 
         public void SendErrorInfo(Uri ServerUri, string Message, Parameters.DebugInfo Info)
+        {
+
+        }
+
+        public void SendErrorInfo(Uri ServerUri, string Message)
         {
 
         }

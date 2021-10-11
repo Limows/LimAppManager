@@ -42,8 +42,8 @@
             this.InstallButton = new System.Windows.Forms.Button();
             this.MainMenu = new System.Windows.Forms.MainMenu();
             this.ActionsMenuItem = new System.Windows.Forms.MenuItem();
-            this.BackMenuItem = new System.Windows.Forms.MenuItem();
             this.InstallMenuItem = new System.Windows.Forms.MenuItem();
+            this.BackMenuItem = new System.Windows.Forms.MenuItem();
             this.UpperPanel.SuspendLayout();
             this.LowerPanel.SuspendLayout();
             this.SuspendLayout();
@@ -107,7 +107,7 @@
             this.StatusLabel.Size = new System.Drawing.Size(139, 19);
             this.StatusLabel.Text = "Status";
             // 
-            // panel1
+            // UpperPanel
             // 
             this.UpperPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
             this.UpperPanel.Controls.Add(this.SizeLabel);
@@ -119,7 +119,7 @@
             this.UpperPanel.Name = "UpperPanel";
             this.UpperPanel.Size = new System.Drawing.Size(240, 61);
             // 
-            // panel2
+            // LowerPanel
             // 
             this.LowerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
             this.LowerPanel.Controls.Add(this.StatusLabel);
@@ -136,7 +136,7 @@
             this.InstallButton.Name = "InstallButton";
             this.InstallButton.Size = new System.Drawing.Size(72, 20);
             this.InstallButton.TabIndex = 6;
-            this.InstallButton.Text = "Install";
+            this.InstallButton.Text = "Download";
             this.InstallButton.Click += new System.EventHandler(this.DownloadButton_Click);
             // 
             // MainMenu
@@ -149,15 +149,15 @@
             this.ActionsMenuItem.MenuItems.Add(this.InstallMenuItem);
             this.ActionsMenuItem.Text = "Actions";
             // 
+            // InstallMenuItem
+            // 
+            this.InstallMenuItem.Text = "Download";
+            this.InstallMenuItem.Click += new System.EventHandler(this.InstallMenuItem_Click);
+            // 
             // BackMenuItem
             // 
             this.BackMenuItem.Text = "Back";
             this.BackMenuItem.Click += new System.EventHandler(this.BackMenuItem_Click);
-            // 
-            // InstallMenuItem
-            // 
-            this.InstallMenuItem.Text = "Install";
-            this.InstallMenuItem.Click += new System.EventHandler(this.InstallMenuItem_Click);
             // 
             // AppForm
             // 

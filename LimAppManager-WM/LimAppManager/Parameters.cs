@@ -8,28 +8,28 @@ using System.Threading;
 
 namespace LimAppManager
 {
-    class Parameters
+    public class Parameters
     {
         public static int IconSize = 100;
         public static Dictionary<string, Uri> AppsList;
         public static Dictionary<string, Uri> ServersList;
         public static List<string> InstalledList;
         public static string Server;
-        static public string DownloadPath;
-        static public string InstallPath;
-        static public string ConfigPath;
-        static public string TempPath;
-        static public string ServersPath;
-        static public OSVersions OSVersion;
-        static public bool IsAutoInstall;
-        static public bool IsRmPackage;
-        static public bool IsOverwrite;
-        static public bool IsUninstalling;
-        static public bool IsSendDebug;
-        static public ulong TempSize;
-        static public bool IsSaveParams;
-        static public string ResponseMessage;
-        static public AutoResetEvent EndResponseEvent;
+        public static string DownloadPath;
+        public static string InstallPath;
+        public static string ConfigPath;
+        public static string TempPath;
+        public static string ServersPath;
+        public static OSVersions OSVersion;
+        public static bool IsAutoInstall;
+        public static bool IsRmPackage;
+        public static bool IsOverwrite;
+        public static bool IsUninstalling;
+        public static bool IsSendDebug;
+        public static ulong TempSize;
+        public static bool IsSaveParams;
+        public static string ResponseMessage;
+        public static AutoResetEvent EndResponseEvent;
 
         public struct InstalledApp
         {
@@ -54,11 +54,11 @@ namespace LimAppManager
 
         public struct DebugInfo
         {
-            int ScreenWidth;
-            int ScreenHeight;
-            string Cpu;
-            string DeviceName;
-            OSVersions OSVersion;
+            public int ScreenWidth;
+            public int ScreenHeight;
+            public string Cpu;
+            public string DeviceName;
+            public OSVersions OSVersion;
         }
 
         public enum OSVersions
