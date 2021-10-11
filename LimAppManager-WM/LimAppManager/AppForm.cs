@@ -17,7 +17,7 @@ namespace LimAppManager
     {
         private Uri AppUri;
         private Parameters.InstallableApp App = new Parameters.InstallableApp();
-        bool IsDownloaded = false;
+        bool IsDownloaded = true;
         int LowerPanelHeight = 0;
 
         public AppForm(string AppName)
@@ -66,7 +66,7 @@ namespace LimAppManager
                     ThreadStart InstallingStarter = delegate { InstallingThreadWorker(Parameters.DownloadPath, Parameters.InstallPath, App, InstallingMutex); };
                     Thread InstallingThread = new Thread(InstallingStarter);
 
-                    //InstallingThread.Start();
+                    InstallingThread.Start();
 
                     StatusLabel.Text = "Now installing";
                 }
@@ -116,12 +116,42 @@ namespace LimAppManager
             {
                 Cursor.Current = Cursors.Default;
                 MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+
+                App.Name = "Test";
+                App.PackageName = "Test.cab";
+                App.Author = "LimSoft";
+                App.IconName = "";
+                App.IsCompressed = false;
+                App.Size = Parameters.MegsToBytes(0.01);
+                App.Version = "1.0.0";
             }
         }
 
         private void AppForm_FormClosing(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private void UpdateUI(string Message)
+        {
+            DownloadingTimer.Enabled = false;
+
+            if (InvokeRequired)
+            {
+                InstallButton.Invoke((Action)(() => { InstallButton.Visible = true; }));
+                StatusBar.Invoke((Action)(() => { StatusBar.Visible = false; }));
+                StatusLabel.Invoke((Action)(() => { StatusLabel.Left = InstallButton.Right + 5; }));
+                LowerPanel.Invoke((Action)(() => { LowerPanel.Height = StatusBar.Top; }));
+                StatusLabel.Invoke((Action)(() => { StatusLabel.Text = Message; }));
+            }
+            else
+            {
+                InstallButton.Visible = true;
+                StatusBar.Visible = false;
+                StatusLabel.Left = InstallButton.Right + 5;
+                LowerPanel.Height = StatusBar.Top;
+                StatusLabel.Text = Message;
+            }
         }
 
         private void DownloadingThreadWorker(Uri CurrentURI, string DownloadPath, string PackageName, Mutex DownloadingMutex)
@@ -131,20 +161,11 @@ namespace LimAppManager
 
             Parameters.EndResponseEvent.WaitOne();
 
-            DownloadingMutex.WaitOne();
-
-            DownloadingTimer.Enabled = false;
-            InstallButton.Visible = true;
-            StatusBar.Visible = false;
-            StatusLabel.Left = InstallButton.Right + 5;
-            LowerPanel.Height = StatusBar.Top;
-            StatusLabel.Text = "Download successfully";
+            UpdateUI("Download successfully");
 
             IsDownloaded = true;
             InstallButton.Text = "Install";
             InstallMenuItem.Text = "Install";
-
-            DownloadingMutex.ReleaseMutex();
         }
 
         private void InstallingThreadWorker(string DownloadPath, string InstallPath, Parameters.InstallableApp App, Mutex InstallingMutex)
@@ -160,16 +181,7 @@ namespace LimAppManager
                 }
                 catch (Exception NewEx)
                 {
-                    InstallingMutex.WaitOne();
-
-                    DownloadingTimer.Enabled = false;
-                    InstallButton.Visible = true;
-                    StatusBar.Visible = false;
-                    StatusLabel.Left = InstallButton.Right + 5;
-                    LowerPanel.Height = StatusBar.Top;
-                    StatusLabel.Text = "Error while uncompressing";
-
-                    InstallingMutex.ReleaseMutex();
+                    UpdateUI("Error while uncompressing");
 
                     return;
                 }
@@ -185,32 +197,13 @@ namespace LimAppManager
             }
             catch (Exception NewEx)
             {
-                InstallingMutex.WaitOne();
-
-                DownloadingTimer.Enabled = false;
-                InstallButton.Visible = true;
-                StatusBar.Visible = false;
-                StatusLabel.Left = InstallButton.Right + 5;
-                LowerPanel.Height = StatusBar.Top;
-                StatusLabel.Text = "Error while installation";
-
-                InstallingMutex.ReleaseMutex();
+                UpdateUI("Error while installation");
 
                 return;
             }
 
-            InstallingMutex.WaitOne();
-
-            DownloadingTimer.Enabled = false;
-            InstallButton.Visible = true;
-            StatusBar.Visible = false;
-            StatusLabel.Left = InstallButton.Right + 5;
-            LowerPanel.Height = StatusBar.Top;
-
-            if (!IsInstalled) StatusLabel.Text = "Error while installation";
-            else StatusLabel.Text = "Installed successfully";
-
-            InstallingMutex.ReleaseMutex(); 
+            if (!IsInstalled) UpdateUI("Error while installation");
+            else UpdateUI("Installed successfully");
         }
 
         private void DownloadingTimer_Tick(object sender, EventArgs e)

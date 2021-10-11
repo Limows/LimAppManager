@@ -77,12 +77,7 @@ namespace LimAppManager
         private void ListingWorker(Uri ServerUri, Mutex ListingMutex)
         {
             NetHelper Net = new NetHelper();
-
-            ListingMutex.WaitOne();
-
             Cursor.Current = Cursors.WaitCursor;
-
-            ListingMutex.ReleaseMutex();
 
             switch (Parameters.OSVersion)
             {
@@ -111,8 +106,6 @@ namespace LimAppManager
 
             Parameters.EndResponseEvent.WaitOne();
 
-            ListingMutex.WaitOne();
-
             if (!String.IsNullOrEmpty(Parameters.ResponseMessage))
             {
 
@@ -123,9 +116,9 @@ namespace LimAppManager
                     string[] AppLine = line.Split('=');
 
                     Parameters.AppsList.Add(AppLine[0], new Uri(AppLine[1].Split('\r')[0]));
-                    AppsListBox.Items.Add(new ListViewItem(AppLine[0]));
+                    AppsListBox.Invoke((Action)(() => { AppsListBox.Items.Add(new ListViewItem(AppLine[0])); }));
                 }
-
+                
                 Cursor.Current = Cursors.Default;
             }
             else
@@ -133,8 +126,6 @@ namespace LimAppManager
                 Cursor.Current = Cursors.Default;
                 MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
             }
-
-            ListingMutex.ReleaseMutex();
         }
 
         private void ImageLogoList_SetSize()

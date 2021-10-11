@@ -46,7 +46,7 @@ namespace LimAppManager
             public string Name;
             public string Author;
             public string Version;
-            public int Size;
+            public ulong Size;
             public bool IsCompressed;
             public string PackageName;
             public string IconName;
