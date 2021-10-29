@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">LimowsFTPClient</string>
+    <string name="app_name">LimAppManager</string>
     <string name="action_settings">Settings</string>
     <string name="install">Install</string>
+    <string name="install_root">Silent install</string>
     <string name="delete">Delete file</string>
 
 </resources>
