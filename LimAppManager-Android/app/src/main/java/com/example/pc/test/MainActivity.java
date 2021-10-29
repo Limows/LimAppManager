@@ -21,8 +21,11 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -40,24 +43,44 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView tv = (TextView) findViewById(R.id.textView);
-        String text = "Release: " + Build.VERSION.RELEASE + "\nSDK: " + Build.VERSION.SDK +
-                "\nIncremental: " + Build.VERSION.INCREMENTAL;
-        tv.setText(text);
+        String SdkVersion = "unknown";
+
+        try {
+            SdkVersion = Build.VERSION.SDK;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        TextView textView = (TextView) findViewById(R.id.textView);
+        String text = "Release: " + Build.VERSION.RELEASE + "\nSDK: " + SdkVersion +
+                "\nIncremental: " + Build.VERSION.INCREMENTAL + "\nHas root: ";
+        boolean root = new File("/system/bin/su").exists() || new File("/system/xbin/su").exists();
+        text += root ? "Yes" : "No";
+
+        textView.setText(text);
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
         Log.d("TAG", "Hello");
 
-        connect_and_get_file("");
+        runInThread("", false);
 
         Button installButton = (Button) findViewById(R.id.install);
         Button deleteFile = (Button) findViewById(R.id.delete);
+        Button silentInstallButton = (Button) findViewById(R.id.silent_install);
+        silentInstallButton.setEnabled(false); // TODO set by (root);
 
         installButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                connect_and_get_file(spinner.getSelectedItem().toString());
+                runInThread(spinner.getSelectedItem().toString(), false);
+            }
+        });
+
+        silentInstallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                runInThread(spinner.getSelectedItem().toString(), true);
             }
         });
 
@@ -77,7 +100,17 @@ public class MainActivity extends Activity {
 
     }
 
-    private void connect_and_get_file(String fileName) {
+    private void runInThread(final String fileName, final boolean rootInstall) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                connectAndGetFile(fileName, rootInstall);
+            }
+        }).start();
+
+    }
+
+    private void connectAndGetFile(String fileName, boolean rootInstall) {
         FTPClient client = new FTPClient();
         try {
             client.connect(InetAddress.getByName("limowski.xyz"), 2121);
@@ -89,10 +122,15 @@ public class MainActivity extends Activity {
                 for (FTPFile file : files) {
                     apps.add(file.getName());
                 }
-                ArrayAdapter<String> adp = new ArrayAdapter<String>(this,
+                final ArrayAdapter<String> adp = new ArrayAdapter<>(this,
                         android.R.layout.simple_spinner_item, apps);
                 adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(adp);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        spinner.setAdapter(adp);
+                    }
+                });
             } else {
                 client.setFileType(FTP.BINARY_FILE_TYPE);
                 String filePath = "/Android API3/" + fileName;
@@ -102,11 +140,73 @@ public class MainActivity extends Activity {
                 OutputStream stream = new BufferedOutputStream(new FileOutputStream(savedFile));
                 client.retrieveFile(filePath, stream);
                 stream.close();
+                if (rootInstall) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Start installing silently",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    DataOutputStream dataOutputStream = null;
+                    BufferedReader errorReader = null;
+                    try {
+                        Process process = Runtime.getRuntime().exec("su");
+                        dataOutputStream = new DataOutputStream(process.getOutputStream());
+                        String command = "pm install -r " + localFileName + "\n";
+                        dataOutputStream.writeBytes(command);
+                        //dataOutputStream.write(command.getBytes(Charset.forName("utf-8")));
+                        dataOutputStream.flush();
+                        dataOutputStream.writeBytes("exit\n");
+                        dataOutputStream.flush();
+                        process.waitFor();
+                        errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                        StringBuilder sb = new StringBuilder();
+                        String line;
+                        while ((line = errorReader.readLine()) != null){
+                            sb.append(line);
+                        }
+                        String output = sb.toString();
+                        if (!output.contains("Failure")) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Successfully installed",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-                Intent install = new Intent(Intent.ACTION_VIEW)
-                        .setDataAndType(Uri.fromFile(savedFile),
-                                "application/vnd.android.package-archive");
-                startActivity(install);
+                        } else {
+                            Log.d("SILENT", output);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Error while installing, try regular install",
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+                            if (dataOutputStream != null) {
+                                dataOutputStream.close();
+                            }
+                            if (errorReader != null) {
+                                errorReader.close();
+                            }
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    Intent install = new Intent(Intent.ACTION_VIEW)
+                            .setDataAndType(Uri.fromFile(savedFile),
+                                    "application/vnd.android.package-archive");
+                    startActivity(install);
+                }
 
             }
             client.disconnect();
