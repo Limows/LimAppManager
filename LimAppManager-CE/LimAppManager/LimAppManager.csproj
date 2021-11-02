@@ -4,21 +4,20 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1B9E7C5F-7244-400F-A6E5-A0FA575D7B27}</ProjectGuid>
+    <ProjectGuid>{1B435F69-5280-4E0A-9775-01F88E3B6CF7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LimAppManager</RootNamespace>
     <AssemblyName>LimAppManager</AssemblyName>
     <ProjectTypeGuids>{4D628B5B-2FBC-4AA6-8C16-197242AEB884};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PlatformFamilyName>PocketPC</PlatformFamilyName>
-    <PlatformID>3C41C503-53EF-4c2a-8DD4-A8217CAD115E</PlatformID>
-    <OSVersion>4.20</OSVersion>
+    <PlatformFamilyName>WindowsCE</PlatformFamilyName>
+    <PlatformID>E2BECB1F-8C8C-41ba-B736-9BE7D946A398</PlatformID>
+    <OSVersion>5.0</OSVersion>
     <DeployDirSuffix>LimAppManager</DeployDirSuffix>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <NativePlatformName>Pocket PC 2003</NativePlatformName>
+    <NativePlatformName>Windows CE</NativePlatformName>
     <FormFactorID>
     </FormFactorID>
-    <StartupObject>LimAppManager.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,7 +53,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\INIFileParser.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsCE.Forms" />
+    <Reference Include="Microsoft.Windowsce.Forms" />
     <Reference Include="Microsoft.WindowsMobile.Configuration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Mobile 5.0 SDK R2\Managed Libraries\Microsoft.WindowsMobile.Configuration.dll</HintPath>
@@ -72,10 +71,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WinMobileNetCFExt, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\WinMobileNetCFExt\bin\Debug\WinMobileNetCFExt.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutAppBox.cs">
@@ -106,7 +101,7 @@
     <Compile Include="InstalledForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InstalledForm.Designer.cs">
+    <Compile Include="InstalledForm.designer.cs">
       <DependentUpon>InstalledForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IOHelper.cs" />
@@ -121,7 +116,7 @@
     <Compile Include="ParamsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ParamsForm.Designer.cs">
+    <Compile Include="ParamsForm.designer.cs">
       <DependentUpon>ParamsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -170,18 +165,16 @@
     <Compile Include="SendBugForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SendBugForm.Designer.cs">
+    <Compile Include="SendBugForm.designer.cs">
       <DependentUpon>SendBugForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Servers.list">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\..\..\..\GitHub\WinMobileNetCFExt\WinMobileNetCFExt.csproj">
+      <Project>{80729D09-C701-483C-99AA-0128C29E0AB3}</Project>
+      <Name>WinMobileNetCFExt</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CompactFramework.CSharp.targets" />
   <ProjectExtensions>
