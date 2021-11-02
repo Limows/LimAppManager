@@ -35,7 +35,7 @@ Legacy application manager project
 
  - LimAppManager-WM for Windows Mobile
  - LimAppManager-S60 for Symbian Series 60
- - LimAppManager-CE5 for Windows CE 5 and above
+ - LimAppManager-CE for Windows CE 4 and above
  - LimAppManager-Android for Android OS
  - LimAppManager-iOS for iOS devices
  - LimAppManager-Palm for Palm OS
