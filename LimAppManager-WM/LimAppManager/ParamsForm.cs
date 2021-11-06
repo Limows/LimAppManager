@@ -13,6 +13,8 @@ namespace LimAppManager
 {
     public partial class ParamsForm : Form
     {
+        private bool IsSaveParams = false;
+ 
         public ParamsForm()
         {
             InitializeComponent();
@@ -161,7 +163,7 @@ namespace LimAppManager
 
         private void ParamsForm_Closing(object sender, CancelEventArgs e)
         {
-            if (Parameters.IsSaveParams)
+            if (IsSaveParams)
             {
                 Parameters.DownloadPath = CheckDirectory(DownloadPathBox.Text);
                 Parameters.IsAutoInstall = AutoInstallBox.Checked;
@@ -238,13 +240,13 @@ namespace LimAppManager
 
         private void OkMenuItem_Click(object sender, EventArgs e)
         {
-            Parameters.IsSaveParams = true;
+            IsSaveParams = true;
             Close();
         }
 
         private void CanselMenuItem_Click(object sender, EventArgs e)
         {
-            Parameters.IsSaveParams = false;
+            IsSaveParams = false;
             Close();
         }
 

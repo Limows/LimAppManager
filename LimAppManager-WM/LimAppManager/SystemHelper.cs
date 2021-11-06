@@ -51,6 +51,15 @@ namespace LimAppManager
             return InstallDir;
         }
 
+        static public void RunApp(string ExecPath)
+        {
+            Process InstallProc = new Process();
+            InstallProc.StartInfo.FileName = ExecPath;
+
+            InstallProc.Start();
+
+        }
+
         static public void GetDebugInfo(out Parameters.DebugInfo Info)
         {
             Info = new Parameters.DebugInfo();
@@ -427,7 +436,6 @@ namespace LimAppManager
                     if (Parameters.OSVersion == Parameters.OSVersions.WM2003)
                     {
                         Process InstallProc = new Process();
-                        Parameters.IsUninstalling = true;
 
                         InstallProc.StartInfo.FileName = @"\windows\unload.exe";
 

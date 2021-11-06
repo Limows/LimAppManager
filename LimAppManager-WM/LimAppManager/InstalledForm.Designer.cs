@@ -33,7 +33,6 @@
             this.MainMenu = new System.Windows.Forms.MainMenu();
             this.ActionsMenuItem = new System.Windows.Forms.MenuItem();
             this.PropMenuItem = new System.Windows.Forms.MenuItem();
-            this.RemoveMenuItem = new System.Windows.Forms.MenuItem();
             this.BackMenuItem = new System.Windows.Forms.MenuItem();
             this.InstalledPanel = new System.Windows.Forms.Panel();
             this.InstalledBox = new System.Windows.Forms.ListView();
@@ -50,18 +49,12 @@
             // ActionsMenuItem
             // 
             this.ActionsMenuItem.MenuItems.Add(this.PropMenuItem);
-            this.ActionsMenuItem.MenuItems.Add(this.RemoveMenuItem);
             this.ActionsMenuItem.Text = "Actions";
             // 
             // PropMenuItem
             // 
             this.PropMenuItem.Text = "Properties";
             this.PropMenuItem.Click += new System.EventHandler(this.PropMenuItem_Click);
-            // 
-            // RemoveMenuItem
-            // 
-            this.RemoveMenuItem.Text = "Remove";
-            this.RemoveMenuItem.Click += new System.EventHandler(this.RemoveMenuItem_Click);
             // 
             // BackMenuItem
             // 
@@ -87,6 +80,7 @@
             this.InstalledBox.Size = new System.Drawing.Size(240, 247);
             this.InstalledBox.TabIndex = 1;
             this.InstalledBox.View = System.Windows.Forms.View.Details;
+            this.InstalledBox.ItemActivate += new System.EventHandler(this.InstalledBox_ItemActivate);
             // 
             // SearchBox
             // 
@@ -111,7 +105,6 @@
             this.Name = "InstalledForm";
             this.Text = "Installed Apps";
             this.Load += new System.EventHandler(this.InstalledForm_Load);
-            this.Closing += new System.ComponentModel.CancelEventHandler(this.InstalledForm_Closing);
             this.InstalledPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -122,7 +115,6 @@
         private System.Windows.Forms.Panel InstalledPanel;
         private System.Windows.Forms.MenuItem ActionsMenuItem;
         private System.Windows.Forms.MenuItem PropMenuItem;
-        private System.Windows.Forms.MenuItem RemoveMenuItem;
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.MenuItem BackMenuItem;
         private Microsoft.WindowsCE.Forms.InputPanel InputPanel;

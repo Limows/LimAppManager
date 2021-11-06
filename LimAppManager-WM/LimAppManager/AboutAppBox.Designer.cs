@@ -35,7 +35,10 @@
             this.labelInstallDate = new System.Windows.Forms.Label();
             this.AboutAppPanel = new System.Windows.Forms.Panel();
             this.MainMenu = new System.Windows.Forms.MainMenu();
-            this.OkMenuItem = new System.Windows.Forms.MenuItem();
+            this.ActionsMenuItem = new System.Windows.Forms.MenuItem();
+            this.LaunchMenuItem = new System.Windows.Forms.MenuItem();
+            this.RemoveMenuItem = new System.Windows.Forms.MenuItem();
+            this.BackMenuItem = new System.Windows.Forms.MenuItem();
             this.AboutAppPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,12 +101,29 @@
             // 
             // MainMenu
             // 
-            this.MainMenu.MenuItems.Add(this.OkMenuItem);
+            this.MainMenu.MenuItems.Add(this.ActionsMenuItem);
+            this.MainMenu.MenuItems.Add(this.BackMenuItem);
             // 
-            // OkMenuItem
+            // ActionsMenuItem
             // 
-            this.OkMenuItem.Text = "OK";
-            this.OkMenuItem.Click += new System.EventHandler(this.OkMenuItem_Click);
+            this.ActionsMenuItem.MenuItems.Add(this.LaunchMenuItem);
+            this.ActionsMenuItem.MenuItems.Add(this.RemoveMenuItem);
+            this.ActionsMenuItem.Text = "Actions";
+            // 
+            // LaunchMenuItem
+            // 
+            this.LaunchMenuItem.Text = "Launch";
+            this.LaunchMenuItem.Click += new System.EventHandler(this.LaunchMenuItem_Click);
+            // 
+            // RemoveMenuItem
+            // 
+            this.RemoveMenuItem.Text = "Remove";
+            this.RemoveMenuItem.Click += new System.EventHandler(this.RemoveMenuItem_Click);
+            // 
+            // BackMenuItem
+            // 
+            this.BackMenuItem.Text = "Back";
+            this.BackMenuItem.Click += new System.EventHandler(this.BackMenuItem_Click);
             // 
             // AboutAppBox
             // 
@@ -117,6 +137,7 @@
             this.Menu = this.MainMenu;
             this.Name = "AboutAppBox";
             this.Text = "About app";
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.AboutAppBox_Closing);
             this.AboutAppPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -131,6 +152,9 @@
         private System.Windows.Forms.Label labelInstallDate;
         private System.Windows.Forms.Panel AboutAppPanel;
         private System.Windows.Forms.MainMenu MainMenu;
-        private System.Windows.Forms.MenuItem OkMenuItem;
+        private System.Windows.Forms.MenuItem ActionsMenuItem;
+        private System.Windows.Forms.MenuItem LaunchMenuItem;
+        private System.Windows.Forms.MenuItem RemoveMenuItem;
+        private System.Windows.Forms.MenuItem BackMenuItem;
     }
 }

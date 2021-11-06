@@ -24,10 +24,8 @@ namespace LimAppManager
         public static bool IsAutoInstall;
         public static bool IsRmPackage;
         public static bool IsOverwrite;
-        public static bool IsUninstalling;
         public static bool IsSendDebug;
         public static ulong TempSize;
-        public static bool IsSaveParams;
         public static string ResponseMessage;
         public static AutoResetEvent EndResponseEvent;
         public static DebugInfo SysInfo;

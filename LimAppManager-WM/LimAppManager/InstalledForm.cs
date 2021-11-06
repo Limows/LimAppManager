@@ -19,38 +19,17 @@ namespace LimAppManager
 
         private void PropMenuItem_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(InstalledBox.Text))
+            if (!String.IsNullOrEmpty(InstalledBox.FocusedItem.Text))
             {
-                AboutAppBox NewAboutAppBox = new AboutAppBox(InstalledBox.Text);
+                AboutAppBox NewAboutAppBox = new AboutAppBox(InstalledBox.FocusedItem.Text);
                 NewAboutAppBox.ShowDialog();
+
+                GetAppsList(out Parameters.InstalledList);
             }
             else
             {
                 MessageBox.Show("Приложение не выбрано", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             }
-        }
-
-        private void RemoveMenuItem_Click(object sender, EventArgs e)
-        {
-            bool IsUninstalled = false;
-
-            if (!String.IsNullOrEmpty(InstalledBox.Text))
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                IsUninstalled = SystemHelper.AppUninstall(InstalledBox.Text);
-                Cursor.Current = Cursors.Default;
-
-                if (!IsUninstalled)
-                {
-                    MessageBox.Show("Удаление не удалось");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Приложение не выбрано", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-            }
-
-            GetAppsList(out Parameters.InstalledList);
         }
 
         private void GetAppsList(out List<string> InstalledList)
@@ -80,15 +59,6 @@ namespace LimAppManager
             ColumnHeader Header = new ColumnHeader();
             InstalledBox.Columns.Add(Header);
             InstalledBox.HeaderStyle = ColumnHeaderStyle.None;
-        }
-
-        private void InstalledForm_Closing(object sender, CancelEventArgs e)
-        {
-            if (Parameters.OSVersion == Parameters.OSVersions.WM2003 && Parameters.IsUninstalling)
-            {
-                e.Cancel = true;
-                Parameters.IsUninstalling = false;
-            }
         }
 
         private void BackMenuItem_Click(object sender, EventArgs e)
@@ -122,6 +92,14 @@ namespace LimAppManager
             if (SearchBox.Text == "") SearchBox.Text = "Search...";
 
             InputPanel.Enabled = false;
+        }
+
+        private void InstalledBox_ItemActivate(object sender, EventArgs e)
+        {
+            AboutAppBox NewAboutAppBox = new AboutAppBox(InstalledBox.FocusedItem.Text);
+            NewAboutAppBox.ShowDialog();
+
+            GetAppsList(out Parameters.InstalledList);
         }
     }
 }

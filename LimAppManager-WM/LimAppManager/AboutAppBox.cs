@@ -12,6 +12,7 @@ namespace LimAppManager
     public partial class AboutAppBox : Form
     {
         private Parameters.InstalledApp App;
+        private bool IsUninstalling = false;
 
         public AboutAppBox(string AppName)
         {
@@ -69,8 +70,8 @@ namespace LimAppManager
                 {
                     string AppName = SystemHelper.GetInstallDir(App.FullName).Split('\\')[SystemHelper.GetInstallDir(App.FullName).Split('\\').Length - 1];
 
-                    if (String.IsNullOrEmpty(AppTitle)) return "\\";
-                    else return AppTitle;
+                    if (String.IsNullOrEmpty(AppName)) return "\\";
+                    else return AppName;
                 }
             }
         }
@@ -105,7 +106,37 @@ namespace LimAppManager
             }
         }
 
-        private void OkMenuItem_Click(object sender, EventArgs e)
+        private void RemoveMenuItem_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            bool IsUninstalled = SystemHelper.AppUninstall(App.FullName);
+            Cursor.Current = Cursors.Default;
+
+            IsUninstalling = true;
+
+            if (!IsUninstalled)
+            {
+                MessageBox.Show("Удаление не удалось");
+            }
+        }
+
+        private void LaunchMenuItem_Click(object sender, EventArgs e)
+        {
+            string[] Executables = Directory.GetFiles(AppInstallPath, "*.exe");
+
+            SystemHelper.RunApp(Executables[0]);
+        }
+
+        private void AboutAppBox_Closing(object sender, CancelEventArgs e)
+        {
+            if (Parameters.OSVersion == Parameters.OSVersions.WM2003 && IsUninstalling)
+            {
+                e.Cancel = true;
+                IsUninstalling = false;
+            }
+        }
+
+        private void BackMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
