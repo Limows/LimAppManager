@@ -96,6 +96,12 @@
     <Compile Include="AppForm.designer.cs">
       <DependentUpon>AppForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SysInfoBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SysInfoBox.designer.cs">
+      <DependentUpon>SysInfoBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="DonateBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +142,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AppForm.resx">
       <DependentUpon>AppForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SysInfoBox.resx">
+      <DependentUpon>SysInfoBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DonateBox.resx">

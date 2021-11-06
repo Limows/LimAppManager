@@ -118,118 +118,89 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelProductName.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelOSVersion.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 9</value>
   </data>
-  <data name="labelProductName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 20</value>
+  <data name="labelOSVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 20</value>
   </data>
-  <data name="labelProductName.Text" xml:space="preserve">
-    <value>Program Name</value>
+  <data name="labelOSVersion.Text" xml:space="preserve">
+    <value>OS version:</value>
   </data>
-  <data name="&gt;&gt;labelProductName.Name" xml:space="preserve">
-    <value>labelProductName</value>
+  <data name="&gt;&gt;labelOSVersion.Name" xml:space="preserve">
+    <value>labelOSVersion</value>
   </data>
-  <data name="&gt;&gt;labelProductName.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelOSVersion.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelProductName.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelOSVersion.Parent" xml:space="preserve">
     <value>AboutPanel</value>
   </data>
-  <data name="&gt;&gt;labelProductName.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 29</value>
-  </data>
-  <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 20</value>
-  </data>
-  <data name="labelVersion.Text" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.Name" xml:space="preserve">
-    <value>labelVersion</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.Parent" xml:space="preserve">
-    <value>AboutPanel</value>
-  </data>
-  <data name="&gt;&gt;labelVersion.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelOSVersion.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="labelBuild.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 49</value>
+  <data name="labelDeviceName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 29</value>
   </data>
-  <data name="labelBuild.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 20</value>
+  <data name="labelDeviceName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 20</value>
   </data>
-  <data name="labelBuild.Text" xml:space="preserve">
-    <value>Build</value>
+  <data name="labelDeviceName.Text" xml:space="preserve">
+    <value>Device name:</value>
   </data>
-  <data name="&gt;&gt;labelBuild.Name" xml:space="preserve">
-    <value>labelBuild</value>
+  <data name="&gt;&gt;labelDeviceName.Name" xml:space="preserve">
+    <value>labelDeviceName</value>
   </data>
-  <data name="&gt;&gt;labelBuild.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelDeviceName.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelBuild.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelDeviceName.Parent" xml:space="preserve">
     <value>AboutPanel</value>
   </data>
-  <data name="&gt;&gt;labelBuild.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;labelDeviceName.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="labelCompanyName.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelCPU.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 69</value>
   </data>
-  <data name="labelCompanyName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 20</value>
+  <data name="labelCPU.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 20</value>
   </data>
-  <data name="labelCompanyName.Text" xml:space="preserve">
-    <value>Company Name</value>
+  <data name="labelCPU.Text" xml:space="preserve">
+    <value>CPU:</value>
   </data>
-  <data name="&gt;&gt;labelCompanyName.Name" xml:space="preserve">
-    <value>labelCompanyName</value>
+  <data name="&gt;&gt;labelCPU.Name" xml:space="preserve">
+    <value>labelCPU</value>
   </data>
-  <data name="&gt;&gt;labelCompanyName.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelCPU.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelCompanyName.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelCPU.Parent" xml:space="preserve">
     <value>AboutPanel</value>
   </data>
-  <data name="&gt;&gt;labelCompanyName.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;labelCPU.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBoxDescription.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="labelRAM.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 89</value>
   </data>
-  <data name="textBoxDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 94</value>
+  <data name="labelRAM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 20</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBoxDescription.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="labelRAM.Text" xml:space="preserve">
+    <value>RAM size:</value>
   </data>
-  <data name="textBoxDescription.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 174</value>
+  <data name="&gt;&gt;labelRAM.Name" xml:space="preserve">
+    <value>labelRAM</value>
   </data>
-  <data name="textBoxDescription.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="&gt;&gt;labelRAM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxDescription.Name" xml:space="preserve">
-    <value>textBoxDescription</value>
+  <data name="&gt;&gt;labelRAM.Parent" xml:space="preserve">
+    <value>AboutPanel</value>
   </data>
-  <data name="&gt;&gt;textBoxDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxDescription.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;textBoxDescription.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;labelRAM.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <metadata name="MainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -237,14 +208,57 @@
   <data name="OKMenuItem.Text" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="labelScreenSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 49</value>
+  </data>
+  <data name="labelScreenSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 20</value>
+  </data>
+  <data name="labelScreenSize.Text" xml:space="preserve">
+    <value>Screen size:</value>
+  </data>
+  <data name="&gt;&gt;labelScreenSize.Name" xml:space="preserve">
+    <value>labelScreenSize</value>
+  </data>
+  <data name="&gt;&gt;labelScreenSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelScreenSize.Parent" xml:space="preserve">
+    <value>AboutPanel</value>
+  </data>
+  <data name="&gt;&gt;labelScreenSize.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelDrive.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 109</value>
+  </data>
+  <data name="labelDrive.Size" type="System.Drawing.Size, System.Drawing">
+    <value>198, 20</value>
+  </data>
+  <data name="labelDrive.Text" xml:space="preserve">
+    <value>Space amount:</value>
+  </data>
+  <data name="&gt;&gt;labelDrive.Name" xml:space="preserve">
+    <value>labelDrive</value>
+  </data>
+  <data name="&gt;&gt;labelDrive.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelDrive.Parent" xml:space="preserve">
+    <value>AboutPanel</value>
+  </data>
+  <data name="&gt;&gt;labelDrive.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AboutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+    <value>Fill</value>
   </data>
   <data name="AboutPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
   <data name="AboutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 94</value>
+    <value>240, 268</value>
   </data>
   <data name="&gt;&gt;AboutPanel.Name" xml:space="preserve">
     <value>AboutPanel</value>
@@ -256,7 +270,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;AboutPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <metadata name="$this.FormFactorShadowProperty" xml:space="preserve">
     <value>POCKET_PC_2003_PORTRAIT</value>
@@ -267,6 +281,7 @@
   <metadata name="$this.Skin" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -274,7 +289,7 @@
     <value>240, 268</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>About</value>
+    <value>About System</value>
   </data>
   <data name="&gt;&gt;MainMenu.Name" xml:space="preserve">
     <value>MainMenu</value>
@@ -289,7 +304,7 @@
     <value>System.Windows.Forms.MenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>AboutBox</value>
+    <value>SysInfoBox</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

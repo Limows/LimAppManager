@@ -30,11 +30,13 @@ namespace LimAppManager
         public static bool IsSaveParams;
         public static string ResponseMessage;
         public static AutoResetEvent EndResponseEvent;
+        public static DebugInfo SysInfo;
 
         public struct InstalledApp
         {
             public string Name;
             public string Author;
+            public string FullName;
             public string Version;
             public string InstallDir;
             public string InstallDate;
@@ -46,7 +48,7 @@ namespace LimAppManager
             public string Name;
             public string Author;
             public string Version;
-            public ulong Size;
+            public double Size;
             public bool IsCompressed;
             public string PackageName;
             public string IconName;
@@ -58,17 +60,19 @@ namespace LimAppManager
             public int ScreenHeight;
             public string Cpu;
             public string DeviceName;
+            public double RamSize;
+            public double DriveSpace;
             public OSVersions OSVersion;
         }
 
         public enum OSVersions
         {
-            WM2003 = 4,
-            WM5 = 5,
-            WM6,
-            CE4,
-            CE5,
-            CE6
+            WM2003 = 42,
+            WM5 = 51,
+            WM6 = 52,
+            CE4 = 4,
+            CE5 = 5,
+            CE6 = 6
         }
 
         /// <summary>

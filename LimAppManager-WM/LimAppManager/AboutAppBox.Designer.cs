@@ -45,7 +45,7 @@
             this.labelProductName.Location = new System.Drawing.Point(0, 0);
             this.labelProductName.Name = "labelProductName";
             this.labelProductName.Size = new System.Drawing.Size(240, 20);
-            this.labelProductName.Text = "Имя программы";
+            this.labelProductName.Text = "App name:";
             // 
             // labelVersion
             // 
@@ -53,7 +53,7 @@
             this.labelVersion.Location = new System.Drawing.Point(0, 20);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(240, 20);
-            this.labelVersion.Text = "Версия";
+            this.labelVersion.Text = "Version:";
             // 
             // labelCompanyName
             // 
@@ -61,7 +61,7 @@
             this.labelCompanyName.Location = new System.Drawing.Point(0, 40);
             this.labelCompanyName.Name = "labelCompanyName";
             this.labelCompanyName.Size = new System.Drawing.Size(240, 20);
-            this.labelCompanyName.Text = "Имя компании";
+            this.labelCompanyName.Text = "Company name:";
             // 
             // textBoxInstallPath
             // 
@@ -74,7 +74,7 @@
             this.textBoxInstallPath.ReadOnly = true;
             this.textBoxInstallPath.Size = new System.Drawing.Size(240, 179);
             this.textBoxInstallPath.TabIndex = 7;
-            this.textBoxInstallPath.Text = "Путь установки ";
+            this.textBoxInstallPath.Text = "Install path";
             // 
             // labelInstallDate
             // 
@@ -82,7 +82,7 @@
             this.labelInstallDate.Location = new System.Drawing.Point(0, 60);
             this.labelInstallDate.Name = "labelInstallDate";
             this.labelInstallDate.Size = new System.Drawing.Size(240, 20);
-            this.labelInstallDate.Text = "Дата установки";
+            this.labelInstallDate.Text = "Install date:";
             // 
             // AboutAppPanel
             // 
@@ -116,7 +116,7 @@
             this.Controls.Add(this.AboutAppPanel);
             this.Menu = this.MainMenu;
             this.Name = "AboutAppBox";
-            this.Text = "О программе";
+            this.Text = "About app";
             this.AboutAppPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 

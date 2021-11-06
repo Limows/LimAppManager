@@ -12,8 +12,6 @@ namespace LimAppManager
 {
     public partial class MainForm : Form
     {
-        Parameters.DebugInfo SysInfo;
-
         public MainForm()
         {
             InitializeComponent();
@@ -22,8 +20,6 @@ namespace LimAppManager
         private void MainForm_Load(object sender, EventArgs e)
         {   
             Parameters.OSVersion = (Parameters.OSVersions)Environment.OSVersion.Version.Major;
-
-            SystemHelper.GetDebugInfo(out SysInfo);
 
             try
             {
@@ -36,6 +32,8 @@ namespace LimAppManager
                 Parameters.TempPath = @"\Temp\AppManager";
                 Parameters.ServersPath = IOHelper.GetCurrentDirectory() + @"\Servers.list";
             }
+
+            SystemHelper.GetDebugInfo(out Parameters.SysInfo);
 
             try
             {
@@ -328,9 +326,16 @@ namespace LimAppManager
 
         private void SendBugMenuItem_Click(object sender, EventArgs e)
         {
-            SendBugForm SendBug = new SendBugForm(SysInfo);
+            SendBugForm SendBug = new SendBugForm(Parameters.SysInfo);
 
             SendBug.ShowDialog();
+        }
+
+        private void SysInfoMenuItem_Click(object sender, EventArgs e)
+        {
+            SysInfoBox SysInfo = new SysInfoBox(Parameters.SysInfo);
+
+            SysInfo.ShowDialog();
         }
     }
 }

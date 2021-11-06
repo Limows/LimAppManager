@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Xml;
 using Microsoft.WindowsMobile.Configuration;
+using WinMobileNetCFExt;
 
 namespace LimAppManager
 {
@@ -19,7 +20,7 @@ namespace LimAppManager
         /// <returns>List of installed apps</returns> 
         static public List<string> GetInstalledApps()
         {
-            string SoftwareKey = "Software\\Apps";
+            string SoftwareKey = @"Software\Apps";
             List<string> AppsList = new List<string>();
 
             using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey))
@@ -39,7 +40,7 @@ namespace LimAppManager
 
         static public string GetInstallDir(string AppName)
         {
-            string SoftwareKey = "Software\\Apps\\" + AppName;
+            string SoftwareKey = @"Software\Apps\" + AppName;
             string InstallDir;
 
             using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey))
@@ -59,6 +60,16 @@ namespace LimAppManager
             Info.OSVersion = Parameters.OSVersion;
             Info.Cpu = "";
             Info.DeviceName = "";
+            Info.RamSize = 0;
+
+            try
+            {
+                Info.DriveSpace = Parameters.BytesToMegs(IO.GetStorageSpace(Parameters.InstallPath));
+            }
+            catch (ArgumentNullException)
+            {
+                Info.DriveSpace = 0;
+            }
 
         }
 
@@ -125,6 +136,7 @@ namespace LimAppManager
             InstalledApp.InstallDate = DateTime.Now.Date.ToString("dd.MM.yy");
             InstalledApp.InstallDir = InstallDir;
             InstalledApp.Name = App.Name;
+            InstalledApp.FullName = App.Author + " " + App.Name;
             InstalledApp.Version = App.Version;
 
             string SoftwareKey = @"LimAppManager\";
@@ -137,9 +149,48 @@ namespace LimAppManager
                     AppKey.SetValue("InstallDate", InstalledApp.InstallDate);
                     AppKey.SetValue("InstallDir", InstalledApp.InstallDir);
                     AppKey.SetValue("Name", InstalledApp.Name);
+                    AppKey.SetValue("FullName", InstalledApp.FullName);
                     AppKey.SetValue("Version", InstalledApp.Version);
                 }
             }
+        }
+
+        static public Parameters.InstalledApp ReadAppInfo(string FullName)
+        {
+            Parameters.InstalledApp App = new Parameters.InstalledApp();
+            string SoftwareKey = @"Software\Apps\" + FullName;
+            string AppName;
+
+            using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey))
+            {
+                AppName = Convert.ToString(RegKey.GetValue("AppName", ""));   
+            }
+
+            if (!String.IsNullOrEmpty(AppName))
+            {
+                SoftwareKey = @"LimAppManager\" + AppName;
+
+                using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey))
+                {
+                    App.Author = Convert.ToString(RegKey.GetValue("Author", ""));   
+                    App.FullName = FullName;
+                    App.InstallDate = Convert.ToString(RegKey.GetValue("InstallDate", ""));
+                    App.InstallDir = Convert.ToString(RegKey.GetValue("InstallDir", ""));
+                    App.Name = Convert.ToString(RegKey.GetValue("Name", ""));
+                    App.Version = Convert.ToString(RegKey.GetValue("Version", ""));
+                }
+            }
+            else
+            {
+                App.Author = "";
+                App.FullName = FullName;
+                App.InstallDate = "";
+                App.InstallDir = "";
+                App.Name = "";
+                App.Version = "";
+            }
+
+            return App;
         }
 
         static public void RemoveAppInfo(string AppName)
@@ -161,7 +212,7 @@ namespace LimAppManager
         {   
             string ConsoleArguments = "/delete 0 /noaskdest";
 
-            string SoftwareKey = "Software\\Apps\\Microsoft Application Installer";
+            string SoftwareKey = @"Software\Apps\Microsoft Application Installer";
 
             using (RegistryKey AppInstallerKey = Registry.LocalMachine.OpenSubKey(SoftwareKey, true))
             {   
@@ -179,7 +230,7 @@ namespace LimAppManager
                     InstallKey.SetValue(CabPath, InstallPath);
 
                     Process InstallProc = new Process();
-                    InstallProc.StartInfo.FileName = "\\windows\\wceload.exe";
+                    InstallProc.StartInfo.FileName = @"\windows\wceload.exe";
 
                     InstallProc.StartInfo.Arguments = ConsoleArguments;// +"\"" + CabPath + "\"";
 
@@ -264,7 +315,7 @@ namespace LimAppManager
 
         static private void AddToRegistry(string AppName, string InstallPath, string[] ExecFiles)
         {
-            string SoftwareKey = "Software\\Apps\\";
+            string SoftwareKey = @"Software\Apps\";
 
             using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey, true))
             {
@@ -279,7 +330,7 @@ namespace LimAppManager
             if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
             {
 
-                SoftwareKey = "Security\\AppInstall\\";
+                SoftwareKey = @"Security\AppInstall\";
 
                 using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey, true))
                 {
@@ -302,7 +353,7 @@ namespace LimAppManager
 
         static private void RemoveFromRegistry(string AppName)
         {
-            string SoftwareKey = "Software\\Apps\\";
+            string SoftwareKey = @"Software\Apps\";
 
             using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey, true))
             {
@@ -317,7 +368,7 @@ namespace LimAppManager
             if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
             {
 
-                SoftwareKey = "Security\\AppInstall\\";
+                SoftwareKey = @"Security\AppInstall\";
 
                 using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey, true))
                 {
@@ -335,7 +386,7 @@ namespace LimAppManager
         {
             if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
             {
-                string SoftwareKey = "Security\\AppInstall\\";
+                string SoftwareKey = @"Security\AppInstall\";
 
                 using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey, true))
                 {
@@ -350,7 +401,7 @@ namespace LimAppManager
             }
             else
             {
-                string SoftwareKey = "Software\\Apps\\";
+                string SoftwareKey = @"Software\Apps\";
 
                 using (RegistryKey RegKey = Registry.LocalMachine.OpenSubKey(SoftwareKey, true))
                 {
@@ -378,7 +429,7 @@ namespace LimAppManager
                         Process InstallProc = new Process();
                         Parameters.IsUninstalling = true;
 
-                        InstallProc.StartInfo.FileName = "\\windows\\unload.exe";
+                        InstallProc.StartInfo.FileName = @"\windows\unload.exe";
 
                         InstallProc.StartInfo.Arguments = AppName;
 

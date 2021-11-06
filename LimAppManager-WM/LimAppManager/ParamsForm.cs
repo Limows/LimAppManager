@@ -179,16 +179,21 @@ namespace LimAppManager
                 }
                 else
                 {
+
                     try
                     {
                         if (!Directory.Exists(Parameters.InstallPath))
                         {
                             Directory.CreateDirectory(Parameters.InstallPath);
                         }
+
+                        Parameters.SysInfo.DriveSpace = Parameters.BytesToMegs(IO.GetStorageSpace(Parameters.InstallPath));
                     }
                     catch
                     {
                         MessageBox.Show("The selected device is not ready", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                        
+                        Parameters.SysInfo.DriveSpace = 0;
                         e.Cancel = true;
                         return;
                     }

@@ -77,15 +77,6 @@ namespace LimAppManager
         private void InstalledForm_Load(object sender, EventArgs e)
         {
             GetAppsList(out Parameters.InstalledList);
-
-            try
-            {
-                MemLabel.Text = "Free memory amount: " + Parameters.BytesToMegs(IO.GetStorageSpace(Parameters.InstallPath)).ToString("0.##") + " MB";
-            }
-            catch (ArgumentNullException)
-            {
-                MemLabel.Text = "Free memory amount: 0 MB";
-            }
         }
 
         private void InstalledForm_Closing(object sender, CancelEventArgs e)

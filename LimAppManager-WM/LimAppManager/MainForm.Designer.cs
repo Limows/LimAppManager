@@ -40,10 +40,13 @@
             this.RefreshMenuItem = new System.Windows.Forms.MenuItem();
             this.InstalledMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.SendBugMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.QuitMenuItem = new System.Windows.Forms.MenuItem();
             this.InfoMenuItem = new System.Windows.Forms.MenuItem();
             this.HelpMenuItem = new System.Windows.Forms.MenuItem();
             this.AboutMenuItem = new System.Windows.Forms.MenuItem();
+            this.SysInfoMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem8 = new System.Windows.Forms.MenuItem();
             this.UpdateMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem10 = new System.Windows.Forms.MenuItem();
@@ -54,8 +57,6 @@
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.InputPanel = new Microsoft.WindowsCE.Forms.InputPanel(this.components);
             this.timer1 = new System.Windows.Forms.Timer();
-            this.SendBugMenuItem = new System.Windows.Forms.MenuItem();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.MainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,6 +95,15 @@
             // 
             this.menuItem4.Text = "-";
             // 
+            // SendBugMenuItem
+            // 
+            this.SendBugMenuItem.Text = "Send Bug";
+            this.SendBugMenuItem.Click += new System.EventHandler(this.SendBugMenuItem_Click);
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Text = "-";
+            // 
             // QuitMenuItem
             // 
             this.QuitMenuItem.Text = "Quit";
@@ -103,6 +113,7 @@
             // 
             this.InfoMenuItem.MenuItems.Add(this.HelpMenuItem);
             this.InfoMenuItem.MenuItems.Add(this.AboutMenuItem);
+            this.InfoMenuItem.MenuItems.Add(this.SysInfoMenuItem);
             this.InfoMenuItem.MenuItems.Add(this.menuItem8);
             this.InfoMenuItem.MenuItems.Add(this.UpdateMenuItem);
             this.InfoMenuItem.MenuItems.Add(this.menuItem10);
@@ -117,6 +128,11 @@
             // 
             this.AboutMenuItem.Text = "About";
             this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
+            // 
+            // SysInfoMenuItem
+            // 
+            this.SysInfoMenuItem.Text = "System Info";
+            this.SysInfoMenuItem.Click += new System.EventHandler(this.SysInfoMenuItem_Click);
             // 
             // menuItem8
             // 
@@ -187,15 +203,6 @@
             this.SearchBox.GotFocus += new System.EventHandler(this.SearchBox_GotFocus);
             this.SearchBox.LostFocus += new System.EventHandler(this.SearchBox_LostFocus);
             // 
-            // SendBugMenuItem
-            // 
-            this.SendBugMenuItem.Text = "Send Bug";
-            this.SendBugMenuItem.Click += new System.EventHandler(this.SendBugMenuItem_Click);
-            // 
-            // menuItem2
-            // 
-            this.menuItem2.Text = "-";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -238,6 +245,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.MenuItem SendBugMenuItem;
         private System.Windows.Forms.MenuItem menuItem2;
+        private System.Windows.Forms.MenuItem SysInfoMenuItem;
 
     }
 }

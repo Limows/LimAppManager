@@ -15,7 +15,6 @@ namespace LimAppManager
         {
             InitializeComponent();
 
-            this.Text = String.Format("About");
             this.labelProductName.Text = AssemblyProduct;
             this.labelVersion.Text = String.Format("Version: {0}", AssemblyVersion);
             this.labelBuild.Text = String.Format("Build date: {0}", AssemblyBuildDate);

@@ -37,7 +37,6 @@
             this.BackMenuItem = new System.Windows.Forms.MenuItem();
             this.InstalledPanel = new System.Windows.Forms.Panel();
             this.InstalledBox = new System.Windows.Forms.ListBox();
-            this.MemLabel = new System.Windows.Forms.Label();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.InputPanel = new Microsoft.WindowsCE.Forms.InputPanel(this.components);
             this.InstalledPanel.SuspendLayout();
@@ -73,7 +72,6 @@
             // 
             this.InstalledPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
             this.InstalledPanel.Controls.Add(this.InstalledBox);
-            this.InstalledPanel.Controls.Add(this.MemLabel);
             this.InstalledPanel.Controls.Add(this.SearchBox);
             this.InstalledPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InstalledPanel.Location = new System.Drawing.Point(0, 0);
@@ -85,16 +83,8 @@
             this.InstalledBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InstalledBox.Location = new System.Drawing.Point(0, 21);
             this.InstalledBox.Name = "InstalledBox";
-            this.InstalledBox.Size = new System.Drawing.Size(240, 226);
+            this.InstalledBox.Size = new System.Drawing.Size(240, 240);
             this.InstalledBox.TabIndex = 1;
-            // 
-            // MemLabel
-            // 
-            this.MemLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.MemLabel.Location = new System.Drawing.Point(0, 248);
-            this.MemLabel.Name = "MemLabel";
-            this.MemLabel.Size = new System.Drawing.Size(240, 20);
-            this.MemLabel.Text = "Free memory amount:";
             // 
             // SearchBox
             // 
@@ -132,7 +122,6 @@
         private System.Windows.Forms.MenuItem PropMenuItem;
         private System.Windows.Forms.MenuItem RemoveMenuItem;
         private System.Windows.Forms.ListBox InstalledBox;
-        private System.Windows.Forms.Label MemLabel;
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.MenuItem BackMenuItem;
         private Microsoft.WindowsCE.Forms.InputPanel InputPanel;

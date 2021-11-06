@@ -1,6 +1,6 @@
 ﻿namespace LimAppManager
 {
-    partial class AboutBox
+    partial class SysInfoBox
     {
         /// <summary>
         /// Required designer variable.
@@ -28,44 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
-            this.labelProductName = new System.Windows.Forms.Label();
-            this.labelVersion = new System.Windows.Forms.Label();
-            this.labelBuild = new System.Windows.Forms.Label();
-            this.labelCompanyName = new System.Windows.Forms.Label();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SysInfoBox));
+            this.labelOSVersion = new System.Windows.Forms.Label();
+            this.labelDeviceName = new System.Windows.Forms.Label();
+            this.labelCPU = new System.Windows.Forms.Label();
+            this.labelRAM = new System.Windows.Forms.Label();
             this.MainMenu = new System.Windows.Forms.MainMenu();
             this.OKMenuItem = new System.Windows.Forms.MenuItem();
             this.AboutPanel = new System.Windows.Forms.Panel();
+            this.labelDrive = new System.Windows.Forms.Label();
+            this.labelScreenSize = new System.Windows.Forms.Label();
             this.AboutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // labelProductName
+            // labelOSVersion
             // 
-            resources.ApplyResources(this.labelProductName, "labelProductName");
-            this.labelProductName.Name = "labelProductName";
+            resources.ApplyResources(this.labelOSVersion, "labelOSVersion");
+            this.labelOSVersion.Name = "labelOSVersion";
             // 
-            // labelVersion
+            // labelDeviceName
             // 
-            resources.ApplyResources(this.labelVersion, "labelVersion");
-            this.labelVersion.Name = "labelVersion";
+            resources.ApplyResources(this.labelDeviceName, "labelDeviceName");
+            this.labelDeviceName.Name = "labelDeviceName";
             // 
-            // labelBuild
+            // labelCPU
             // 
-            resources.ApplyResources(this.labelBuild, "labelBuild");
-            this.labelBuild.Name = "labelBuild";
+            resources.ApplyResources(this.labelCPU, "labelCPU");
+            this.labelCPU.Name = "labelCPU";
             // 
-            // labelCompanyName
+            // labelRAM
             // 
-            resources.ApplyResources(this.labelCompanyName, "labelCompanyName");
-            this.labelCompanyName.Name = "labelCompanyName";
-            // 
-            // textBoxDescription
-            // 
-            this.textBoxDescription.AcceptsReturn = true;
-            resources.ApplyResources(this.textBoxDescription, "textBoxDescription");
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.ReadOnly = true;
+            resources.ApplyResources(this.labelRAM, "labelRAM");
+            this.labelRAM.Name = "labelRAM";
             // 
             // MainMenu
             // 
@@ -79,23 +73,34 @@
             // AboutPanel
             // 
             this.AboutPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
-            this.AboutPanel.Controls.Add(this.labelProductName);
-            this.AboutPanel.Controls.Add(this.labelCompanyName);
-            this.AboutPanel.Controls.Add(this.labelVersion);
-            this.AboutPanel.Controls.Add(this.labelBuild);
+            this.AboutPanel.Controls.Add(this.labelScreenSize);
+            this.AboutPanel.Controls.Add(this.labelDrive);
+            this.AboutPanel.Controls.Add(this.labelOSVersion);
+            this.AboutPanel.Controls.Add(this.labelRAM);
+            this.AboutPanel.Controls.Add(this.labelDeviceName);
+            this.AboutPanel.Controls.Add(this.labelCPU);
             resources.ApplyResources(this.AboutPanel, "AboutPanel");
             this.AboutPanel.Name = "AboutPanel";
             // 
-            // AboutBox
+            // labelDrive
+            // 
+            resources.ApplyResources(this.labelDrive, "labelDrive");
+            this.labelDrive.Name = "labelDrive";
+            // 
+            // labelScreenSize
+            // 
+            resources.ApplyResources(this.labelScreenSize, "labelScreenSize");
+            this.labelScreenSize.Name = "labelScreenSize";
+            // 
+            // SysInfoBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             resources.ApplyResources(this, "$this");
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(173)))), ((int)(((byte)(160)))));
-            this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.AboutPanel);
             this.Menu = this.MainMenu;
-            this.Name = "AboutBox";
+            this.Name = "SysInfoBox";
             this.AboutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -103,13 +108,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelProductName;
-        private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Label labelBuild;
-        private System.Windows.Forms.Label labelCompanyName;
-        private System.Windows.Forms.TextBox textBoxDescription;
+        private System.Windows.Forms.Label labelOSVersion;
+        private System.Windows.Forms.Label labelDeviceName;
+        private System.Windows.Forms.Label labelCPU;
+        private System.Windows.Forms.Label labelRAM;
         private System.Windows.Forms.MainMenu MainMenu;
         private System.Windows.Forms.MenuItem OKMenuItem;
         private System.Windows.Forms.Panel AboutPanel;
+        private System.Windows.Forms.Label labelDrive;
+        private System.Windows.Forms.Label labelScreenSize;
     }
 }

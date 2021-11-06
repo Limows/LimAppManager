@@ -20,7 +20,7 @@ namespace LimAppManager
 
         public void GetAvailableApps(Uri ServerUri, string System)
         {
-            Uri CurrentUri = new Uri(ServerUri.ToString() + @"files\" + System);
+            Uri CurrentUri = new Uri(ServerUri.ToString() + @"files\" + System + @"\index.list");
 
             StartTextResponse(CurrentUri, "GET", null, null);
         }
