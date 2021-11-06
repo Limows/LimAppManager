@@ -31,7 +31,7 @@ namespace LimAppManager
         {
             get
             {
-                if (String.IsNullOrEmpty(App.Version))
+                if (!String.IsNullOrEmpty(App.Version))
                 {
                     return App.Version;
                 }
@@ -46,7 +46,7 @@ namespace LimAppManager
         {
             get
             {
-                if (String.IsNullOrEmpty(App.InstallDir))
+                if (!String.IsNullOrEmpty(App.InstallDir))
                 {
                     return App.InstallDir;
                 }
@@ -61,7 +61,7 @@ namespace LimAppManager
         {
             get
             {
-                if (String.IsNullOrEmpty(App.Name))
+                if (!String.IsNullOrEmpty(App.Name))
                 {
                     return App.Name;
                 }
@@ -79,7 +79,7 @@ namespace LimAppManager
         {
             get
             {
-                if (String.IsNullOrEmpty(App.Author))
+                if (!String.IsNullOrEmpty(App.Author))
                 {
                     return App.Author;
                 }
@@ -94,7 +94,7 @@ namespace LimAppManager
         {
             get
             {
-                if (String.IsNullOrEmpty(App.InstallDate))
+                if (!String.IsNullOrEmpty(App.InstallDate))
                 {
                     return App.InstallDate;
                 }

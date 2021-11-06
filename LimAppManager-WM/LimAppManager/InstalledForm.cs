@@ -55,7 +55,6 @@ namespace LimAppManager
 
         private void GetAppsList(out List<string> InstalledList)
         {
-            InstalledBox.DataSource = null;
             InstalledBox.Items.Clear();
             InstalledList = new List<string>();
 
@@ -65,7 +64,7 @@ namespace LimAppManager
 
                 foreach (string app in InstalledList)
                 {
-                    InstalledBox.Items.Add(app);
+                    InstalledBox.Items.Add(new ListViewItem(app));
                 }
             }
             catch (Exception ex)
@@ -77,6 +76,10 @@ namespace LimAppManager
         private void InstalledForm_Load(object sender, EventArgs e)
         {
             GetAppsList(out Parameters.InstalledList);
+
+            ColumnHeader Header = new ColumnHeader();
+            InstalledBox.Columns.Add(Header);
+            InstalledBox.HeaderStyle = ColumnHeaderStyle.None;
         }
 
         private void InstalledForm_Closing(object sender, CancelEventArgs e)
@@ -98,12 +101,11 @@ namespace LimAppManager
             if (SearchBox.Text != "Search...")
             {
                 List<string> SearchedList = Parameters.InstalledList.Where(x => x.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
-                InstalledBox.DataSource = null;
                 InstalledBox.Items.Clear();
 
                 foreach (string app in SearchedList)
                 {
-                    InstalledBox.Items.Add(app);
+                    InstalledBox.Items.Add(new ListViewItem(app));
                 }
             }
         }

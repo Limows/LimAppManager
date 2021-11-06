@@ -21,6 +21,10 @@ namespace LimAppManager
         {   
             Parameters.OSVersion = (Parameters.OSVersions)Environment.OSVersion.Version.Major;
 
+            ColumnHeader Header = new ColumnHeader();
+            AppsListBox.Columns.Add(Header);
+            AppsListBox.HeaderStyle = ColumnHeaderStyle.None;
+
             try
             {
                 IOHelper.ReadSettings();
@@ -45,7 +49,7 @@ namespace LimAppManager
                 Parameters.ServersList = new Dictionary<string, Uri>();
             }
 
-            ImageLogoList_SetSize();
+            //ImageLogoList_SetSize();
 
             if (!String.IsNullOrEmpty(Parameters.Server))
             {
@@ -123,6 +127,9 @@ namespace LimAppManager
             {
                 Cursor.Current = Cursors.Default;
                 MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                Parameters.AppsList.Add("App 1", new Uri("http://localhost"));
+                Parameters.AppsList.Add("App 2", new Uri("http://localhost"));
+                Parameters.AppsList.Add("App 3", new Uri("http://localhost"));
             }
         }
 
@@ -184,7 +191,7 @@ namespace LimAppManager
 
             Params.ShowDialog();
 
-            ImageLogoList_SetSize();
+            //ImageLogoList_SetSize();
 
             try
             {
@@ -297,16 +304,14 @@ namespace LimAppManager
         private void SearchBox_TextChanged(object sender, EventArgs e)
         {
             if (SearchBox.Text != "Search...")
-            {   /*
-                List<string> SearchedList = Parameters.AppsList.Keys.Cast().ToList<string>().Where(x => x.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
-                AppsListBox.DataSource = null;
+            {
+                List<string> SearchedList = new List<string>(Parameters.AppsList.Keys).Where(x => x.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
                 AppsListBox.Items.Clear();
 
                 foreach (string app in SearchedList)
                 {
-                    AppsListBox.Items.Add(app);
+                    AppsListBox.Items.Add(new ListViewItem(app));
                 }
-                */
             }
         }
 

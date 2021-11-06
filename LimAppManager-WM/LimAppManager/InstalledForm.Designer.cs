@@ -36,7 +36,7 @@
             this.RemoveMenuItem = new System.Windows.Forms.MenuItem();
             this.BackMenuItem = new System.Windows.Forms.MenuItem();
             this.InstalledPanel = new System.Windows.Forms.Panel();
-            this.InstalledBox = new System.Windows.Forms.ListBox();
+            this.InstalledBox = new System.Windows.Forms.ListView();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.InputPanel = new Microsoft.WindowsCE.Forms.InputPanel(this.components);
             this.InstalledPanel.SuspendLayout();
@@ -81,10 +81,12 @@
             // InstalledBox
             // 
             this.InstalledBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InstalledBox.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.InstalledBox.Location = new System.Drawing.Point(0, 21);
             this.InstalledBox.Name = "InstalledBox";
-            this.InstalledBox.Size = new System.Drawing.Size(240, 240);
+            this.InstalledBox.Size = new System.Drawing.Size(240, 247);
             this.InstalledBox.TabIndex = 1;
+            this.InstalledBox.View = System.Windows.Forms.View.Details;
             // 
             // SearchBox
             // 
@@ -121,9 +123,9 @@
         private System.Windows.Forms.MenuItem ActionsMenuItem;
         private System.Windows.Forms.MenuItem PropMenuItem;
         private System.Windows.Forms.MenuItem RemoveMenuItem;
-        private System.Windows.Forms.ListBox InstalledBox;
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.MenuItem BackMenuItem;
         private Microsoft.WindowsCE.Forms.InputPanel InputPanel;
+        private System.Windows.Forms.ListView InstalledBox;
     }
 }
