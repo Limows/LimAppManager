@@ -129,7 +129,7 @@ namespace LimAppManager
 
         private void AboutAppBox_Closing(object sender, CancelEventArgs e)
         {
-            if (Parameters.OSVersion == Parameters.OSVersions.WM2003 && IsUninstalling)
+            if (Parameters.SysInfo.OSVersion == Parameters.OSVersions.WM2003 && IsUninstalling)
             {
                 e.Cancel = true;
                 IsUninstalling = false;

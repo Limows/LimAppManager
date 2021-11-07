@@ -66,10 +66,68 @@ namespace LimAppManager
 
             Info.ScreenHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
             Info.ScreenWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
-            Info.OSVersion = Parameters.OSVersion;
             Info.Cpu = "";
             Info.DeviceName = "";
             Info.RamSize = 0;
+
+            switch (Environment.OSVersion.Version.Major)
+            {
+                case 4:
+                    {
+                        switch (Environment.OSVersion.Version.Minor)
+                        {
+                            case 0:
+                                Info.OSVersion = Parameters.OSVersions.CE4;
+                                break;
+                            case 20:
+                                Info.OSVersion = Parameters.OSVersions.WM2003;
+                                break;
+                            default:
+                                Info.OSVersion = Parameters.OSVersions.WM2003;
+                                break;
+                        }
+
+                        break;
+                    }
+
+                case 5:
+                    {
+                        switch (Environment.OSVersion.Version.Minor)
+                        {
+                            case 0:
+                                Info.OSVersion = Parameters.OSVersions.CE5;
+                                break;
+                            case 1:
+                                Info.OSVersion = Parameters.OSVersions.WM5;
+                                break;
+                            case 2:
+                                Info.OSVersion = Parameters.OSVersions.WM6;
+                                break;
+                            default:
+                                Info.OSVersion = Parameters.OSVersions.WM5;
+                                break;
+                        }
+
+                        break;
+                    }
+                case 6:
+                    Info.OSVersion = Parameters.OSVersions.CE6;
+                    break;
+                default:
+                    Info.OSVersion = Parameters.OSVersions.WM2003;
+                    break;
+            }
+            if (Environment.OSVersion.Version.Major == 4)
+            {
+                if (Environment.OSVersion.Version.Minor == 20)
+                    Info.OSVersion = Parameters.OSVersions.WM2003;
+                else
+                    Info.OSVersion = Parameters.OSVersions.CE4;
+            }
+            else
+            {
+
+            }
 
             try
             {
@@ -336,7 +394,7 @@ namespace LimAppManager
                 }
             }
 
-            if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
+            if (Parameters.SysInfo.OSVersion == Parameters.OSVersions.WM5 || Parameters.SysInfo.OSVersion == Parameters.OSVersions.WM6)
             {
 
                 SoftwareKey = @"Security\AppInstall\";
@@ -374,7 +432,7 @@ namespace LimAppManager
                 { }
             }
 
-            if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
+            if (Parameters.SysInfo.OSVersion == Parameters.OSVersions.WM5 || Parameters.SysInfo.OSVersion == Parameters.OSVersions.WM6)
             {
 
                 SoftwareKey = @"Security\AppInstall\";
@@ -393,7 +451,7 @@ namespace LimAppManager
 
         static private bool IsCabInstalled(string AppName)
         {
-            if (Parameters.OSVersion == Parameters.OSVersions.WM5 || Parameters.OSVersion == Parameters.OSVersions.WM6)
+            if (Parameters.SysInfo.OSVersion == Parameters.OSVersions.WM5 || Parameters.SysInfo.OSVersion == Parameters.OSVersions.WM6)
             {
                 string SoftwareKey = @"Security\AppInstall\";
 
@@ -433,7 +491,7 @@ namespace LimAppManager
             {
                 try
                 {
-                    if (Parameters.OSVersion == Parameters.OSVersions.WM2003)
+                    if (Parameters.SysInfo.OSVersion == Parameters.OSVersions.WM2003)
                     {
                         Process InstallProc = new Process();
 

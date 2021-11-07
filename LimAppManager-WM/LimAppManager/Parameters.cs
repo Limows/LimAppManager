@@ -20,7 +20,6 @@ namespace LimAppManager
         public static string ConfigPath;
         public static string TempPath;
         public static string ServersPath;
-        public static OSVersions OSVersion;
         public static bool IsAutoInstall;
         public static bool IsRmPackage;
         public static bool IsOverwrite;

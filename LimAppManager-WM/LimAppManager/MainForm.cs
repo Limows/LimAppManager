@@ -18,9 +18,7 @@ namespace LimAppManager
         }
 
         private void MainForm_Load(object sender, EventArgs e)
-        {   
-            Parameters.OSVersion = (Parameters.OSVersions)Environment.OSVersion.Version.Major;
-
+        {
             ColumnHeader Header = new ColumnHeader();
             AppsListBox.Columns.Add(Header);
             AppsListBox.HeaderStyle = ColumnHeaderStyle.None;
@@ -81,30 +79,7 @@ namespace LimAppManager
             NetHelper Net = new NetHelper();
             Cursor.Current = Cursors.WaitCursor;
 
-            switch (Parameters.OSVersion)
-            {
-                case Parameters.OSVersions.WM2003:
-                    Net.GetAvailableApps(ServerUri, "WinMobile_2003");
-                    break;
-                case Parameters.OSVersions.WM5:
-                    Net.GetAvailableApps(ServerUri, "WinMobile_5");
-                    break;
-                case Parameters.OSVersions.WM6:
-                    Net.GetAvailableApps(ServerUri, "WinMobile_6");
-                    break;
-                case Parameters.OSVersions.CE4:
-                    Net.GetAvailableApps(ServerUri, "WinCE_4");
-                    break;
-                case Parameters.OSVersions.CE5:
-                    Net.GetAvailableApps(ServerUri, "WinCE_5");
-                    break;
-                case Parameters.OSVersions.CE6:
-                    Net.GetAvailableApps(ServerUri, "WinCE_6");
-                    break;
-                default:
-                    Net.GetAvailableApps(ServerUri, "WinMobile_2003");
-                    break;
-            }
+            Net.GetAvailableApps(ServerUri, "WM_Test");
 
             Parameters.EndResponseEvent.WaitOne();
 
@@ -341,6 +316,27 @@ namespace LimAppManager
             SysInfoBox SysInfo = new SysInfoBox(Parameters.SysInfo);
 
             SysInfo.ShowDialog();
+        }
+
+        private string SetRepository()
+        {
+            switch (Parameters.SysInfo.OSVersion)
+            {
+                case Parameters.OSVersions.WM2003:
+                    return "WinMobile_2003";
+                case Parameters.OSVersions.WM5:
+                    return "WinMobile_5";
+                case Parameters.OSVersions.WM6:
+                    return "WinMobile_5";
+                case Parameters.OSVersions.CE4:
+                    return "WinCE_4";
+                case Parameters.OSVersions.CE5:
+                    return "WinCE_5";
+                case Parameters.OSVersions.CE6:
+                    return "WinCE_6";
+                default:
+                    return "WinMobile_2003";
+            }
         }
     }
 }
