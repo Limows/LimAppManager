@@ -1,4 +1,4 @@
-package com.example.pc.test;
+package com.limowski.app.manager;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
