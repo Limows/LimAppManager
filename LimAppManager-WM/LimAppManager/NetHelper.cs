@@ -27,15 +27,15 @@ namespace LimAppManager
 
         public void GetAppMetaInfo(Uri AppUri)
         {
-            Uri CurrentUri = new Uri(AppUri.ToString() + "Meta.json");
+            Uri CurrentUri = new Uri(AppUri.ToString() + @"\Meta.json");
 
             StartTextResponse(CurrentUri, "GET", null, null);
         }
 
         public void GetFile(Uri AppUri, string DownloadPath, string PackageName)
         {
-            Uri CurrentUri = new Uri(AppUri.ToString() + PackageName);
-            PackagePath = DownloadPath + PackageName;
+            Uri CurrentUri = new Uri(AppUri.ToString()+ "\\" + PackageName);
+            PackagePath = DownloadPath + "\\" + PackageName;
 
             StartDataResponse(CurrentUri, "GET", null, null);
         }

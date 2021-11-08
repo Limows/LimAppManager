@@ -91,7 +91,7 @@
             this.DescriptionBox.Location = new System.Drawing.Point(0, 110);
             this.DescriptionBox.Name = "DescriptionBox";
             this.DescriptionBox.Size = new System.Drawing.Size(240, 184);
-            this.DescriptionBox.Text = "Description";
+            this.DescriptionBox.Text = "No description";
             // 
             // StatusBar
             // 

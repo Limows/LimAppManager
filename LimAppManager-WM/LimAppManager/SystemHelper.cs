@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Xml;
 using Microsoft.WindowsMobile.Configuration;
 using WinMobileNetCFExt;
+using Microsoft.VisualBasic;
 
 namespace LimAppManager
 {
@@ -199,11 +200,11 @@ namespace LimAppManager
         {
             Parameters.InstalledApp InstalledApp = new Parameters.InstalledApp();
 
-            InstalledApp.Author = App.Author;
+            InstalledApp.Author = App.Origin;
             InstalledApp.InstallDate = DateTime.Now.Date.ToString("dd.MM.yy");
             InstalledApp.InstallDir = InstallDir;
             InstalledApp.Name = App.Name;
-            InstalledApp.FullName = App.Author + " " + App.Name;
+            InstalledApp.FullName = App.Origin + " " + App.Name;
             InstalledApp.Version = App.Version;
 
             string SoftwareKey = @"LimAppManager\";

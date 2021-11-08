@@ -17,15 +17,15 @@ namespace LimAppManager
     {
         private Uri AppUri;
         private Parameters.InstallableApp App = new Parameters.InstallableApp();
-        bool IsDownloaded = true;
+        bool IsDownloaded = false;
         int LowerPanelHeight = 0;
 
         public AppForm(string AppName)
         {
             InitializeComponent();
 
-            //Uri AppUri = Parameters.AppsList[AppName];
-            Uri AppUri = Parameters.ServersList[Parameters.Server];
+            AppUri = Parameters.AppsList[AppName];
+            //AppUri = Parameters.ServersList[Parameters.Server];
             this.Text = AppName;
 
             LowerPanelHeight = LowerPanel.Height;
@@ -49,7 +49,7 @@ namespace LimAppManager
                     ThreadStart DownloadingStarter = delegate { DownloadingThreadWorker(AppUri, Parameters.DownloadPath, App.PackageName, DownloadingMutex); };
                     Thread DownloadingThread = new Thread(DownloadingStarter);
 
-                    //DownloadingThread.Start();
+                    DownloadingThread.Start();
 
                     StatusLabel.Text = "Now downloading";
                 }
@@ -80,8 +80,6 @@ namespace LimAppManager
 
         private void AppForm_Load(object sender, EventArgs e)
         {
-            //Uri AppUri = Parameters.AppsList[AppName];
-            Uri AppUri = Parameters.ServersList[Parameters.Server];
             NetHelper Net = new NetHelper();
 
             Parameters.EndResponseEvent = new AutoResetEvent(false);
@@ -110,6 +108,19 @@ namespace LimAppManager
                     InstallMenuItem.Text = "Install";
                 }
 
+                if (!String.IsNullOrEmpty(App.Name))
+                    NameLabel.Text = App.Name;
+
+                if (!String.IsNullOrEmpty(App.Version))
+                    VersionLabel.Text = App.Version;
+
+                if (App.Size != null)
+                    SizeLabel.Text = App.Size + " MB";
+
+                if (!String.IsNullOrEmpty(App.Description))
+                    DescriptionBox.Text = App.Description;
+
+
                 Cursor.Current = Cursors.Default;
             }
             else
@@ -119,7 +130,7 @@ namespace LimAppManager
 
                 App.Name = "Test";
                 App.PackageName = "Test.cab";
-                App.Author = "LimSoft";
+                App.Origin = "LimSoft";
                 App.IconName = "";
                 App.IsCompressed = false;
                 App.Size = Parameters.MegsToBytes(0.01);
@@ -164,8 +175,8 @@ namespace LimAppManager
             UpdateUI("Download successfully");
 
             IsDownloaded = true;
-            InstallButton.Text = "Install";
-            InstallMenuItem.Text = "Install";
+            InstallButton.Invoke((Action)(() => { InstallButton.Text = "Install"; }));
+            //InstallMenuItem.Invoke((Action)(() => { InstallMenuItem.Text = "Install"; }));
         }
 
         private void InstallingThreadWorker(string DownloadPath, string InstallPath, Parameters.InstallableApp App, Mutex InstallingMutex)

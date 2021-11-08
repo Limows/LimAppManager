@@ -43,12 +43,14 @@ namespace LimAppManager
         {
 
             public string Name;
-            public string Author;
+            public string Origin;
             public string Version;
             public double Size;
             public bool IsCompressed;
             public string PackageName;
             public string IconName;
+            public string Description;
+            public string Hash;
         }
 
         public struct DebugInfo

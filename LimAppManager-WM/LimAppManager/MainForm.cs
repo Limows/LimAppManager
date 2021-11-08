@@ -88,14 +88,21 @@ namespace LimAppManager
 
                 string[] Lines = Parameters.ResponseMessage.Split('\n');
 
+                AppsListBox.Invoke((Action)(() => { AppsListBox.Items.Clear(); }));
+
                 foreach (string line in Lines)
                 {
-                    string[] AppLine = line.Split('=');
+                    if (!String.IsNullOrEmpty(line))
+                    {
+                        string[] AppLine = line.Split('=');
 
-                    Parameters.AppsList.Add(AppLine[0], new Uri(AppLine[1].Split('\r')[0]));
-                    AppsListBox.Invoke((Action)(() => { AppsListBox.Items.Add(new ListViewItem(AppLine[0])); }));
+                        Parameters.AppsList.Add(AppLine[0], new Uri(AppLine[1].Split('\r')[0]));
+                        AppsListBox.Invoke((Action)(() => { AppsListBox.Items.Add(new ListViewItem(AppLine[0])); }));
+                    }
                 }
-                
+
+                Parameters.ResponseMessage = null;
+
                 Cursor.Current = Cursors.Default;
             }
             else

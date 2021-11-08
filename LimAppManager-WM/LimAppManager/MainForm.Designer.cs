@@ -30,9 +30,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainMenu = new System.Windows.Forms.MainMenu();
             this.ActionsMenuItem = new System.Windows.Forms.MenuItem();
@@ -166,20 +163,11 @@
             this.AppsListBox.BackColor = System.Drawing.Color.White;
             this.AppsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AppsListBox.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            listViewItem1.ImageIndex = 0;
-            listViewItem1.Text = "App 1";
-            listViewItem2.ImageIndex = 1;
-            listViewItem2.Text = "App 2";
-            listViewItem3.ImageIndex = 2;
-            listViewItem3.Text = "App 3";
-            this.AppsListBox.Items.Add(listViewItem1);
-            this.AppsListBox.Items.Add(listViewItem2);
-            this.AppsListBox.Items.Add(listViewItem3);
             this.AppsListBox.Location = new System.Drawing.Point(0, 21);
             this.AppsListBox.Name = "AppsListBox";
             this.AppsListBox.Size = new System.Drawing.Size(240, 247);
             this.AppsListBox.TabIndex = 1;
-            this.AppsListBox.View = System.Windows.Forms.View.Details;
+            this.AppsListBox.View = System.Windows.Forms.View.SmallIcon;
             this.AppsListBox.ItemActivate += new System.EventHandler(this.AppsListBox_ItemActivate);
             // 
             // SearchBox
