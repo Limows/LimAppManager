@@ -18,9 +18,8 @@ In theory, Android 1.0 (SDK 1) and higher
 
 In practice, Android 1.5 (SDK 3) and higher tested only
 
-Modern OS can loss some UI features
+On modern Android versions app can loss some UI features, also it can crash due to invalid permissions
 
 ## Tested devices
 
- - HTC Dream (Android 1.5, SDK 3)
- - OnePlus 7 Pro (Android 11, SDK 30)
+ - HTC Dream (Android 1.5, SDK 3, Stock ROM) - works prefectly

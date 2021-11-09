@@ -1,20 +1,30 @@
 apply plugin: 'com.android.application'
 
+def major = 0
+def minor = 2
+def patch = 2
+
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.example.pc.test"
+        applicationId "com.limowski.app.manager"
         minSdkVersion 1
         targetSdkVersion 3
-        versionCode 1
-        versionName "1.0"
+        versionCode major*10000 + minor*100 + patch
+        versionName "${major}.${minor}.${patch}"
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            versionNameSuffix ".debug"
+            resValue "string", "app_version", "${defaultConfig.versionName}${versionNameSuffix}"
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_version", "${defaultConfig.versionName}"
         }
     }
 }
@@ -22,4 +32,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'commons-net:commons-net:3.0'
+    compile 'com.google.code.gson:gson:2.4'
 }
