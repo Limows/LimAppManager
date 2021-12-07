@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MetaBuilderLib
 {
-    class Parameters
+    public class Parameters
     {
         public struct Package
         {

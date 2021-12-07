@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 
 namespace MetaBuilderLib
 {
-    class Hash
+    public class Hash
     {
         static public string GetMD5Hash(string Message)
         {

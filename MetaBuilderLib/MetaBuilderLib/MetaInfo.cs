@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace MetaBuilderLib
 {
-    class MetaInfo
+    public class MetaInfo
     {
         public static string GenerateMetaFile(Parameters.Package Package)
         {
