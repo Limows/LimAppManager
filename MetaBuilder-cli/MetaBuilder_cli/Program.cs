@@ -36,7 +36,7 @@ namespace LimAppGenerator
                     {
                         Package.Name = package.Split("\\").Last();
 
-                        Package.IcoName = FileSystem.GetIconName(package);
+                        Package.IconName = FileSystem.GetIconName(package);
 
                         Package.ShotName = FileSystem.GetShotName(package);
 

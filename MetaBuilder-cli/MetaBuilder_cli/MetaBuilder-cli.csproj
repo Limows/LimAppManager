@@ -6,12 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="MetaBuilderLib">
-      <HintPath>..\..\..\..\..\..\MyDocuments\GitHub\LimAppManager\MetaBuilderLib\MetaBuilderLib\bin\Release\netcoreapp3.1\MetaBuilderLib.dll</HintPath>
+      <HintPath>..\..\MetaBuilderLib\MetaBuilderLib\bin\Debug\MetaBuilderLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 

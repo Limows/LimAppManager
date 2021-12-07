@@ -14,7 +14,7 @@ namespace MetaBuilderLib
             public string Description;
             public bool IsCompressed;
             public string Hash;
-            public string IcoName;
+            public string IconName;
             public string ShotName;
             public float Size;
             public string Maintainer;

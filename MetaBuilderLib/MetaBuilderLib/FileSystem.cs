@@ -35,7 +35,7 @@ namespace MetaBuilderLib
             try
             {
                 if (Verbose) PackageFile = Directory.GetFiles(PackageDir, Pattern)[0];
-                else PackageFile = Directory.GetFiles(PackageDir, Pattern)[0].Split("\\").Last();
+                else PackageFile = Directory.GetFiles(PackageDir, Pattern)[0].Split('\\').Last();
             }
             catch
             {
@@ -68,7 +68,7 @@ namespace MetaBuilderLib
 
         static public string GetPackageSystem()
         {
-            return Directory.GetCurrentDirectory().Split("\\").Last();
+            return Directory.GetCurrentDirectory().Split('\\').Last();
         }
 
         static public void WriteMetaFile(string PackageDir, string MetaInfo)

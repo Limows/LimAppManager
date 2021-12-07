@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetaBuilderLib;
 
 namespace MetaBuilder
 {
@@ -28,6 +29,8 @@ namespace MetaBuilder
                 if (Result == DialogResult.OK && !string.IsNullOrWhiteSpace(Dialog.SelectedPath))
                 {
                     PackageDir = Dialog.SelectedPath;
+                    NameBox.Text = PackageDir.Split('\\').Last();
+                    OsBox.Text = PackageDir.Split('\\')[PackageDir.Split('\\').Length - 2];
                 }
             }
         }
@@ -47,7 +50,25 @@ namespace MetaBuilder
         {
             if(!String.IsNullOrEmpty(PackageDir))
             {
+                Parameters.Package Package = new Parameters.Package();
+                string Json;
 
+                Package.System = OsBox.Text;
+                Package.Name = NameBox.Text;
+                Package.PackageName = FileSystem.GetPackageName(PackageDir, "cab");
+                Package.Description = DescriptionBox.Text;
+                Package.IsCompressed = FileSystem.CheckCompression(PackageDir);
+                Package.Hash = "";
+                Package.IconName = FileSystem.GetIconName(PackageDir);
+                Package.ShotName = FileSystem.GetShotName(PackageDir);
+                Package.Size = FileSystem.GetPackageSize(PackageDir, "cab");
+                Package.Maintainer = MaintainerBox.Text;
+                Package.Origin = OriginBox.Text;
+                Package.Version = VersionBox.Text;
+
+                Json = MetaInfo.GenerateMetaFile(Package);
+
+                FileSystem.WriteMetaFile(PackageDir, Json);
             }
             else
             {
