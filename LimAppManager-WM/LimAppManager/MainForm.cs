@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace LimAppManager
 {
@@ -18,8 +19,9 @@ namespace LimAppManager
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            ImageLogoList_SetSize();
-            Parameters.OSVersion = Environment.OSVersion.Version.Major;
+            ColumnHeader Header = new ColumnHeader();
+            AppsListBox.Columns.Add(Header);
+            AppsListBox.HeaderStyle = ColumnHeaderStyle.None;
 
             try
             {
@@ -30,9 +32,87 @@ namespace LimAppManager
                 MessageBox.Show("Config file not found or corrupted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
                 Parameters.IconSize = 100;
                 Parameters.TempPath = @"\Temp\AppManager";
+                Parameters.ServersPath = IOHelper.GetCurrentDirectory() + @"\Servers.list";
             }
 
-            Parameters.ServersList = GetServersList(Parameters.ServersPath);
+            SystemHelper.GetDebugInfo(out Parameters.SysInfo);
+
+            try
+            {
+                Parameters.ServersList = GetServersList(Parameters.ServersPath);
+            }
+            catch
+            {
+                MessageBox.Show("No servers found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                Parameters.ServersList = new Dictionary<string, Uri>();
+            }
+
+            //ImageLogoList_SetSize();
+
+            if (!String.IsNullOrEmpty(Parameters.Server))
+            {
+                Uri ServerUri = Parameters.ServersList[Parameters.Server];
+
+                GetAppsList(ServerUri, out Parameters.AppsList);
+            }
+            else
+            {
+                MessageBox.Show("Server not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            }
+        }
+
+        private void GetAppsList(Uri ServerUri, out Dictionary<string, Uri> AppsList)
+        {
+            Mutex ListingMutex = new Mutex();
+            ThreadStart ListingStarter = delegate { ListingWorker(ServerUri, ListingMutex); };
+            Thread ListingThread = new Thread(ListingStarter);
+
+            AppsList = new Dictionary<string, Uri>();
+            Parameters.EndResponseEvent = new AutoResetEvent(false);
+
+            
+            ListingThread.Start();
+        }
+
+        private void ListingWorker(Uri ServerUri, Mutex ListingMutex)
+        {
+            NetHelper Net = new NetHelper();
+            Cursor.Current = Cursors.WaitCursor;
+
+            Net.GetAvailableApps(ServerUri, "WM_Test");
+
+            Parameters.EndResponseEvent.WaitOne();
+
+            if (!String.IsNullOrEmpty(Parameters.ResponseMessage))
+            {
+
+                string[] Lines = Parameters.ResponseMessage.Split('\n');
+
+                AppsListBox.Invoke((Action)(() => { AppsListBox.Items.Clear(); }));
+
+                foreach (string line in Lines)
+                {
+                    if (!String.IsNullOrEmpty(line))
+                    {
+                        string[] AppLine = line.Split('=');
+
+                        Parameters.AppsList.Add(AppLine[0], new Uri(AppLine[1].Split('\r')[0]));
+                        AppsListBox.Invoke((Action)(() => { AppsListBox.Items.Add(new ListViewItem(AppLine[0])); }));
+                    }
+                }
+
+                Parameters.ResponseMessage = null;
+
+                Cursor.Current = Cursors.Default;
+            }
+            else
+            {
+                Cursor.Current = Cursors.Default;
+                MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                Parameters.AppsList.Add("App 1", new Uri("http://localhost"));
+                Parameters.AppsList.Add("App 2", new Uri("http://localhost"));
+                Parameters.AppsList.Add("App 3", new Uri("http://localhost"));
+            }
         }
 
         private void ImageLogoList_SetSize()
@@ -93,7 +173,7 @@ namespace LimAppManager
 
             Params.ShowDialog();
 
-            ImageLogoList_SetSize();
+            //ImageLogoList_SetSize();
 
             try
             {
@@ -113,10 +193,13 @@ namespace LimAppManager
 
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
                 Version = NetHelper.CheckUpdates();
+                Cursor.Current = Cursors.Default;
             }
             catch
             {
+                Cursor.Current = Cursors.Default;
                 MessageBox.Show("Failed to check for updates", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
                 return;
             }
@@ -155,7 +238,7 @@ namespace LimAppManager
         }
 
         private Dictionary<string, Uri> GetServersList(string FileName)
-        {
+        {   
             string Text = IOHelper.ReadTextFile(IOHelper.GetCurrentDirectory() + FileName);
             string[] Lines = Text.Split('\n');
             Dictionary<string, Uri> ServersList = new Dictionary<string, Uri>();
@@ -164,7 +247,7 @@ namespace LimAppManager
             {
                 string[] ServerLine = line.Split('=');
 
-                ServersList.Add(ServerLine[0], new Uri(ServerLine[1]));
+                ServersList.Add(ServerLine[0], new Uri(ServerLine[1].Split('\r')[0]));
             }
 
             return ServersList;
@@ -172,16 +255,95 @@ namespace LimAppManager
 
         private void InstalledMenuItem_Click(object sender, EventArgs e)
         {
-            AboutAppBox AboutApp = new AboutAppBox("Test");
+            InstalledForm Installed = new InstalledForm();
 
-            AboutApp.ShowDialog();
+            Installed.ShowDialog();
         }
 
         private void AppsListBox_ItemActivate(object sender, EventArgs e)
         {
-            AppForm App = new AppForm("Test");
+            AppForm App = new AppForm(AppsListBox.FocusedItem.Text);
+
+            Cursor.Current = Cursors.WaitCursor;
 
             App.ShowDialog();
+        }
+
+        private void SearchBox_GotFocus(object sender, EventArgs e)
+        {
+            if (SearchBox.Text == "Search...") SearchBox.Text = "";
+
+            InputPanel.Enabled = true;
+        }
+
+        private void SearchBox_LostFocus(object sender, EventArgs e)
+        {
+            if (SearchBox.Text == "") SearchBox.Text = "Search...";
+
+            InputPanel.Enabled = false;
+        }
+
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            if (SearchBox.Text != "Search...")
+            {
+                List<string> SearchedList = new List<string>(Parameters.AppsList.Keys).Where(x => x.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
+                AppsListBox.Items.Clear();
+
+                foreach (string app in SearchedList)
+                {
+                    AppsListBox.Items.Add(new ListViewItem(app));
+                }
+            }
+        }
+
+        private void RefreshMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(Parameters.Server))
+            {
+                Uri ServerUri = Parameters.ServersList[Parameters.Server];
+
+                GetAppsList(ServerUri, out Parameters.AppsList);
+            }
+            else
+            {
+                MessageBox.Show("Server not set", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+            }
+        }
+
+        private void SendBugMenuItem_Click(object sender, EventArgs e)
+        {
+            SendBugForm SendBug = new SendBugForm(Parameters.SysInfo);
+
+            SendBug.ShowDialog();
+        }
+
+        private void SysInfoMenuItem_Click(object sender, EventArgs e)
+        {
+            SysInfoBox SysInfo = new SysInfoBox(Parameters.SysInfo);
+
+            SysInfo.ShowDialog();
+        }
+
+        private string SetRepository()
+        {
+            switch (Parameters.SysInfo.OSVersion)
+            {
+                case Parameters.OSVersions.WM2003:
+                    return "WinMobile_2003";
+                case Parameters.OSVersions.WM5:
+                    return "WinMobile_5";
+                case Parameters.OSVersions.WM6:
+                    return "WinMobile_5";
+                case Parameters.OSVersions.CE4:
+                    return "WinCE_4";
+                case Parameters.OSVersions.CE5:
+                    return "WinCE_5";
+                case Parameters.OSVersions.CE6:
+                    return "WinCE_6";
+                default:
+                    return "WinMobile_2003";
+            }
         }
     }
 }

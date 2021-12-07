@@ -52,13 +52,19 @@
     </Reference>
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Visual Studio 2008\Projects\IniParser\IniFileParser\bin\Debug\INIFileParser.dll</HintPath>
+      <HintPath>.\INIFileParser.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.WindowsCE.Forms" />
     <Reference Include="Microsoft.WindowsMobile.Configuration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Windows Mobile 5.0 SDK R2\Managed Libraries\Microsoft.WindowsMobile.Configuration.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Mobile 5.0 SDK R2\Managed Libraries\Microsoft.WindowsMobile.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json.Compact, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Newtonsoft.Json.Compact.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -69,7 +75,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="WinMobileNetCFExt, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\GitHub\WinMobileNetCFExt\bin\Release\WinMobileNetCFExt.dll</HintPath>
+      <HintPath>..\..\..\WinMobileNetCFExt\bin\Debug\WinMobileNetCFExt.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -91,11 +97,24 @@
     <Compile Include="AppForm.designer.cs">
       <DependentUpon>AppForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SysInfoBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SysInfoBox.designer.cs">
+      <DependentUpon>SysInfoBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="DonateBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DonateBox.designer.cs">
       <DependentUpon>DonateBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HashHelper.cs" />
+    <Compile Include="InstalledForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InstalledForm.Designer.cs">
+      <DependentUpon>InstalledForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IOHelper.cs" />
     <Compile Include="MainForm.cs">
@@ -126,8 +145,16 @@
       <DependentUpon>AppForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SysInfoBox.resx">
+      <DependentUpon>SysInfoBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DonateBox.resx">
       <DependentUpon>DonateBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InstalledForm.resx">
+      <DependentUpon>InstalledForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -143,9 +170,19 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SendBugForm.resx">
+      <DependentUpon>SendBugForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SendBugForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SendBugForm.Designer.cs">
+      <DependentUpon>SendBugForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemHelper.cs" />
   </ItemGroup>

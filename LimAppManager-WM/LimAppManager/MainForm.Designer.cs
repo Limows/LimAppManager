@@ -29,9 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem();
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainMenu = new System.Windows.Forms.MainMenu();
             this.ActionsMenuItem = new System.Windows.Forms.MenuItem();
@@ -39,18 +37,23 @@
             this.RefreshMenuItem = new System.Windows.Forms.MenuItem();
             this.InstalledMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.SendBugMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.QuitMenuItem = new System.Windows.Forms.MenuItem();
             this.InfoMenuItem = new System.Windows.Forms.MenuItem();
             this.HelpMenuItem = new System.Windows.Forms.MenuItem();
             this.AboutMenuItem = new System.Windows.Forms.MenuItem();
+            this.SysInfoMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem8 = new System.Windows.Forms.MenuItem();
             this.UpdateMenuItem = new System.Windows.Forms.MenuItem();
             this.menuItem10 = new System.Windows.Forms.MenuItem();
             this.DonateMenuItem = new System.Windows.Forms.MenuItem();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.AppsListBox = new System.Windows.Forms.ListView();
-            this.AppsLogoList = new System.Windows.Forms.ImageList();
             this.SearchBox = new System.Windows.Forms.TextBox();
+            this.AppsLogoList = new System.Windows.Forms.ImageList();
+            this.InputPanel = new Microsoft.WindowsCE.Forms.InputPanel(this.components);
+            this.timer1 = new System.Windows.Forms.Timer();
             this.MainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,6 +68,8 @@
             this.ActionsMenuItem.MenuItems.Add(this.RefreshMenuItem);
             this.ActionsMenuItem.MenuItems.Add(this.InstalledMenuItem);
             this.ActionsMenuItem.MenuItems.Add(this.menuItem4);
+            this.ActionsMenuItem.MenuItems.Add(this.SendBugMenuItem);
+            this.ActionsMenuItem.MenuItems.Add(this.menuItem2);
             this.ActionsMenuItem.MenuItems.Add(this.QuitMenuItem);
             this.ActionsMenuItem.Text = "Actions";
             // 
@@ -76,6 +81,7 @@
             // RefreshMenuItem
             // 
             this.RefreshMenuItem.Text = "Refresh";
+            this.RefreshMenuItem.Click += new System.EventHandler(this.RefreshMenuItem_Click);
             // 
             // InstalledMenuItem
             // 
@@ -86,6 +92,15 @@
             // 
             this.menuItem4.Text = "-";
             // 
+            // SendBugMenuItem
+            // 
+            this.SendBugMenuItem.Text = "Send Bug";
+            this.SendBugMenuItem.Click += new System.EventHandler(this.SendBugMenuItem_Click);
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Text = "-";
+            // 
             // QuitMenuItem
             // 
             this.QuitMenuItem.Text = "Quit";
@@ -95,6 +110,7 @@
             // 
             this.InfoMenuItem.MenuItems.Add(this.HelpMenuItem);
             this.InfoMenuItem.MenuItems.Add(this.AboutMenuItem);
+            this.InfoMenuItem.MenuItems.Add(this.SysInfoMenuItem);
             this.InfoMenuItem.MenuItems.Add(this.menuItem8);
             this.InfoMenuItem.MenuItems.Add(this.UpdateMenuItem);
             this.InfoMenuItem.MenuItems.Add(this.menuItem10);
@@ -109,6 +125,11 @@
             // 
             this.AboutMenuItem.Text = "About";
             this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
+            // 
+            // SysInfoMenuItem
+            // 
+            this.SysInfoMenuItem.Text = "System Info";
+            this.SysInfoMenuItem.Click += new System.EventHandler(this.SysInfoMenuItem_Click);
             // 
             // menuItem8
             // 
@@ -141,30 +162,13 @@
             // 
             this.AppsListBox.BackColor = System.Drawing.Color.White;
             this.AppsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewItem1.ImageIndex = 0;
-            listViewItem1.Text = "App 1";
-            listViewItem2.ImageIndex = 1;
-            listViewItem2.Text = "App 2";
-            listViewItem3.ImageIndex = 2;
-            listViewItem3.Text = "App 3";
-            this.AppsListBox.Items.Add(listViewItem1);
-            this.AppsListBox.Items.Add(listViewItem2);
-            this.AppsListBox.Items.Add(listViewItem3);
-            this.AppsListBox.LargeImageList = this.AppsLogoList;
+            this.AppsListBox.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.AppsListBox.Location = new System.Drawing.Point(0, 21);
             this.AppsListBox.Name = "AppsListBox";
             this.AppsListBox.Size = new System.Drawing.Size(240, 247);
-            this.AppsListBox.SmallImageList = this.AppsLogoList;
             this.AppsListBox.TabIndex = 1;
+            this.AppsListBox.View = System.Windows.Forms.View.SmallIcon;
             this.AppsListBox.ItemActivate += new System.EventHandler(this.AppsListBox_ItemActivate);
-            // 
-            // AppsLogoList
-            // 
-            this.AppsLogoList.ImageSize = new System.Drawing.Size(35, 35);
-            this.AppsLogoList.Images.Clear();
-            this.AppsLogoList.Images.Add(((System.Drawing.Image)(resources.GetObject("resource"))));
-            this.AppsLogoList.Images.Add(((System.Drawing.Image)(resources.GetObject("resource1"))));
-            this.AppsLogoList.Images.Add(((System.Drawing.Image)(resources.GetObject("resource2"))));
             // 
             // SearchBox
             // 
@@ -173,8 +177,19 @@
             this.SearchBox.Location = new System.Drawing.Point(0, 0);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(240, 21);
-            this.SearchBox.TabIndex = 0;
+            this.SearchBox.TabIndex = 2;
             this.SearchBox.Text = "Search...";
+            this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            this.SearchBox.GotFocus += new System.EventHandler(this.SearchBox_GotFocus);
+            this.SearchBox.LostFocus += new System.EventHandler(this.SearchBox_LostFocus);
+            // 
+            // AppsLogoList
+            // 
+            this.AppsLogoList.ImageSize = new System.Drawing.Size(35, 35);
+            this.AppsLogoList.Images.Clear();
+            this.AppsLogoList.Images.Add(((System.Drawing.Image)(resources.GetObject("resource"))));
+            this.AppsLogoList.Images.Add(((System.Drawing.Image)(resources.GetObject("resource1"))));
+            this.AppsLogoList.Images.Add(((System.Drawing.Image)(resources.GetObject("resource2"))));
             // 
             // MainForm
             // 
@@ -214,6 +229,11 @@
         private System.Windows.Forms.ListView AppsListBox;
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.ImageList AppsLogoList;
+        private Microsoft.WindowsCE.Forms.InputPanel InputPanel;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.MenuItem SendBugMenuItem;
+        private System.Windows.Forms.MenuItem menuItem2;
+        private System.Windows.Forms.MenuItem SysInfoMenuItem;
 
     }
 }

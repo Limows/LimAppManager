@@ -9,137 +9,133 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace LimAppManager
 {
     public partial class AppForm : Form
     {
-        private string AppName;
+        private Uri AppUri;
+        private Parameters.InstallableApp App = new Parameters.InstallableApp();
+        bool IsDownloaded = false;
+        int LowerPanelHeight = 0;
 
-        public AppForm(string CurrentAppName)
+        public AppForm(string AppName)
         {
             InitializeComponent();
 
-            AppName = CurrentAppName;
+            AppUri = Parameters.AppsList[AppName];
+            //AppUri = Parameters.ServersList[Parameters.Server];
+            this.Text = AppName;
 
-            DownloadingTimer.Enabled = false;
-            DownloadingTimer.Interval = 100;
-
-            if (this.Width == 480)
-            {
-                LogoBox.Width = 100;
-                LogoBox.Height = 100;
-            }
+            LowerPanelHeight = LowerPanel.Height;
         }
 
         private void DownloadButton_Click(object sender, EventArgs e)
         {
-            //Parameters.CurrentURI = Parameters.AppURI;
+            DownloadingTimer.Enabled = true;
+            InstallButton.Visible = false;
+            StatusBar.Visible = true;
+            StatusBar.Value = StatusBar.Minimum;
+            StatusLabel.Left = InstallButton.Left;
+            StatusLabel.Height = InstallButton.Height;
+            LowerPanel.Height = LowerPanelHeight;
 
-            if (!String.IsNullOrEmpty(Parameters.DownloadPath))
+            if (!IsDownloaded)
             {
-                //ThreadStart DownloadingStarter = delegate { DownloadingThreadWorker(Parameters.CurrentURI, Parameters.DownloadPath, ParamsHelper.InstallPath, AppName); };
-                //Thread DownloadingThread = new Thread(DownloadingStarter);
-                //Parameters.IsThreadAlive = true;
-                //Parameters.IsThreadError = false;
-                //ParamsHelper.ThreadMessage = "";
-
-                //DownloadingThread.Start();
-
-                //StatusLabel.Text = Parameters.ThreadMessage;
-
-                DownloadingTimer.Enabled = true;
-                DownloadButton.Visible = false;
-                StatusBar.Visible = true;
-                StatusBar.Value = StatusBar.Minimum;
-
-                if (this.Width == 480)
+                if (!String.IsNullOrEmpty(Parameters.DownloadPath))
                 {
-                    StatusLabel.Left = 24;
-                    StatusLabel.Width = 440;
-                    DescriptionBox.Top = 240;
+                    Mutex DownloadingMutex = new Mutex();
+                    ThreadStart DownloadingStarter = delegate { DownloadingThreadWorker(AppUri, Parameters.DownloadPath, App.PackageName, DownloadingMutex); };
+                    Thread DownloadingThread = new Thread(DownloadingStarter);
+
+                    DownloadingThread.Start();
+
+                    StatusLabel.Text = "Now downloading";
                 }
                 else
                 {
-                    DescriptionBox.Top = 120;
-                    StatusLabel.Left = 12;
-                    StatusLabel.Width = 220;
+                    MessageBox.Show("Download path not set", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
                 }
             }
             else
             {
-                MessageBox.Show("Отсутствует путь для сохранения файла", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                if (!String.IsNullOrEmpty(Parameters.InstallPath))
+                {
+                    Mutex InstallingMutex = new Mutex();
+                    ThreadStart InstallingStarter = delegate { InstallingThreadWorker(Parameters.DownloadPath, Parameters.InstallPath, App, InstallingMutex); };
+                    Thread InstallingThread = new Thread(InstallingStarter);
+
+                    InstallingThread.Start();
+
+                    StatusLabel.Text = "Now installing";
+                }
+                else
+                {
+                    MessageBox.Show("Install path not set", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+                }
             }
 
         }
 
         private void AppForm_Load(object sender, EventArgs e)
-        {   
-            /*
-            this.Text = AppName.Replace("_", " ");
-            NameLabel.Text = AppName.Replace("_", " ");
+        {
+            NetHelper Net = new NetHelper();
+
+            Parameters.EndResponseEvent = new AutoResetEvent(false);
+
+            DownloadingTimer.Enabled = false;
+            DownloadingTimer.Interval = 100;
+
+            LogoBox.Width = LogoBox.Height;
             StatusLabel.Text = "";
+            DescriptionBox.Text = "";
             StatusBar.Visible = false;
+            LowerPanel.Height = StatusBar.Top;
 
-            if (this.Width == 480)
+            Net.GetAppMetaInfo(AppUri);
+
+            Parameters.EndResponseEvent.WaitOne();
+
+            if (!String.IsNullOrEmpty(Parameters.ResponseMessage))
             {
-                DescriptionBox.Top = 200;
+                App = JsonConvert.DeserializeObject<Parameters.InstallableApp>(Parameters.ResponseMessage);
+
+                if (IOHelper.FindFile(Parameters.DownloadPath, App.PackageName))
+                {
+                    IsDownloaded = true;
+                    InstallButton.Text = "Install";
+                    InstallMenuItem.Text = "Install";
+                }
+
+                if (!String.IsNullOrEmpty(App.Name))
+                    NameLabel.Text = App.Name;
+
+                if (!String.IsNullOrEmpty(App.Version))
+                    VersionLabel.Text = App.Version;
+
+                if (App.Size != null)
+                    SizeLabel.Text = App.Size + " MB";
+
+                if (!String.IsNullOrEmpty(App.Description))
+                    DescriptionBox.Text = App.Description;
+
+
+                Cursor.Current = Cursors.Default;
             }
             else
             {
-                DescriptionBox.Top = 100;
+                Cursor.Current = Cursors.Default;
+                MessageBox.Show("Couldn't connect", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
+
+                App.Name = "Test";
+                App.PackageName = "Test.cab";
+                App.Origin = "LimSoft";
+                App.IconName = "";
+                App.IsCompressed = false;
+                App.Size = Parameters.MegsToBytes(0.01);
+                App.Version = "1.0.0";
             }
-
-            //ParamsHelper.CurrentURI = ParamsHelper.AppURI;
-
-            string FileSize;
-            string InfoName;
-            string LogoName;
-            string ScrShotName;
-            string[] AppInfo;
-
-            //AppInfo = NetHelper.LoadInfo(ParamsHelper.CurrentURI, AppName).Split('\n');
-
-            //FileSize = AppInfo[0];
-            //InfoName = AppInfo[1];
-            //LogoName = AppInfo[2];
-            //ScrShotName = AppInfo[3];
-
-            if (String.IsNullOrEmpty(FileSize))
-            {
-                SizeLabel.Text = "0 МБ";
-                StatusBar.Maximum = 100;
-            }
-            else
-            {
-                SizeLabel.Text = FileSize;
-                StatusBar.Maximum = (int)(Convert.ToDouble(FileSize.Split(' ')[0]) * 100);
-            }
-
-            if (String.IsNullOrEmpty(InfoName))
-            {
-                DescriptionBox.Text = "Для этого приложения ещё нет описания";
-            }
-            else
-            {   
-                DescriptionBox.Text = IOHelper.ReadTextFile(InfoName);
-            }
-
-            if (String.IsNullOrEmpty(LogoName))
-            {
-
-            }
-            else
-            {   
-                Bitmap LogoBitmap = new Bitmap(LogoName);
-                Image LogoImage = (Image)LogoBitmap;
-                LogoBox.Image = LogoImage;
-            }
-
-            ParamsHelper.CurrentURI = ParamsHelper.AppURI;
-
-            Cursor.Current = Cursors.Default;
-            */
         }
 
         private void AppForm_FormClosing(object sender, CancelEventArgs e)
@@ -147,121 +143,86 @@ namespace LimAppManager
 
         }
 
-        private void DownloadingThreadWorker(Uri CurrentURI, string DownloadPath, string InstallPath, string AppName)
+        private void UpdateUI(string Message)
         {
-            /*
-             string FileName = AppName + ".zip";
-             bool IsInstalled = false;
+            DownloadingTimer.Enabled = false;
 
-             ParamsHelper.ThreadMessage = "Идёт загрузка";
+            if (InvokeRequired)
+            {
+                InstallButton.Invoke((Action)(() => { InstallButton.Visible = true; }));
+                StatusBar.Invoke((Action)(() => { StatusBar.Visible = false; }));
+                StatusLabel.Invoke((Action)(() => { StatusLabel.Left = InstallButton.Right + 5; }));
+                LowerPanel.Invoke((Action)(() => { LowerPanel.Height = StatusBar.Top; }));
+                StatusLabel.Invoke((Action)(() => { StatusLabel.Text = Message; }));
+            }
+            else
+            {
+                InstallButton.Visible = true;
+                StatusBar.Visible = false;
+                StatusLabel.Left = InstallButton.Right + 5;
+                LowerPanel.Height = StatusBar.Top;
+                StatusLabel.Text = Message;
+            }
+        }
 
-             try
-             {
-                 NetHelper.DownloadFile(CurrentURI, DownloadPath, FileName);
-             }
-             catch(Exception NewEx)
-             {
-                 ParamsHelper.ThreadException = NewEx;
-                 ParamsHelper.IsThreadAlive = false;
-                 ParamsHelper.IsThreadError = true;
-                 ParamsHelper.ThreadMessage = "Ошибка при загрузке";
-                 return;
-             }
+        private void DownloadingThreadWorker(Uri CurrentURI, string DownloadPath, string PackageName, Mutex DownloadingMutex)
+        {
+            NetHelper Net = new NetHelper();
+            Net.GetFile(CurrentURI, DownloadPath, PackageName);
 
-             ParamsHelper.IsThreadWaiting = true;
-             ParamsHelper.ThreadMessage = "Успешно загружено";
+            Parameters.EndResponseEvent.WaitOne();
 
-             while (ParamsHelper.IsThreadWaiting)
-             {
+            UpdateUI("Download successfully");
 
-             }
+            IsDownloaded = true;
+            InstallButton.Invoke((Action)(() => { InstallButton.Text = "Install"; }));
+            //InstallMenuItem.Invoke((Action)(() => { InstallMenuItem.Text = "Install"; }));
+        }
 
-             if (ParamsHelper.ThreadMessage == "Yes")
-             {   
-                 ParamsHelper.ThreadMessage = "Идёт распаковка";
+        private void InstallingThreadWorker(string DownloadPath, string InstallPath, Parameters.InstallableApp App, Mutex InstallingMutex)
+        {   
+            bool IsInstalled = false;
+            string ExtractedPath = "";
 
-                 string ExtractedPath;
+            if (App.IsCompressed)
+            {
+                try
+                {
+                    ExtractedPath = IOHelper.ExtractToDirectory(DownloadPath + "\\" + App.PackageName, DownloadPath + "\\" + App.Name);
+                }
+                catch (Exception NewEx)
+                {
+                    UpdateUI("Error while uncompressing");
 
-                 try
-                 {
-                     ExtractedPath = IOHelper.ExtractToDirectory(DownloadPath + "\\" + FileName, DownloadPath + "\\" + AppName);
-                 }
-                 catch(Exception NewEx)
-                 {
-                     ParamsHelper.ThreadException = NewEx;
-                     ParamsHelper.IsThreadAlive = false;
-                     ParamsHelper.IsThreadError = true;
-                     ParamsHelper.ThreadMessage = "Ошибка при распаковке";
-                     return;
-                 }
+                    return;
+                }
+            }
+            else
+            {
+                ExtractedPath = DownloadPath + "\\" + App.PackageName;
+            }
 
-                 ParamsHelper.ThreadMessage = "Успешно распаковано";
+            try
+            {
+                IsInstalled = SystemHelper.AppInstall(ExtractedPath, InstallPath, App, Parameters.IsOverwrite);
+            }
+            catch (Exception NewEx)
+            {
+                UpdateUI("Error while installation");
 
-                 if (!String.IsNullOrEmpty(InstallPath))
-                 {   
-                     ParamsHelper.ThreadMessage = "Идёт установка";
+                return;
+            }
 
-                     try
-                     {
-                         IsInstalled = SystemHelper.AppInstall(ExtractedPath, InstallPath, AppName, ParamsHelper.IsOverwrite);
-                     }
-                     catch(Exception NewEx)
-                     {
-                         ParamsHelper.ThreadException = NewEx;
-                         ParamsHelper.IsThreadAlive = false;
-                         ParamsHelper.IsThreadError = true;
-                         ParamsHelper.ThreadMessage = "Ошибка при установке";
-                         return;  
-                     }
-
-                     if (IsInstalled) ParamsHelper.ThreadMessage = "Успешно установлено";
-                     else ParamsHelper.ThreadMessage = "Ошибка при установке";
-                 }
-                 else
-                 {
-                     ParamsHelper.ThreadException = new Exception("InstallPath Empty");
-                     ParamsHelper.IsThreadAlive = false;
-                     ParamsHelper.IsThreadError = true;
-                     ParamsHelper.ThreadMessage = "Ошибка при установке";
-                     return;  
-                 }
-
-             }
-
-             ParamsHelper.CurrentURI = ParamsHelper.AppURI;
-             ParamsHelper.IsThreadAlive = false;
-             */
+            if (!IsInstalled) UpdateUI("Error while installation");
+            else UpdateUI("Installed successfully");
         }
 
         private void DownloadingTimer_Tick(object sender, EventArgs e)
         {
+            if (StatusBar.Value + 2 < StatusBar.Maximum) StatusBar.Value += 2;
+            else StatusBar.Value = StatusBar.Minimum;
+
             /*
-            if (!ParamsHelper.IsThreadAlive)
-            {
-                try
-                {
-                    DownloadingTimer.Enabled = false;
-                    DownloadButton.Visible = true;
-                    StatusBar.Visible = false;
-                    StatusLabel.Width = 142;
-                    StatusLabel.Left = 90;
-                    DescriptionBox.Top = 100;
-                    StatusLabel.Text = ParamsHelper.ThreadMessage;
-
-                    if (this.Width == 480)
-                    {
-                        StatusLabel.Left = 180;
-                        DescriptionBox.Top = 200;
-                    }
-                    else
-                    {
-                        StatusLabel.Left = 90;
-                        DescriptionBox.Top = 100;
-                    }
-                }
-                catch
-                { }
-
                 if (ParamsHelper.IsThreadError)
                 {
                     try
@@ -298,39 +259,17 @@ namespace LimAppManager
                             MessageBox.Show("Ошибка при установке", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Hand, MessageBoxDefaultButton.Button1);
                         }
                     }
-
-                }
-
-            }
-            else
-            {
-                StatusLabel.Text = ParamsHelper.ThreadMessage;
-
-                if (StatusBar.Value + 2 < StatusBar.Maximum) StatusBar.Value += 2;
-                else StatusBar.Value = StatusBar.Minimum;
-
-                if (ParamsHelper.IsThreadWaiting)
-                {
-                    DownloadingTimer.Enabled = false;
-                    if (!ParamsHelper.IsAutoInstall)
-                    {
-                        DialogResult Result = MessageBox.Show("Установить?", "Сообщение", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-                        if (Result == DialogResult.Yes)
-                        {
-                            ParamsHelper.ThreadMessage = "Yes";
-                        }
-                    }
-                    else
-                    {
-                        ParamsHelper.ThreadMessage = "Yes";
-                    }
-
-                    DownloadingTimer.Enabled = true;
-                    //Parameters.IsThreadWaiting = false;
-                }
-            }
             */
+        }
+
+        private void InstallMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

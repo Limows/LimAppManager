@@ -4,28 +4,75 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Net;
+using System.Threading;
 
 namespace LimAppManager
 {
-    class Parameters
+    public class Parameters
     {
         public static int IconSize = 100;
         public static Dictionary<string, Uri> AppsList;
         public static Dictionary<string, Uri> ServersList;
+        public static List<string> InstalledList;
         public static string Server;
-        static public string DownloadPath;
-        static public string InstallPath;
-        static public string ConfigPath;
-        static public string TempPath;
-        static public string ServersPath;
-        static public int OSVersion;
-        static public bool IsAutoInstall;
-        static public bool IsRmPackage;
-        static public bool IsOverwrite;
-        static public bool IsUninstalling;
-        static public bool IsSendDebug;
-        static public ulong TempSize;
-        static public bool IsSaveParams;
+        public static string DownloadPath;
+        public static string InstallPath;
+        public static string ConfigPath;
+        public static string TempPath;
+        public static string ServersPath;
+        public static bool IsAutoInstall;
+        public static bool IsRmPackage;
+        public static bool IsOverwrite;
+        public static bool IsSendDebug;
+        public static ulong TempSize;
+        public static string ResponseMessage;
+        public static AutoResetEvent EndResponseEvent;
+        public static DebugInfo SysInfo;
+
+        public struct InstalledApp
+        {
+            public string Name;
+            public string Author;
+            public string FullName;
+            public string Version;
+            public string InstallDir;
+            public string InstallDate;
+        }
+
+        public struct InstallableApp
+        {
+
+            public string Name;
+            public string Origin;
+            public string Version;
+            public double Size;
+            public bool IsCompressed;
+            public string PackageName;
+            public string IconName;
+            public string Description;
+            public string Hash;
+        }
+
+        public struct DebugInfo
+        {
+            public int ScreenWidth;
+            public int ScreenHeight;
+            public string Cpu;
+            public string DeviceName;
+            public double RamSize;
+            public double DriveSpace;
+            public OSVersions OSVersion;
+        }
+
+        public enum OSVersions
+        {
+            WM2003 = 42,
+            WM5 = 51,
+            WM6 = 52,
+            CE4 = 4,
+            CE5 = 5,
+            CE6 = 6
+        }
 
         /// <summary>
         /// Convert bytes to megabytes

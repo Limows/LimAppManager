@@ -11,66 +11,35 @@ namespace LimAppManager
 {
     public partial class AboutAppBox : Form
     {
-        private string AppName;
+        private Parameters.InstalledApp App;
+        private bool IsUninstalling = false;
 
-        public AboutAppBox(string CurrentAppName)
+        public AboutAppBox(string AppName)
         {
             InitializeComponent();
-            AppName = CurrentAppName;
 
-            this.Text = String.Format("О Программе");
-            //this.labelProductName.Text = AppProduct;
-            //this.labelVersion.Text = String.Format("Версия {0}", AppVersion);
-            //this.labelCompanyName.Text = String.Format("Автор: {0}", AppCompany);
-            //this.labelInstallDate.Text = String.Format("Установлено: {0}", AppInstallDate);
-            //this.textBoxInstallPath.Text = String.Format("Путь установки: {0}", AppInstallPath);
-        }
+            App = SystemHelper.ReadAppInfo(AppName);
 
-        public string AppTitle
-        {
-            get
-            {
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            }
+            this.Text = String.Format("About {0}", AppTitle);
+            this.labelProductName.Text = AppTitle;
+            this.labelVersion.Text = String.Format("Version: {0}", AppVersion);
+            this.labelCompanyName.Text = String.Format("Author: {0}", AppCompany);
+            this.labelInstallDate.Text = String.Format("Install date: {0}", AppInstallDate);
+            this.textBoxInstallPath.Text = String.Format("Install path: {0}", AppInstallPath);
         }
 
         public string AppVersion
         {
             get
             {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
-
-        public string AppBuildDate
-        {
-            get
-            {
-                string filePath = System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase;
-                const int c_PeHeaderOffset = 60;
-                const int c_LinkerTimestampOffset = 8;
-                byte[] b = new byte[2048];
-                System.IO.Stream s = null;
-
-                try
+                if (!String.IsNullOrEmpty(App.Version))
                 {
-                    s = new System.IO.FileStream(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read);
-                    s.Read(b, 0, 2048);
+                    return App.Version;
                 }
-                finally
+                else
                 {
-                    if (s != null)
-                    {
-                        s.Close();
-                    }
+                    return "1.0.0";
                 }
-
-                int i = System.BitConverter.ToInt32(b, c_PeHeaderOffset);
-                int secondsSince1970 = System.BitConverter.ToInt32(b, i + c_LinkerTimestampOffset);
-                DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0);
-                dt = dt.AddSeconds(secondsSince1970);
-                dt = dt.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(dt).Hours);
-                return dt.ToString("dd.MM.yy");
             }
         }
 
@@ -78,31 +47,32 @@ namespace LimAppManager
         {
             get
             {
-                return SystemHelper.GetInstallDir(AppName);
-            }
-        }
-
-        public string AppProduct
-        {
-            get
-            {
-                string AppProductName = SystemHelper.GetInstallDir(AppName).Split('\\')[SystemHelper.GetInstallDir(AppName).Split('\\').Length - 1];
-
-                if (String.IsNullOrEmpty(AppProductName)) return "\\";
-                else return AppProductName;
-            }
-        }
-
-        public string AppCopyright
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-                if (attributes.Length == 0)
+                if (!String.IsNullOrEmpty(App.InstallDir))
                 {
-                    return "";
+                    return App.InstallDir;
                 }
-                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+                else
+                {
+                    return SystemHelper.GetInstallDir(App.FullName);
+                }
+            }
+        }
+
+        public string AppTitle
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(App.Name))
+                {
+                    return App.Name;
+                }
+                else
+                {
+                    string AppName = SystemHelper.GetInstallDir(App.FullName).Split('\\')[SystemHelper.GetInstallDir(App.FullName).Split('\\').Length - 1];
+
+                    if (String.IsNullOrEmpty(AppName)) return "\\";
+                    else return AppName;
+                }
             }
         }
 
@@ -110,7 +80,14 @@ namespace LimAppManager
         {
             get
             {
-                return AppName.Replace(this.labelProductName.Text, String.Empty);
+                if (!String.IsNullOrEmpty(App.Author))
+                {
+                    return App.Author;
+                }
+                else
+                {
+                    return App.FullName.Replace(AppTitle, String.Empty);
+                }
             }
         }
 
@@ -118,18 +95,50 @@ namespace LimAppManager
         {
             get
             {
-                return Directory.GetLastWriteTime(AppInstallPath).ToString("dd.MM.yy");
+                if (!String.IsNullOrEmpty(App.InstallDate))
+                {
+                    return App.InstallDate;
+                }
+                else
+                {
+                    return Directory.GetLastWriteTime(AppInstallPath).ToString("dd.MM.yy");
+                }
             }
         }
 
-        private void OKButton_Click(object sender, EventArgs e)
+        private void RemoveMenuItem_Click(object sender, EventArgs e)
         {
-            Close();
+            Cursor.Current = Cursors.WaitCursor;
+            bool IsUninstalled = SystemHelper.AppUninstall(App.FullName);
+            Cursor.Current = Cursors.Default;
+
+            IsUninstalling = true;
+
+            if (!IsUninstalled)
+            {
+                MessageBox.Show("Удаление не удалось");
+            }
         }
 
-        private void labelCompanyName_ParentChanged(object sender, EventArgs e)
+        private void LaunchMenuItem_Click(object sender, EventArgs e)
         {
+            string[] Executables = Directory.GetFiles(AppInstallPath, "*.exe");
 
+            SystemHelper.RunApp(Executables[0]);
+        }
+
+        private void AboutAppBox_Closing(object sender, CancelEventArgs e)
+        {
+            if (Parameters.SysInfo.OSVersion == Parameters.OSVersions.WM2003 && IsUninstalling)
+            {
+                e.Cancel = true;
+                IsUninstalling = false;
+            }
+        }
+
+        private void BackMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

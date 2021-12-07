@@ -6,6 +6,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+LimAppManager-Android/app/manifest-merger-debug-report.txt
+LimAppManager-Android/app/manifest-merger-release-report.txt
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -29,5 +31,6 @@ bld/
 # Libraries
 [Pp]ackages/
 *.dll
-*.pfx
 *.exe
+*.pfx
+*.apk

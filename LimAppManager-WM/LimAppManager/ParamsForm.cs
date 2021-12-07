@@ -13,6 +13,8 @@ namespace LimAppManager
 {
     public partial class ParamsForm : Form
     {
+        private bool IsSaveParams = false;
+ 
         public ParamsForm()
         {
             InitializeComponent();
@@ -161,26 +163,15 @@ namespace LimAppManager
 
         private void ParamsForm_Closing(object sender, CancelEventArgs e)
         {
-            if (Parameters.IsSaveParams)
+            if (IsSaveParams)
             {
                 Parameters.DownloadPath = CheckDirectory(DownloadPathBox.Text);
                 Parameters.IsAutoInstall = AutoInstallBox.Checked;
                 Parameters.IsRmPackage = RmPackageBox.Checked;
                 Parameters.IsOverwrite = OverwriteDirsBox.Checked;
                 Parameters.IsSendDebug = DebugBox.Checked;
-
                 Parameters.IconSize = IconSizeBar.Value;
-
-                if (String.IsNullOrEmpty((string)ServersBox.SelectedItem))
-                {
-                    MessageBox.Show("Choose server", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                    e.Cancel = true;
-                    return;
-                }
-                else
-                {
-                    Parameters.Server = (string)ServersBox.SelectedItem;
-                }
+                Parameters.Server = (string)ServersBox.SelectedItem;
 
                 if (String.IsNullOrEmpty(Parameters.InstallPath))
                 {
@@ -190,16 +181,21 @@ namespace LimAppManager
                 }
                 else
                 {
+
                     try
                     {
                         if (!Directory.Exists(Parameters.InstallPath))
                         {
                             Directory.CreateDirectory(Parameters.InstallPath);
                         }
+
+                        Parameters.SysInfo.DriveSpace = Parameters.BytesToMegs(IO.GetStorageSpace(Parameters.InstallPath));
                     }
                     catch
                     {
                         MessageBox.Show("The selected device is not ready", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                        
+                        Parameters.SysInfo.DriveSpace = 0;
                         e.Cancel = true;
                         return;
                     }
@@ -244,14 +240,24 @@ namespace LimAppManager
 
         private void OkMenuItem_Click(object sender, EventArgs e)
         {
-            Parameters.IsSaveParams = true;
+            IsSaveParams = true;
             Close();
         }
 
         private void CanselMenuItem_Click(object sender, EventArgs e)
         {
-            Parameters.IsSaveParams = false;
+            IsSaveParams = false;
             Close();
+        }
+
+        private void LoginButton_Click(object sender, EventArgs e)
+        {
+            string NameHash = HashHelper.GetMD5Hash(NameBox.Text);
+            string PasswordHash = HashHelper.GetMD5Hash(NameBox.Text);
+            NetHelper Net = new NetHelper();
+            Uri ServerUri = new Uri("http://limowski.xyz");
+
+            Net.SendAutorizationInfo(ServerUri, NameHash, PasswordHash);
         }
     }
 }

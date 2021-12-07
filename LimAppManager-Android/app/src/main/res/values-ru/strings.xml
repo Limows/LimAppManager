@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delete">Удалить файл</string>
+    <string name="hello_world">Привет, мир!</string>
+    <string name="install">Установить</string>
+    <string name="install_root">Установить тихо</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_info">Информация</string>
+    <string name="back">Назад</string>
+    <string name="action_exit">Выйти</string>
+    <string name="action_donate">Донат</string>
+    <string name="error_connection">Ошибка во время подключения к серверу. Проверьте подключение к интернету и попробуйте ещё раз.</string>
+    <string name="download_started">Начата загрузка.</string>
+    <string name="file_deleted">Файл был успешно удалён.</string>
+    <string name="file_not_deleted">Файл НЕ был успешно удалён.</string>
+    <string name="download_error">Возникла ошибка при загрузке.</string>
+    <string name="no_desc">Описание для данного приложения отсутствует.</string>
+    <string name="reconnect">Переподключиться</string>
+</resources>
