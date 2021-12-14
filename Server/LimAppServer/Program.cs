@@ -30,18 +30,34 @@ namespace LimAppServer
                 return;
             }
             
-            if (String.IsNullOrEmpty(Parameters.Uri))
+            if (!String.IsNullOrEmpty(Parameters.Uri))
             {
-                Server = new HttpServer(Parameters.Uri);
+                try
+                {
+                    Server = new HttpServer(Parameters.Uri);
 
-                Logger.LogMessage("Running main handler", Logger.MessageLevel.Info);
+                    Logger.LogMessage("Running main handler", Logger.MessageLevel.Info);
 
-                Task ListenTask = Server.HandleIncomingConnections();
-                ListenTask.GetAwaiter().GetResult();
+                    Task ListenTask = Server.HandleIncomingConnections();
+                    ListenTask.GetAwaiter().GetResult();
+                }
+                catch
+                {
+                    Logger.LogMessage("Unable to connect", Logger.MessageLevel.Fatal);
+                }
             }
             else
             {
                 Logger.LogMessage("Url not specified", Logger.MessageLevel.Fatal);
+            }
+
+            try
+            {
+                IOHelper.WriteSettings();
+            }
+            catch
+            {
+                Logger.LogMessage("Error while writing settings", Logger.MessageLevel.Fatal);
             }
 
             Console.WriteLine("Goodbye...");

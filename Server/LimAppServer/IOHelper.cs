@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using IniParser;
 using System.IO.Compression;
+using System.Threading.Tasks;
 
 namespace LimAppServer
 {
@@ -22,8 +23,12 @@ namespace LimAppServer
             var Parser = new FileIniDataParser();
             var Config = new IniParser.Model.IniData();
 
-            Config["Net"]["Uri"] = "limowski.xyz";
-            Config["Stat"]["Requests"] = Convert.ToString(0);
+            Config["Net"]["Uri"] = "http://192.168.1.73:8080/";
+            Config["Stat"]["Requests"] = Convert.ToString(Parameters.Requests);
+            Config["Stat"]["Views"] = Convert.ToString(Parameters.Views);
+            Config["Stat"]["Logins"] = Convert.ToString(Parameters.Logins);
+            Config["Stat"]["Uploads"] = Convert.ToString(Parameters.Uploads);
+            Config["Stat"]["Downloads"] = Convert.ToString(Parameters.Downloads);
 
             Parser.WriteFile(Parameters.ConfigPath, Config, Encoding.Default);
         }
@@ -36,7 +41,7 @@ namespace LimAppServer
             {
                 FileStream Stream = File.Create(GetCurrentDirectory() + "\\Config.ini");
                 Stream.Close();
-                return GetCurrentDirectory() + "\\Config.ini";
+                throw new Exception();
             }
 
             return ConfigFiles[0];
@@ -48,8 +53,9 @@ namespace LimAppServer
         /// <returns>Current directory path</returns> 
         static public string GetCurrentDirectory()
         {
-            string CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            return CurrentDirectory;
+            //string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            string path = Directory.GetCurrentDirectory();
+            return path;
         }
 
         static public bool FindFile(string Directory, string FileName)
@@ -69,6 +75,15 @@ namespace LimAppServer
 
             Parameters.Uri = Config["Net"]["Uri"];
             Parameters.Requests = Convert.ToInt32(Config["Stat"]["Requests"]);
+            Parameters.Views = Convert.ToInt32(Config["Stat"]["Views"]);
+            Parameters.Logins = Convert.ToInt32(Config["Stat"]["Logins"]);
+            Parameters.Uploads = Convert.ToInt32(Config["Stat"]["Uploads"]);
+            Parameters.Downloads = Convert.ToInt32(Config["Stat"]["Downloads"]);
+        }
+
+        public static async Task SaveStat()
+        {
+
         }
 
         static public string ReadTextFile(string Path)

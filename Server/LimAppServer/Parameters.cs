@@ -11,11 +11,11 @@ namespace LimAppServer
     public class Parameters
     {
         static public string Uri;
-        static public int Requests;
-        static public int Views;
-        static public int Logins;
-        static public int Downloads;
-        static public int Uploads;
+        static public int Requests = 0;
+        static public int Views = 0;
+        static public int Logins = 0;
+        static public int Downloads = 0;
+        static public int Uploads = 0;
         static public string ConfigPath;
         public static readonly ILogger Logger = Log.ForContext<Program>();
     }
