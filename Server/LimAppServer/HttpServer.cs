@@ -70,88 +70,99 @@ namespace LimAppServer
                     switch (HttpRequest.Url.AbsolutePath)
                     {
                         case "/shutdown":
-                            Console.WriteLine("Shutdown requested");
+                            Logger.LogMessage("Shutdown requested", Logger.MessageLevel.Debug);
 
                             RequestResult = "Shutdown completed";
                             IsRun = false;
                             break;
 
                         case "/registration":
-                            Console.WriteLine("Registration requested");
+                            Logger.LogMessage("Registration requested", Logger.MessageLevel.Debug);
 
                             if (RequestFields.Length == 3)
                             {
                                 if (CredentialsHelper.CreateRecord(RequestFields[0], RequestFields[1], RequestFields[2]))
                                 {
-                                    Console.WriteLine("Registration was successful");
+                                    Logger.LogMessage("Registration was successful", Logger.MessageLevel.Info);
                                     RequestResult = "Registration was successful";
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Registration failed");
+                                    Logger.LogMessage("Registration failed", Logger.MessageLevel.Error);
                                     RequestResult = "Registration failed";
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Error in request body");
+                                Logger.LogMessage("Error in request body", Logger.MessageLevel.Error);
                                 RequestResult = "Error in request body";
                             }
 
                             break;
 
                         case "/login":
-                            Console.WriteLine("Login requested");
+                            Logger.LogMessage("Login requested", Logger.MessageLevel.Debug);
 
                             if (RequestFields.Length == 2)
                             {
                                 if (CredentialsHelper.FindRecord("", ""))
                                 {
-                                    Console.WriteLine("Login was successful");
+                                    Logger.LogMessage("Login was successful", Logger.MessageLevel.Info);
                                     RequestResult = "Login was successful";
                                     RequestData = CredentialsHelper.FetchRecord("", "");
                                     LoginsCount++;
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Login failed");
+                                    Logger.LogMessage("Login failed", Logger.MessageLevel.Error);
                                     RequestResult = "Login failed";
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Error in request body");
+                                Logger.LogMessage("Error in request body", Logger.MessageLevel.Error);
                                 RequestResult = "Error in request body";
                             }
 
                             break;
 
                         case "/message":
-                            Console.WriteLine("Send error mail requested");
+                            Logger.LogMessage("Send error mail requested", Logger.MessageLevel.Debug);
 
                             await MailHelper.SendEmailAsync();
                             RequestResult = "Error message was sent";
-                            Console.WriteLine("Error message was sent");
+                            Logger.LogMessage("Error message was sent", Logger.MessageLevel.Info);
                             break;
 
                         case "/download":
-                            Console.WriteLine("Download requested");
+                            Logger.LogMessage("Download requested", Logger.MessageLevel.Debug);
 
                             DownloadsCount++;
                             RequestResult = "Downloading app";
                             RequestData = RequestInput;
-                            Console.WriteLine("Downloading app");
+                            Logger.LogMessage("Downloading app", Logger.MessageLevel.Info);
                             break;
 
                         case "/upload":
-                            Console.WriteLine("Upload requested");
+                            Logger.LogMessage("Upload requested", Logger.MessageLevel.Debug);
 
                             UploadsCount++;
-                            MetaBuilderLib.Parameters.Package AppPackage = new MetaBuilderLib.Parameters.Package();
-                            string Json = MetaInfo.GenerateMetaFile(AppPackage);
-                            FileSystem.WriteMetaFile("Meta.json", Json);
-                            RequestResult = "Upload completed";
-                            Console.WriteLine("Upload completed");
+
+                            try
+                            {
+                                MetaBuilderLib.Parameters.Package AppPackage = new MetaBuilderLib.Parameters.Package();
+                                string Json = MetaInfo.GenerateMetaFile(AppPackage);
+                                FileSystem.WriteMetaFile("Meta.json", Json);
+                                RequestResult = "Upload completed";
+                                RequestData = AppPackage.Name;
+                                Logger.LogMessage("Upload completed", Logger.MessageLevel.Info);
+                            }
+                            catch
+                            {
+                                RequestResult = "Upload failed";
+                                Logger.LogMessage("Upload failed", Logger.MessageLevel.Error);
+                            }
+
                             break;
                     }
                 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Net;
+using Serilog;
 
 namespace LimAppServer
 {
@@ -16,6 +17,6 @@ namespace LimAppServer
         static public int Downloads;
         static public int Uploads;
         static public string ConfigPath;
-        public static Queue<string> Log;
+        public static readonly ILogger Logger = Log.ForContext<Program>();
     }
 }
