@@ -43,7 +43,7 @@ namespace LimAppServer
                 }
                 catch
                 {
-                    Logger.LogMessage("Unable to connect", Logger.MessageLevel.Fatal);
+                    Logger.LogMessage("Insufficient access rights. Run as Admin, please", Logger.MessageLevel.Warning);
                 }
             }
             else

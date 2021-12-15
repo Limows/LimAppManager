@@ -65,7 +65,7 @@ namespace LimAppServer
                         }
                     }
 
-                    RequestFields = RequestInput.Split('\n', StringSplitOptions.RemoveEmptyEntries);
+                    RequestFields = RequestInput.Split('&', StringSplitOptions.RemoveEmptyEntries);
 
                     switch (HttpRequest.Url.AbsolutePath)
                     {
