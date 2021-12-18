@@ -81,7 +81,10 @@ namespace LimAppServer
 
                             if (RequestFields.Length == 3)
                             {
-                                if (CredentialsHelper.CreateRecord(RequestFields[0], RequestFields[1], RequestFields[2]))
+                                if (CredentialsHelper.CreateRecord(CredentialsHelper.GetMD5Hash(RequestFields[0]),
+                                                                   CredentialsHelper.GetMD5Hash(RequestFields[1]),
+                                                                   CredentialsHelper.GetMD5Hash(RequestFields[2])))
+
                                 {
                                     Logger.LogMessage("Registration was successful", Logger.MessageLevel.Info);
                                     RequestResult = "Registration was successful";
@@ -148,19 +151,41 @@ namespace LimAppServer
 
                             UploadsCount++;
 
-                            try
+                            if (RequestFields.Length == 2)
                             {
-                                MetaBuilderLib.Parameters.Package AppPackage = new MetaBuilderLib.Parameters.Package();
-                                string Json = MetaInfo.GenerateMetaFile(AppPackage);
-                                FileSystem.WriteMetaFile("Meta.json", Json);
-                                RequestResult = "Upload completed";
-                                RequestData = AppPackage.Name;
-                                Logger.LogMessage("Upload completed", Logger.MessageLevel.Info);
+                                try
+                                {
+                                    MetaBuilderLib.Parameters.Package AppPackage = new MetaBuilderLib.Parameters.Package();
+
+                                    AppPackage.System = RequestFields[0];
+                                    AppPackage.Name = RequestFields[1];
+                                    AppPackage.PackageName = FileSystem.GetPackageName("temp", ".cab");
+                                    AppPackage.Description = RequestFields[2];
+                                    AppPackage.IsCompressed = FileSystem.CheckCompression("temp");
+                                    AppPackage.Hash = Hash.GetMD5Hash(AppPackage.PackageName);
+                                    AppPackage.IconName = FileSystem.GetIconName("temp");
+                                    AppPackage.ShotName = FileSystem.GetShotName("temp");
+                                    AppPackage.Size = FileSystem.GetPackageSize("temp", ".cab");
+                                    AppPackage.Maintainer = RequestFields[3];
+                                    AppPackage.Origin = RequestFields[4];
+                                    AppPackage.Version = RequestFields[5];
+
+                                    string Json = MetaInfo.GenerateMetaFile(AppPackage);
+                                    FileSystem.WriteMetaFile("Meta.json", Json);
+                                    RequestResult = "Upload completed";
+                                    RequestData = AppPackage.Name;
+                                    Logger.LogMessage("Upload completed", Logger.MessageLevel.Info);
+                                }
+                                catch
+                                {
+                                    RequestResult = "Upload failed";
+                                    Logger.LogMessage("Upload failed", Logger.MessageLevel.Error);
+                                }
                             }
-                            catch
+                            else
                             {
-                                RequestResult = "Upload failed";
-                                Logger.LogMessage("Upload failed", Logger.MessageLevel.Error);
+                                Logger.LogMessage("Error in request body", Logger.MessageLevel.Error);
+                                RequestResult = "Error in request body";
                             }
 
                             break;

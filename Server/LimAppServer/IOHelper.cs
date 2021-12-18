@@ -83,7 +83,12 @@ namespace LimAppServer
 
         public static async Task SaveStat()
         {
+            while (true)
+            {
+                Thread.Sleep(1000 * 60);
 
+                WriteSettings();
+            }
         }
 
         static public string ReadTextFile(string Path)
