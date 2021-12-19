@@ -10,6 +10,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src=../../js/ButtonScripts.js></script>
     </head>
 
     <body>
@@ -52,7 +53,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Имя (ник)</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="firstName-lbl" placeholder="" value="" required>
                             <div class="invalid-feedback">
                                 Необходимо ввести имя
                             </div>
@@ -60,7 +61,7 @@
 
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Фамилия</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="">
+                            <input type="text" class="form-control" id="lastName-lbl" placeholder="" value="">
                             <div class="invalid-feedback">
                                 Необходимо ввести фамилию
                             </div>
@@ -69,7 +70,7 @@
 
                     <div class="mb-3">
                         <label for="email">Основное ретро-устройство</label>
-                        <input type="email" class="form-control" id="email" placeholder="HTC HD2">
+                        <input type="email" class="form-control" id="device-lbl" placeholder="HTC HD2">
                         <div class="invalid-feedback">
                             Необходимо ввести е-мейл.
                         </div>
@@ -79,7 +80,7 @@
     
                     <div class="mb-3">
                         <label for="email">Email (Логин)</label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                        <input type="email" class="form-control" id="email-lbl" placeholder="you@example.com" required>
                         <div class="invalid-feedback">
                             Необходимо ввести е-мейл.
                         </div>
@@ -87,14 +88,14 @@
 
                     <div class="mb-3">
                         <label for="email">Пароль</label>
-                        <input type="email" class="form-control" id="email" placeholder="qwerty1234" required>
+                        <input type="email" class="form-control" id="passwd-lbl" placeholder="qwerty1234" required>
                         <div class="invalid-feedback">
                             Необходимо ввести пароль.
                         </div>
                     </div>
                 
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрироваться</button>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" id="reg-btn" onclick="SendRegPost();">Зарегистрироваться</button>
                 </form>
             </div>
         </main>
@@ -106,29 +107,5 @@
                 </div>
             </div>
         </footer>
-
-        <script>
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
-            (function() {
-              'use strict';
-      
-              window.addEventListener('load', function() {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-      
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                  form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                      event.preventDefault();
-                      event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                  }, false);
-                });
-              }, false);
-            })();
-        </script>
-
     </body>
 </html>
