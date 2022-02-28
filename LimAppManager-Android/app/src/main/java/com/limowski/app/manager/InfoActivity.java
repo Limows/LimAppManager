@@ -3,6 +3,8 @@ package com.limowski.app.manager;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,9 +17,8 @@ public class InfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        Bundle args = getIntent().getExtras();
-        boolean root = args.getBoolean("root");
-        String SdkVersion = Build.VERSION.SDK;
+        boolean root = MainActivity.hasRoot;
+        String SdkVersion = String.valueOf(MainActivity.SDK_INT);
 
         Button backButton = (Button) findViewById(R.id.backButtonInfo);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -27,11 +28,23 @@ public class InfoActivity extends Activity {
             }
         });
 
-        final TextView textView = (TextView) findViewById(R.id.infoTextView);
+        final TextView textView = (TextView) findViewById(R.id.infoTextViewInfo);
         final String text = "Manager version: " + getString(R.string.app_version) +
                 "\nRelease: " + Build.VERSION.RELEASE + "\nSDK: " + SdkVersion +
-                "\nIncremental: " + Build.VERSION.INCREMENTAL + "\nHas root: " + (root ? "Yes" : "No");
+                "\nIncremental: " + Build.VERSION.INCREMENTAL + "\nHas root: " + (root ? "Yes" : "No") + '\n';
 
         textView.setText(text);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Log.d("BACK", String.valueOf(event.getRepeatCount()));
+        }
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            //finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

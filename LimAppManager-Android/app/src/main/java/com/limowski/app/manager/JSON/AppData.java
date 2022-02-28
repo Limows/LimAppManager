@@ -1,4 +1,4 @@
-package com.limowski.app.manager;
+package com.limowski.app.manager.JSON;
 
 import com.google.gson.annotations.SerializedName;
 

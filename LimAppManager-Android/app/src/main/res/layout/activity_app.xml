@@ -14,7 +14,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/appImageViewApp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:scaleType="fitCenter" />
@@ -24,9 +24,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
-        android:id="@+id/appTitle"
+        android:id="@+id/appTitleTextApp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/imageView"
+        android:layout_toRightOf="@+id/appImageViewApp"
         android:textColor="@android:color/white"
         android:layout_marginLeft="5dp"/>
 
@@ -35,8 +35,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text=""
-        android:id="@+id/appDesc"
-        android:layout_below="@+id/imageView"
+        android:id="@+id/appDescTextApp"
+        android:layout_below="@+id/appImageViewApp"
         android:textColor="@android:color/white"
         android:layout_alignParentLeft="true" />
 
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/delete"
-        android:id="@+id/buttonDelete"
+        android:id="@+id/deleteButtonApp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" />
 
@@ -52,17 +52,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/install"
-        android:id="@+id/buttonInstall"
-        android:layout_above="@+id/buttonDelete"
+        android:id="@+id/installButtonApp"
+        android:layout_above="@+id/deleteButtonApp"
         android:layout_alignParentLeft="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/install_root"
-        android:id="@+id/buttonInstallSilent"
-        android:layout_above="@+id/buttonDelete"
-        android:layout_toRightOf="@+id/buttonInstall"
+        android:id="@+id/rootInstallButtonApp"
+        android:layout_above="@+id/deleteButtonApp"
+        android:layout_toRightOf="@+id/installButtonApp"
         android:enabled="false" />
 
     <TextView
@@ -70,9 +70,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text=""
-        android:id="@+id/appVersion"
-        android:layout_below="@+id/appTitle"
-        android:layout_toRightOf="@+id/imageView"
+        android:id="@+id/appVersionTextApp"
+        android:layout_below="@+id/appTitleTextApp"
+        android:layout_toRightOf="@+id/appImageViewApp"
         android:textColor="@android:color/white"
         android:layout_marginLeft="5dp"/>
 
@@ -81,9 +81,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text=""
-        android:id="@+id/appSize"
-        android:layout_below="@+id/appVersion"
-        android:layout_toRightOf="@+id/imageView"
+        android:id="@+id/appSizeTextApp"
+        android:layout_below="@+id/appVersionTextApp"
+        android:layout_toRightOf="@+id/appImageViewApp"
         android:textColor="@android:color/white"
         android:layout_marginLeft="5dp"/>
 
