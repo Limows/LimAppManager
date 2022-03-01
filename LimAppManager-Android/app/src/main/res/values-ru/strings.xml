@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Настройки</string>
+    <string name="action_settings">Информация</string>
     <string name="action_donate">Донат</string>
     <string name="action_restart">Перезапуск</string>
     <string name="action_exit">Выйти</string>

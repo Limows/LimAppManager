@@ -3,8 +3,6 @@ package com.limowski.app.manager;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,17 +32,5 @@ public class InfoActivity extends Activity {
                 "\nIncremental: " + Build.VERSION.INCREMENTAL + "\nHas root: " + (root ? "Yes" : "No") + '\n';
 
         textView.setText(text);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Log.d("BACK", String.valueOf(event.getRepeatCount()));
-        }
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            //finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }
