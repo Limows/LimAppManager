@@ -15,9 +15,8 @@ public class InfoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        Bundle args = getIntent().getExtras();
-        boolean root = args.getBoolean("root");
-        String SdkVersion = Build.VERSION.SDK;
+        boolean root = MainActivity.hasRoot;
+        String SdkVersion = String.valueOf(MainActivity.SDK_INT);
 
         Button backButton = (Button) findViewById(R.id.backButtonInfo);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -27,10 +26,10 @@ public class InfoActivity extends Activity {
             }
         });
 
-        final TextView textView = (TextView) findViewById(R.id.infoTextView);
+        final TextView textView = (TextView) findViewById(R.id.infoTextViewInfo);
         final String text = "Manager version: " + getString(R.string.app_version) +
                 "\nRelease: " + Build.VERSION.RELEASE + "\nSDK: " + SdkVersion +
-                "\nIncremental: " + Build.VERSION.INCREMENTAL + "\nHas root: " + (root ? "Yes" : "No");
+                "\nIncremental: " + Build.VERSION.INCREMENTAL + "\nHas root: " + (root ? "Yes" : "No") + '\n';
 
         textView.setText(text);
     }

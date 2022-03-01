@@ -1,116 +1,107 @@
 package com.limowski.app.manager;
 
 import com.google.gson.Gson;
+import com.limowski.app.manager.JSON.AppData;
 
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 
+import android.util.Log;
+
 public class InternetUtils {
+
+    private static String protocol = "http://";
+    private static String server = "limowski.xyz";
+    private static int port = 80;
+    private static String directory = "/downloads";
+    private static String indexListName = "/index.list";
+
+    private static String baseUrl = protocol + server + ":" + port + directory;
+    //                              http://limowski.xyz:80/downloads
+
+    private static String login = "anon";
+    private static String password = "";
+
+    private static HttpClient client = new DefaultHttpClient();
 
     public ConcurrentHashMap<String, String> getFilesArray(String path) {
         ConcurrentHashMap<String, String> apps = new ConcurrentHashMap<>();
-        FTPClient client = new FTPClient();
-        try {
-            InetAddress address = InetAddress.getByName("limowski.xyz");
-            client.connect(address, 2121);
-            client.enterLocalPassiveMode();
-            client.login("anon", "");
 
-            client.setFileType(FTP.ASCII_FILE_TYPE);
-            client.changeWorkingDirectory(path);
-            InputStream inputStreamNames = client.retrieveFileStream("index.list");
-            Scanner scannerNames = new Scanner(inputStreamNames);
+        String baseDirUrl = baseUrl + path;
+        try {
+            String indexUrl = baseDirUrl + indexListName;
+            HttpGet request = new HttpGet(indexUrl);
+            HttpResponse response = client.execute(request);
+            HttpEntity entity = response.getEntity();
+            InputStream inputStream = entity.getContent();
+            Scanner scanner = new Scanner(inputStream);
             List<String[]> names = new ArrayList<>();
-            while (scannerNames.hasNextLine()) {
-                String[] nameAndDir = scannerNames.nextLine().split("=");
+            while (scanner.hasNextLine()) {
+                String[] nameAndDir = scanner.nextLine().split("=");
                 names.add(nameAndDir);
             }
-            scannerNames.close();
-            inputStreamNames.close();
-            client.completePendingCommand();
+            scanner.close();
+            inputStream.close();
 
-            if (!client.isConnected()) {
-                client.connect(address, 2121);
-                client.enterLocalPassiveMode();
-                client.login("anon", "");
-            }
-            Gson gson = new Gson();
+            Gson gson = MainActivity.gson;
+
             for (String[] nameAndDir : names) {
                 String displayName = nameAndDir[0];
-                String dirName = path + '/' + nameAndDir[1];
-                client.changeWorkingDirectory(dirName);
-                FTPFile[] dirFiles = client.listFiles();
-                boolean isMeta = false;
-                String fileNameApk = "";
-                for (FTPFile file : dirFiles) {
-                    if (file.getName().endsWith(".apk")) {
-                        fileNameApk = file.getName();
-                    } else if (file.getName().equals("Meta.json")) {
-                        isMeta = true;
-                    }
+                String appDirUrl = baseDirUrl + '/' + nameAndDir[1];
+                String MetaUrl = appDirUrl + "/Meta.json";
+                request = new HttpGet(MetaUrl);
+                response = client.execute(request);
+
+                if (response.getStatusLine().toString().contains("404")) {
+                    continue;
                 }
 
-                if (isMeta) {
-                    InputStream inputStreamMeta = client.retrieveFileStream(dirName+"/Meta.json");
-                    Scanner scannerMeta = new Scanner(inputStreamMeta);
-                    String rawJson = "";
-                    while (scannerMeta.hasNextLine()) {
-                        rawJson += scannerMeta.nextLine();
-                    }
-                    AppData app = gson.fromJson(rawJson, AppData.class);
-                    app.filePath = dirName;
-                    app.hasMeta = true;
-
-                    String returnString = gson.toJson(app);
-
-                    apps.put(displayName, returnString);
-                    scannerMeta.close();
-                    inputStreamMeta.close();
-                    client.completePendingCommand();
-                } else {
-                    AppData app = new AppData();
-                    app.system = "Android";
-                    app.fileName = fileNameApk;
-                    app.filePath = dirName;
-                    app.size = 0.0;
-                    app.hasMeta = false;
-                    String returnString = gson.toJson(app);
-                    apps.put(displayName, returnString);
+                entity = response.getEntity();
+                inputStream = entity.getContent();
+                scanner = new Scanner(inputStream);
+                String rawJson = "";
+                while (scanner.hasNextLine()) {
+                    rawJson += scanner.nextLine();
                 }
 
+                AppData app = gson.fromJson(rawJson, AppData.class);
+                app.filePath = path + "/" + nameAndDir[1];
+                app.hasMeta = true;
+                String returnString = gson.toJson(app);
+                apps.put(displayName, returnString);
+                scanner.close();
+                inputStream.close();
             }
-            client.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
         return apps;
     }
 
     public boolean downloadFile(String path, File file) {
-        FTPClient client = new FTPClient();
+        Log.d("HTTPD", path);
+        String fileUrl = baseUrl + path;
         try {
-            client.connect(InetAddress.getByName("limowski.xyz"), 2121);
-            client.enterLocalPassiveMode();
-            client.login("anon", "");
-            client.setFileType(FTP.BINARY_FILE_TYPE);
+            HttpGet request = new HttpGet(fileUrl);
+            HttpResponse response = client.execute(request);
+            HttpEntity entity = response.getEntity();
             OutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
-            client.retrieveFile(path, stream);
+            entity.writeTo(stream);
             stream.close();
-            client.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
             return false;

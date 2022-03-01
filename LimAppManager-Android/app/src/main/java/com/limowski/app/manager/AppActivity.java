@@ -52,14 +52,14 @@ public class AppActivity extends Activity {
         int width = displayMetrics.widthPixels;
         int imageSide = (height > width) ? (width / 3) : (height / 3);
 
-        TextView appTitleView = (TextView) findViewById(R.id.appTitle);
-        TextView appVersionView = (TextView) findViewById(R.id.appVersion);
-        TextView appSizeView = (TextView) findViewById(R.id.appSize);
-        TextView appDescView = (TextView) findViewById(R.id.appDesc);
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        Button installButton = (Button) findViewById(R.id.buttonInstall);
-        Button installSilentButton = (Button) findViewById(R.id.buttonInstallSilent);
-        Button deleteButton = (Button) findViewById(R.id.buttonDelete);
+        TextView appTitleView = (TextView) findViewById(R.id.appTitleTextApp);
+        TextView appVersionView = (TextView) findViewById(R.id.appVersionTextApp);
+        TextView appSizeView = (TextView) findViewById(R.id.appSizeTextApp);
+        TextView appDescView = (TextView) findViewById(R.id.appDescTextApp);
+        ImageView imageView = (ImageView) findViewById(R.id.appImageViewApp);
+        Button installButton = (Button) findViewById(R.id.installButtonApp);
+        Button installSilentButton = (Button) findViewById(R.id.rootInstallButtonApp);
+        Button deleteButton = (Button) findViewById(R.id.deleteButtonApp);
 
         installButton.setWidth(width / 2 - 5);
         installSilentButton.setWidth(width / 2 - 5);
