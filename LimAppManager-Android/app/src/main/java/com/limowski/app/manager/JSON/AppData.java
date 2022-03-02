@@ -7,7 +7,7 @@ public class AppData {
     public String system;
     @SerializedName("Name")
     public String appName;
-    @SerializedName("FileName")
+    @SerializedName("PackageName")
     public String fileName;
     @SerializedName("FilePath")
     public String filePath;
@@ -15,13 +15,15 @@ public class AppData {
     public String description;
     @SerializedName("IsCompressed")
     public boolean isCompressed;
-    @SerializedName("IcoName")
+    @SerializedName("Hash")
+    public String hash;
+    @SerializedName("IconName")
     public String iconName;
     @SerializedName("ShotName")
     public String shotName;
     @SerializedName("Size")
     public double size;
-    @SerializedName("Mainteiner")
+    @SerializedName("Maintainer")
     public String maintainer;
     @SerializedName("Origin")
     public String origin;
