@@ -9,8 +9,6 @@ public class AppData {
     public String appName;
     @SerializedName("PackageName")
     public String fileName;
-    @SerializedName("FilePath")
-    public String filePath;
     @SerializedName("Description")
     public String description;
     @SerializedName("IsCompressed")
@@ -31,5 +29,8 @@ public class AppData {
     public String appVersion;
     @SerializedName("HasMeta")
     public boolean hasMeta;
+
+    // Internal JSON field
+    public String filePath;
 
 }

@@ -12,6 +12,7 @@
     <string name="reconnect">Переподключиться</string>
 
     <string name="error_connection">Ошибка во время подключения к серверу. Проверьте подключение к интернету и попробуйте ещё раз.</string>
+    <string name="error_index">Кажется, данная версия Android пока что не поддерживается.</string>
     <string name="download_started">Начата загрузка.</string>
     <string name="file_deleted">Файл был успешно удалён.</string>
     <string name="file_not_deleted">Файл НЕ был успешно удалён.</string>
