@@ -39,11 +39,22 @@ public class MainActivity extends Activity {
     public static final boolean hasRoot = isRoot();
     public static final int SDK_INT = Integer.parseInt(Build.VERSION.SDK);
 
+
+    private String directory = "/Android_API1";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (SDK_INT >= 12) {
+            directory = "/Android_API12";
+        } else if (SDK_INT >= 9) {
+            directory = "/Android_API9";
+        } else if (SDK_INT >= 3) {
+            directory = "/Android_API3";
+        }
+        
         listView = (ListView) findViewById(R.id.appsListViewMain);
         progressBar = (ProgressBar) findViewById(R.id.appsProgressBarMain);
         reconnectButton = (Button) findViewById(R.id.reconnectButtonMain);
@@ -111,8 +122,18 @@ public class MainActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-                appsData = internetUtils.getFilesArray("/Android_API3");
+                if (!internetUtils.hadIndex(directory)) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), R.string.error_index, Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            reconnectButton.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    return;
+                }
+                appsData = internetUtils.getFilesArray(directory);
 
                 if (appsData == null || appsData.isEmpty()) {
                     runOnUiThread(new Runnable() {

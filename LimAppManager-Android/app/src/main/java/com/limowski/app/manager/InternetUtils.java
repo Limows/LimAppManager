@@ -28,6 +28,7 @@ public class InternetUtils {
     private static int port = 80;
     private static String directory = "/downloads";
     private static String indexListName = "/index.list";
+    private static String metaName = "/Meta.json";
 
     private static String baseUrl = protocol + server + ":" + port + directory;
     //                              http://limowski.xyz:80/downloads
@@ -37,6 +38,20 @@ public class InternetUtils {
 
     private static HttpClient client = new DefaultHttpClient();
 
+    public boolean hadIndex(String path) {
+        try {
+            String indexUrl = baseUrl + path + indexListName;
+            HttpGet request = new HttpGet(indexUrl);
+            HttpResponse response = client.execute(request);
+            if (response.getStatusLine().toString().contains("200")) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public ConcurrentHashMap<String, String> getFilesArray(String path) {
         ConcurrentHashMap<String, String> apps = new ConcurrentHashMap<>();
 
@@ -45,6 +60,9 @@ public class InternetUtils {
             String indexUrl = baseDirUrl + indexListName;
             HttpGet request = new HttpGet(indexUrl);
             HttpResponse response = client.execute(request);
+            if (response.getStatusLine().toString().contains("404")) {
+                return null;
+            }
             HttpEntity entity = response.getEntity();
             InputStream inputStream = entity.getContent();
             Scanner scanner = new Scanner(inputStream);
@@ -60,8 +78,8 @@ public class InternetUtils {
 
             for (String[] nameAndDir : names) {
                 String displayName = nameAndDir[0];
-                String appDirUrl = baseDirUrl + '/' + nameAndDir[1];
-                String MetaUrl = appDirUrl + "/Meta.json";
+                String appDirUrl = nameAndDir[1];
+                String MetaUrl = appDirUrl + metaName;
                 request = new HttpGet(MetaUrl);
                 response = client.execute(request);
 
