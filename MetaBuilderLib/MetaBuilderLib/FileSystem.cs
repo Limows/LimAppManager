@@ -8,13 +8,20 @@ namespace MetaBuilderLib
 {
     public class FileSystem
     {
-        static public string[] GetPackageList()
+        static public string[] GetPackageList(string Path)
         {
             string[] PackageList;
 
-            PackageList = Directory.GetDirectories(Directory.GetCurrentDirectory());
-
-            return PackageList;
+            try
+            {
+                DirectoryInfo Dir = new DirectoryInfo(Path);
+                PackageList = Directory.GetDirectories(Dir.FullName);
+                return PackageList;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         static public float GetPackageSize(string PackageDir, string Extension)
@@ -66,9 +73,10 @@ namespace MetaBuilderLib
             return GetFileName(PackageDir, "*.png", false);
         }
 
-        static public string GetPackageSystem()
+        static public string GetPackageSystem(string Path)
         {
-            return Directory.GetCurrentDirectory().Split('\\').Last();
+            DirectoryInfo Dir = new DirectoryInfo(Path);
+            return Dir.FullName.Split('\\').Last();
         }
 
         static public void WriteMetaFile(string PackageDir, string MetaInfo)

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MetaBuilder-cli": {
+      "commandName": "Project",
+      "commandLineArgs": "-i -d N:/FTP/Android_API12/Mozilla_Firefox"
+    }
+  }
+}
