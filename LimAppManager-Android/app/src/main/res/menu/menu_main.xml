@@ -1,24 +1,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.limowski.app.manager.MainActivity">
+xmlns:tools="http://schemas.android.com/tools"
+tools:context="com.limowski.app.manager.MainActivity">
 
-    <item
-        android:id="@+id/action_info"
-        android:title="@string/action_info"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+<item
+    android:id="@+id/settingsActionMain"
+    android:title="@string/action_settings"
+    android:orderInCategory="0"
+    android:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_exit"
-        android:title="@string/action_exit"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+<item
+    android:id="@+id/restartActionMain"
+    android:title="@string/action_restart"
+    android:orderInCategory="1"
+    android:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_donate"
-        android:title="@string/action_donate"
-        android:orderInCategory="100"
-        android:visible="false"
-        android:showAsAction="never" />
+<item
+    android:id="@+id/exitActionMain"
+    android:title="@string/action_exit"
+    android:orderInCategory="2"
+    android:showAsAction="never" />
+
+<item
+    android:id="@+id/donateActionMain"
+    android:title="@string/action_donate"
+    android:orderInCategory="3"
+    android:visible="false"
+    android:showAsAction="never" />
 
 </menu>

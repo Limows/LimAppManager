@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 def major = 0
-def minor = 2
-def patch = 2
+def minor = 4
+def patch = 0
 
 android {
     compileSdkVersion 21
@@ -31,6 +31,5 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'commons-net:commons-net:3.0'
     compile 'com.google.code.gson:gson:2.4'
 }

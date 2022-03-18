@@ -2,6 +2,7 @@ package com.limowski.app.manager;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.limowski.app.manager.JSON.AppData;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -28,19 +30,34 @@ public class MainActivity extends Activity {
     ListView listView;
     ProgressBar progressBar;
     Button reconnectButton;
+    SharedPreferences sPref;
     InternetUtils internetUtils = new InternetUtils();
     ConcurrentHashMap<String, String> appsData;
-    final int SDK_INT = Integer.parseInt(Build.VERSION.SDK);
-    final boolean hasRoot = isRoot();
+
+
+    public static final Gson gson = new Gson();
+    public static final boolean hasRoot = isRoot();
+    public static final int SDK_INT = Integer.parseInt(Build.VERSION.SDK);
+
+
+    private String directory = "/Android_API1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = (ListView) findViewById(R.id.listView);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        reconnectButton = (Button) findViewById(R.id.buttonReconnect);
+        if (SDK_INT >= 12) {
+            directory = "/Android_API12";
+        } else if (SDK_INT >= 9) {
+            directory = "/Android_API9";
+        } else if (SDK_INT >= 3) {
+            directory = "/Android_API3";
+        }
+        
+        listView = (ListView) findViewById(R.id.appsListViewMain);
+        progressBar = (ProgressBar) findViewById(R.id.appsProgressBarMain);
+        reconnectButton = (Button) findViewById(R.id.reconnectButtonMain);
 
         fillListView();
 
@@ -105,8 +122,18 @@ public class MainActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-                appsData = internetUtils.getFilesArray("/Android_API3");
+                if (!internetUtils.hadIndex(directory)) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), R.string.error_index, Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            reconnectButton.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    return;
+                }
+                appsData = internetUtils.getFilesArray(directory);
 
                 if (appsData == null || appsData.isEmpty()) {
                     runOnUiThread(new Runnable() {
@@ -151,16 +178,19 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         switch (id) {
-            case (R.id.action_info):
-                Intent infoIntent = new Intent(MainActivity.this, InfoActivity.class);
-                infoIntent.putExtra("root", hasRoot);
-                startActivity(infoIntent);
+            case (R.id.settingsActionMain):
+                startActivity(new Intent(MainActivity.this, InfoActivity.class));
                 return true;
-            /*case (R.id.action_donate):
+            /*case (R.id.donateActionMain):
                 Intent donateIntent = new Intent(MainActivity.this, DonateActivity.class);
                 startActivity(donateIntent);
                 return true;*/
-            case (R.id.action_exit):
+            case (R.id.restartActionMain):
+                Intent mIntent = getIntent();
+                finish();
+                startActivity(mIntent);
+                return true;
+            case (R.id.exitActionMain):
                 finish();
                 return true;
         }
@@ -168,7 +198,7 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean isRoot () {
+    private static boolean isRoot () {
         boolean root = false;
         try {
             Process su = Runtime.getRuntime().exec("su");
@@ -187,4 +217,5 @@ public class MainActivity extends Activity {
         }
         return root;
     }
+
 }

@@ -1,4 +1,4 @@
-package com.limowski.app.manager;
+package com.limowski.app.manager.JSON;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,21 +7,21 @@ public class AppData {
     public String system;
     @SerializedName("Name")
     public String appName;
-    @SerializedName("FileName")
+    @SerializedName("PackageName")
     public String fileName;
-    @SerializedName("FilePath")
-    public String filePath;
     @SerializedName("Description")
     public String description;
     @SerializedName("IsCompressed")
     public boolean isCompressed;
-    @SerializedName("IcoName")
+    @SerializedName("Hash")
+    public String hash;
+    @SerializedName("IconName")
     public String iconName;
     @SerializedName("ShotName")
     public String shotName;
     @SerializedName("Size")
     public double size;
-    @SerializedName("Mainteiner")
+    @SerializedName("Maintainer")
     public String maintainer;
     @SerializedName("Origin")
     public String origin;
@@ -29,5 +29,8 @@ public class AppData {
     public String appVersion;
     @SerializedName("HasMeta")
     public boolean hasMeta;
+
+    // Internal JSON field
+    public String filePath;
 
 }
