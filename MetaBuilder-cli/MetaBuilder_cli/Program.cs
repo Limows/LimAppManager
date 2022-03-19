@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using MetaBuilderLib;
 
@@ -77,7 +78,7 @@ namespace MetaBuilder_cli
                                 {
                                     Package.IsCompressed = FileSystem.CheckCompression(package);
 
-                                    Package.Name = Path.Split(@"/").Last().Replace("_", " ");
+                                    Package.Name = package.Split(@"\").Last().Replace("_", " ");
 
                                     Package.IconName = FileSystem.GetIconName(package);
 
@@ -91,7 +92,25 @@ namespace MetaBuilder_cli
                                             Package.Size = FileSystem.GetPackageSize(package, extension);
                                         }
 
-                                    //Package.Hash = Hash.GetMD5Hash()
+                                    using (FileStream File = new FileStream(package + @"\" + Package.PackageName, FileMode.Open))
+                                    {
+                                        byte[] bytes = new byte[File.Length];
+                                        int length = (int)File.Length;
+                                        int offset = 0;
+
+                                        while (length > 0)
+                                        {
+                                            int n = File.Read(bytes, offset, length);
+
+                                            if (n == 0)
+                                                break;
+
+                                            offset += n;
+                                            length -= n;
+                                        }
+
+                                        Package.Hash = Hash.GetMD5Hash(bytes);
+                                    }
 
                                     Console.Write("Enter package version: ");
                                     Package.Version = Console.ReadLine();
@@ -151,10 +170,29 @@ namespace MetaBuilder_cli
                             else
                                 foreach (string extension in Systems.SystemExtensions[Package.System])
                                 {
-                                    Package.Size = FileSystem.GetPackageSize(Path, extension);
+                                    if (Package.Size != 0)
+                                        Package.Size = FileSystem.GetPackageSize(Path, extension);
                                 }
 
-                            //Package.Hash = Hash.GetMD5Hash()
+                            using (FileStream File = new FileStream(Path + @"\" + Package.PackageName, FileMode.Open))
+                            {
+                                byte[] bytes = new byte[File.Length];
+                                int length = (int)File.Length;
+                                int offset = 0;
+
+                                while (length > 0)
+                                {
+                                    int n = File.Read(bytes, offset, length);
+
+                                    if (n == 0)
+                                        break;
+
+                                    offset += n;
+                                    length -= n;
+                                }
+
+                                Package.Hash = Hash.GetMD5Hash(bytes);
+                            }
 
                             Console.Write("Enter package version: ");
                             Package.Version = Console.ReadLine();
@@ -170,6 +208,7 @@ namespace MetaBuilder_cli
 
                             Meta = MetaInfo.GenerateMetaFile(Package);
                             FileSystem.WriteMetaFile(Path, Meta);
+                            Console.Write("\nMeta-info created!\n");
                         }
                     }
                     else

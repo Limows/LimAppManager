@@ -15,7 +15,7 @@ namespace MetaBuilderLib
 
             Hash = MD5.ComputeHash(Encoding.UTF8.GetBytes(Message));
 
-            return Convert.ToBase64String(Hash);
+            return BitConverter.ToString(Hash).Replace("-", "");
         }
 
         static public string GetMD5Hash(byte[] Data)
@@ -25,7 +25,7 @@ namespace MetaBuilderLib
 
             Hash = MD5.ComputeHash(Data);
 
-            return Convert.ToBase64String(Hash);
+            return BitConverter.ToString(Hash).Replace("-", "");
         }
     }
 }
