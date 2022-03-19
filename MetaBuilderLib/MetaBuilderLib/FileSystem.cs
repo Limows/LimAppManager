@@ -8,13 +8,13 @@ namespace MetaBuilderLib
 {
     public class FileSystem
     {
-        static public string[] GetPackageList(string Path)
+        static public string[] GetPackageList(string DirPath)
         {
             string[] PackageList;
 
             try
             {
-                DirectoryInfo Dir = new DirectoryInfo(Path);
+                DirectoryInfo Dir = new DirectoryInfo(DirPath);
                 PackageList = Directory.GetDirectories(Dir.FullName);
                 return PackageList;
             }
@@ -42,7 +42,7 @@ namespace MetaBuilderLib
             try
             {
                 if (Verbose) PackageFile = Directory.GetFiles(PackageDir, Pattern)[0];
-                else PackageFile = Directory.GetFiles(PackageDir, Pattern)[0].Split('\\').Last();
+                else PackageFile = Directory.GetFiles(PackageDir, Pattern)[0].Split(Path.DirectorySeparatorChar).Last();
             }
             catch
             {
@@ -73,15 +73,15 @@ namespace MetaBuilderLib
             return GetFileName(PackageDir, "*.png", false);
         }
 
-        static public string GetPackageSystem(string Path)
+        static public string GetPackageSystem(string DirPath)
         {
-            DirectoryInfo Dir = new DirectoryInfo(Path);
-            return Dir.FullName.Split('\\').Last();
+            DirectoryInfo Dir = new DirectoryInfo(DirPath);
+            return Dir.FullName.Split(Path.DirectorySeparatorChar).Last();
         }
 
         static public void WriteMetaFile(string PackageDir, string MetaInfo)
         {
-            string FileName = PackageDir + "\\Meta.json";
+            string FileName = PackageDir + @"\Meta.json";
 
             using (StreamWriter Writer = new StreamWriter(FileName, false, System.Text.Encoding.Default))
             {

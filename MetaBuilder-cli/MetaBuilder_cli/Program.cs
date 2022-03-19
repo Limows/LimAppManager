@@ -11,7 +11,7 @@ namespace MetaBuilder_cli
         {
             Platforms Systems = new Platforms();
             string[] PackageList;
-            string Path = "";
+            string DirPath = "";
             bool IsRecursive = false;
             bool IsSetPath = false;
             bool IsInteractive = false;
@@ -34,20 +34,20 @@ namespace MetaBuilder_cli
                     default:
                         if (IsSetPath)
                         {
-                            Path = argument;
+                            DirPath = argument;
                             IsSetPath = false;
                         }
                         break;
                 }
             }
 
-            if (!String.IsNullOrEmpty(Path))
+            if (!String.IsNullOrEmpty(DirPath))
             {
                 if (IsRecursive)
                 {
                     Console.WriteLine("Searching for packages\n");
 
-                    PackageList = FileSystem.GetPackageList(Path);
+                    PackageList = FileSystem.GetPackageList(DirPath);
 
                     if (PackageList != null)
                     {
@@ -59,9 +59,9 @@ namespace MetaBuilder_cli
                                 string Meta;
 
 
-                                Console.WriteLine("Found package " + package.Split("\\").Last() + "\n");
+                                Console.WriteLine("Found package " + package.Split(Path.DirectorySeparatorChar).Last() + "\n");
 
-                                Package.System = FileSystem.GetPackageSystem(Path);
+                                Package.System = FileSystem.GetPackageSystem(DirPath);
 
                                 Package.PackageName = FileSystem.GetPackageName(package, "zip");
                                 foreach (string extension in Systems.SystemExtensions[Package.System])
@@ -78,7 +78,7 @@ namespace MetaBuilder_cli
                                 {
                                     Package.IsCompressed = FileSystem.CheckCompression(package);
 
-                                    Package.Name = package.Split(@"\").Last().Replace("_", " ");
+                                    Package.Name = package.Split(Path.DirectorySeparatorChar).Last().Replace("_", " ");
 
                                     Package.IconName = FileSystem.GetIconName(package);
 
@@ -92,7 +92,7 @@ namespace MetaBuilder_cli
                                             Package.Size = FileSystem.GetPackageSize(package, extension);
                                         }
 
-                                    using (FileStream File = new FileStream(package + @"\" + Package.PackageName, FileMode.Open))
+                                    using (FileStream File = new FileStream(package + Path.DirectorySeparatorChar + Package.PackageName, FileMode.Open))
                                     {
                                         byte[] bytes = new byte[File.Length];
                                         int length = (int)File.Length;
@@ -144,11 +144,11 @@ namespace MetaBuilder_cli
                         Console.Write("Enter package platform: ");
                         Package.System = Console.ReadLine();
 
-                        Package.PackageName = FileSystem.GetPackageName(Path, "zip");
+                        Package.PackageName = FileSystem.GetPackageName(DirPath, "zip");
                         foreach (string extension in Systems.SystemExtensions[Package.System])
                         {
                             if (String.IsNullOrEmpty(Package.PackageName))
-                                Package.PackageName = FileSystem.GetPackageName(Path, extension);
+                                Package.PackageName = FileSystem.GetPackageName(DirPath, extension);
                         }
 
                         if (String.IsNullOrEmpty(Package.PackageName))
@@ -157,24 +157,24 @@ namespace MetaBuilder_cli
                         }
                         else
                         {
-                            Package.IsCompressed = FileSystem.CheckCompression(Path);
+                            Package.IsCompressed = FileSystem.CheckCompression(DirPath);
 
-                            Package.Name = Path.Split(@"/").Last().Replace("_", " ");
+                            Package.Name = DirPath.Split(Path.DirectorySeparatorChar).Last().Replace("_", " ");
 
-                            Package.IconName = FileSystem.GetIconName(Path);
+                            Package.IconName = FileSystem.GetIconName(DirPath);
 
-                            Package.ShotName = FileSystem.GetShotName(Path);
+                            Package.ShotName = FileSystem.GetShotName(DirPath);
 
                             if (Package.IsCompressed)
-                                Package.Size = FileSystem.GetPackageSize(Path, "zip");
+                                Package.Size = FileSystem.GetPackageSize(DirPath, "zip");
                             else
                                 foreach (string extension in Systems.SystemExtensions[Package.System])
                                 {
                                     if (Package.Size != 0)
-                                        Package.Size = FileSystem.GetPackageSize(Path, extension);
+                                        Package.Size = FileSystem.GetPackageSize(DirPath, extension);
                                 }
 
-                            using (FileStream File = new FileStream(Path + @"\" + Package.PackageName, FileMode.Open))
+                            using (FileStream File = new FileStream(DirPath + Path.DirectorySeparatorChar + Package.PackageName, FileMode.Open))
                             {
                                 byte[] bytes = new byte[File.Length];
                                 int length = (int)File.Length;
@@ -207,7 +207,7 @@ namespace MetaBuilder_cli
                             Package.Maintainer = Console.ReadLine();
 
                             Meta = MetaInfo.GenerateMetaFile(Package);
-                            FileSystem.WriteMetaFile(Path, Meta);
+                            FileSystem.WriteMetaFile(DirPath, Meta);
                             Console.Write("\nMeta-info created!\n");
                         }
                     }

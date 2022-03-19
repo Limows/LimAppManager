@@ -2,7 +2,7 @@
   "profiles": {
     "MetaBuilder-cli": {
       "commandName": "Project",
-      "commandLineArgs": "-i -d N:/FTP/Android_API12/Mozilla_Firefox"
+      "commandLineArgs": "-r -d N:\\FTP\\Android_API3"
     }
   }
 }
