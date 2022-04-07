@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MetaBuilder-cli": {
+      "commandName": "Project",
+      "commandLineArgs": "-r -d N:\\FTP\\Android_API3"
+    }
+  }
+}

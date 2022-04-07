@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaBuilder-cli", "MetaBuilder_cli\MetaBuilder-cli.csproj", "{E4C6A20A-CF7C-469B-9047-F720BAA60FAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetaBuilder_cli", "MetaBuilder_cli\MetaBuilder_cli.csproj", "{E4C6A20A-CF7C-469B-9047-F720BAA60FAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
