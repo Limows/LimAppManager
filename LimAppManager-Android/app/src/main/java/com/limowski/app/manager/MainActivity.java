@@ -47,7 +47,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (SDK_INT >= 12) {
+		if (SDK_INT >= 16) {
+			directory = "/Android_API16";
+		} else if (SDK_INT >= 12) {
             directory = "/Android_API12";
         } else if (SDK_INT >= 9) {
             directory = "/Android_API9";
