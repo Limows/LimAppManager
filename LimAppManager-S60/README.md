@@ -32,7 +32,7 @@ You need the following stuff to install this program:
  - Nokia N8
  - Nokia E90 (Not working)
  - Nokia C6
- - Nokia N72
+ - Nokia N73
 
 [QuaZip]: https://github.com/stachenov/quazip/tree/936844eb691491f7a9cbfd842a4326b9d384441f
 [Pack]: https://mega.nz/#!mhEjlBKJ!pKUWIST8yH55kvJT-gVNxN6JTWsi4cRjhzNm1Si46pA
