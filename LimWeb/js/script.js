@@ -69,7 +69,6 @@ $(function(){
 
     });
 
-
     // Prevent the default action when a file is dropped on the window
     $(document).on('drop dragover', function (e) {
         e.preventDefault();
@@ -93,3 +92,39 @@ $(function(){
     }
 
 });
+
+function get_info()
+{
+    var userDeviceArray = 
+    [
+        {device: 'Android', platform: /Android/},
+        {device: 'iPhone', platform: /iPhone/},
+        {device: 'Symbian', platform: /Symbian/},
+        {device: 'WinPhone', platform: /Windows Phone/},
+        {device: 'BlackBerry', platform: /BlackBerry/},
+        {device: 'WinMobile', platform: /Windows Mobile/},
+        {device: 'WinCE', platform: /Windows CE/},
+        {device: 'J2ME', platform: /J2ME/},
+    ];
+
+
+    var platform;
+    var info;
+
+    for (var i in userDeviceArray) 
+    {
+        if (userDeviceArray[i].platform.test(navigator.appVersion))
+        {
+            platform = userDeviceArray[i].device;
+        }
+    }
+
+    if (typeof platform == 'undefined')
+    {
+        platform = null;
+    }
+
+
+    info ="RAW: " + navigator.userAgent + " ; OS: " + platform + " ; Resolution: " + window.screen.width + "x" + window.screen.height;
+    document.write(info);
+}

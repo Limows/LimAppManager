@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+    <head>
+        <title>Limowski App Manager</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../../css/webmanager.css">
+
+        <script href="../../../js/script.js"></script>
+    </head>
+
+    <body onload="get_info();">
+        <script>
+            function get_info()
+            {
+                var userDeviceArray = 
+                [
+                    {os: 'Android', device: 'Android', platform: /Android/},
+                    {os: 'iOS', device: 'iPhone', platform: /iPhone/},
+                    {os: 'iOS', device: 'iPad', platform: /iPad/},
+                    {os: 'Symbian', device: 'Symbian', platform: /Symbian/},
+                    {os: 'Symbian', device: 'Series 60', platform: /Series60/},
+                    {os: 'WinPhone', device: 'Windows Phone', platform: /Windows Phone/},
+                    {os: 'WinCE', device: 'Windows CE', platform: /Windows CE/},
+                    {os: 'WinMobile', device: 'Windows', platform: /Windows/},
+                    {os: 'BBOS', device: 'BlackBerry', platform: /BlackBerry/},
+                    {os: 'J2ME', device: 'J2ME', platform: /J2ME/},
+                ];
+
+                var os;
+                var os_index;
+                var info;
+                var version;
+                var version_index;
+                var resolution;
+
+                info = navigator.appVersion
+
+                for (var i in userDeviceArray) 
+                {
+                    if (userDeviceArray[i].platform.test(info))
+                    {
+                        os = userDeviceArray[i].os;
+                        os_index = info.indexOf(userDeviceArray[i].device);
+                        break;
+                    }
+                }
+
+                if (typeof os == 'undefined')
+                {
+                    os = 'unknown';
+                }
+
+                version_index = info.indexOf("Version/")
+
+                if (version_index > -1) 
+                {   
+                    var dot_index;
+
+                    version_index = version_index + 8;
+                    dot_index = info.indexOf(".", version_index);
+                    version = info.slice(version_index, dot_index);
+                }
+                else
+                {
+                    info = info.slice(os_index);
+
+                    version = parseFloat(info.replace( /^\D+/g, ''));
+                }
+
+                resolution = window.screen.width + "x" + window.screen.height
+
+                info = "RAW: " + navigator.appVersion + " ; OS: " + os + " ; Version: " + version + " ; Resolution: " + resolution;
+
+                if (os == "BBOS")
+                {   
+                    if (version > 5 && version < 10)
+                        window.location.href = 'http://limowski.xyz/appmanager/web/blackberry/' + resolution + ".html";
+                    else 
+                        document.body.insertAdjacentHTML("afterend", info + '<br /><p>This BBOS version not supported now</p>');
+                }
+                else
+                    document.body.insertAdjacentHTML("afterend", info + '<br /><p>This OS not supported now</p>');
+            }
+        </script>
+    </body>

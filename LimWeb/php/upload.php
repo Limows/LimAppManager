@@ -1,7 +1,7 @@
 <?php
 
 // A list of permitted file extensions
-$allowed = array('stl', 'vrml', 'x3g', 'obj', 'ply');
+$allowed = array('zip', 'sis', 'cab', 'rar', '7z', 'apk', 'gz', 'xz', 'tar', 'png', 'ico', 'gif');
 
 if(isset($_FILES['upl']) && $_FILES['upl']['error'] == 0){
 
@@ -12,7 +12,7 @@ if(isset($_FILES['upl']) && $_FILES['upl']['error'] == 0){
 		exit;
 	}
 
-	if(move_uploaded_file($_FILES['upl']['tmp_name'], 'uploads/'.$_FILES['upl']['name'])){
+	if(move_uploaded_file($_FILES['upl']['tmp_name'], '../www/upload/'.$_FILES['upl']['name'])){
 		echo '{"status":"success"}';
 		exit;
 	}
